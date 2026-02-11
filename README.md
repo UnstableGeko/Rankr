@@ -1,4 +1,4 @@
-# GitHub Template Repository
+# Rankr
 
 Welcome to the GitHub template repository for the **courses (CS3361, CS3365)**! This template serves as a starting point for your first assignment of creating and deploying your portfolio. Follow the instructions below to download, customize, and push your work to your own GitHub repository.
 
@@ -19,18 +19,18 @@ The template includes the following structure:
 
 ---
 
-## 🚀 Getting Started
+## Setup
 
 ### 1. **Clone or Download This Repository**  
 Clone the repository to your local machine:
 ```bash
-git clone https://github.com/MaazAmjad/create_website.git
+git clone https://github.com/UnstableGeko/Rankr.git
 ```
 Alternatively, download it as a ZIP file and extract it.
 
 ---
 
-### 2. **Update Your Information**  
+### 2. **Open rankr in your browser**  
 Make the following changes:
 - Replace placeholder information (e.g., `Your Name`, `Project Title`) with your details.
 - Add your project code and any required files in the respective folders.
