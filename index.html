@@ -15,8 +15,8 @@
         }
 
         body {
-            background-color: #ff00ff;
-            color: #333;
+            background-color: #282828;
+            color: #ffffff;
             line-height: 1.6;
         }
 
@@ -27,16 +27,21 @@
         }
 
         nav {
+            position: relative;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             margin-bottom: 2rem;
         }
 
         .name-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 1.5rem;
-            color: #333;
+            color: #ffffff;
             text-decoration: none;
+            padding: 20px;
         }
 
         .nav-links {
@@ -46,7 +51,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #666;
+            color: #ffffff;
             transition: color 0.3s;
         }
 
@@ -81,7 +86,7 @@
         }
 
         .interests {
-            color: #666;
+            color: #ffffff;
             margin-bottom: 1rem;
         }
 
@@ -93,7 +98,7 @@
 
         .social-link {
             text-decoration: none;
-            color: #333;
+            color: #ffffff;
             display: flex;
             align-items: center;
             gap: 0.8rem;
@@ -172,7 +177,7 @@
 
         .main-content h2 {
             font-size: 2rem;
-            color: #333;
+            color: #ffffff;
             margin-bottom: 1.5rem;
         }
 
@@ -219,7 +224,7 @@
 <body>
     <div class="container">
         <nav>
-            <a href="index.html" class="name-title">Morgan Akins</a>
+            <a href="index.html" class="name-title">Rankr</a>
             <div class="nav-links">
                 <a href="projects.html">Projects</a>
                 <a href="files/Maaz_cv.pdf" target="_blank">CV</a>
