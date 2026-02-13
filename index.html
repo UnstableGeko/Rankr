@@ -206,6 +206,69 @@
         .content-block p {
             margin-bottom: 1rem;
         }
+        .off-screen-menu{
+                background-color: #4F4F4F;
+                height: 100vh;
+                width: 75%;
+                max-width: 300px;
+                position: fixed;
+                top: 0;
+                right: -400px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                font-size: 3rem;
+                transition: .3s ease;
+                z-index: 999;
+        }
+        .off-screen-menu.active{
+            right: 0;
+        }
+        .off-screen-menu ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .ham-menu{
+            height: 50px;
+            width: 50px;
+            margin-left: auto;
+            position: relative;
+            z-index: 1000;
+        }
+        .ham-menu span{
+            height: 5px;
+            width: 100%;
+            background-color: #b3b3b3;
+            border-radius: 25px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            transition: .3s ease;
+        }
+        .ham-menu span:nth-child(1){
+            top: 25%;
+        }
+        .ham-menu span:nth-child(2){
+            top: 50%;
+        }
+        .ham-menu span:nth-child(3){
+            top: 75%;
+        }
+        .ham-menu.active span:nth-child(1){
+            top: 50%;
+            transform: translate(-50%,-50%) rotate(45deg);
+        }
+        .ham-menu.active span:nth-child(2){
+            opacity: 0;
+        }
+        .ham-menu.active span:nth-child(3){
+            top: 50%;
+            transform: translate(-50%,-50%) rotate(-45deg);
+        }
 
         @media (max-width: 768px) {
             .profile-section {
@@ -231,12 +294,19 @@
     <div class="container">
         <nav>
             <a href="index.html" class="name-title">Rankr</a>
-            <div class="nav-links">
-                <a href="projects.html">Nothing here</a>
-                <a href="files/Maaz_cv.pdf" target="_blank">Bamhurger Menu</a>
+            <div class="ham-menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </nav>
-
+        <div class="off-screen-menu">
+            <ul>
+                <li>Genres</li>
+                <li>Platforms</li>
+                <li>About Us</li>
+            </ul>
+        </div>
         <div class="profile-section">
             <div class="profile-sidebar">
                 <img src="images/Guitarcat.jpg" alt="Profile Picture" class="profile-image">
@@ -277,6 +347,7 @@
             </div>
         </div>
     </div>
+    <script src="HamMenu.js"></script>
 </body>
 </html>
 
