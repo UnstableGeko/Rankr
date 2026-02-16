@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rankr</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Tapestry&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="index.html" class="name-title">Rankr</a>
+            <div class="ham-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="off-screen-menu">
+            <ul>
+                <li class="dropdown"><a href="#"> Genres <span class="caret">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="browse.html?genre=action">Action</a></li>
+                        <li><a href="browse.html?genre=rpg">RPG</a></li>
+                        <li><a href="browse.html?genre=strategy">Strategy</a></li>
+                        <li><a href="browse.html?genre=sports">Sports</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown"><a href="#">Platforms <span class="caret">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="browse.html?platform=ps5,ps4,ps3,ps2,ps1,psp,psv">Sony</a></li>
+                        <li><a href="browse.html?platform=xbox,xbox360,xbox1,xboxss,xboxsx">Microsoft</a></li>
+                        <li><a href="browse.html?platform=steam">Pc</a></li>
+                        <li><a href="browse.html?platform=colortvgame,nes,famicon,snes,n64,gamecube,wii,wiiu,g&w,gb,gbc,gba,pkmonmini,ds,3ds,vboy,switch,switch2">Nintendo</a></li>
+                        <li><a href="browse.html?platform=atari2600,atari5200,atari7800,atarixegs,genesis,segacd,segapico,segasaturn,segadreamcast,intellivision,mastersystem,">Other</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="game-grid" id="game-grid">
+            </div>
+        </div>
+    </div>
+    <script src="js/HamMenu.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

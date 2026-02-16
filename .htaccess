@@ -1,7 +1,0 @@
-Options +Multiviews
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^www\.Rankr\.com [OR]
-RewriteCond %{REQUEST_URI} /index\.html$
-RewriteRule (.*?)(index\.html)?$ http://Rankr.com$1 [NE,R=301,L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.html [NC,L]

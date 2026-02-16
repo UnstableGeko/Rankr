@@ -2,7 +2,7 @@ async function fetchGameCovers() {
     const gameGrid = document.getElementById('game-grid');
     
     try {
-        const response = await fetch("http://rankr.com:8080/api/games", {
+        const response = await fetch("/api/games", {
             method: 'POST'
         });
         

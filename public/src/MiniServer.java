@@ -1,17 +1,16 @@
 import com.sun.net.httpserver.*;
-import java.net.InetSocketAddress;
-import java.nio.file.*;
 import java.io.*;
 import java.net.*;
+import java.nio.file.*;
 import java.util.Properties;
 
 public class MiniServer {
     public static void main(String[] args) throws Exception {
         int port = 8080;
-        Path root = Paths.get(".").toAbsolutePath().normalize();
+        Path root = Paths.get("..").toAbsolutePath().normalize();
 
         Properties config = new Properties();
-        try (FileInputStream fis = new FileInputStream("config.properties")) {
+        try (FileInputStream fis = new FileInputStream("../../config.properties")) {
             config.load(fis);
         } catch (IOException e) {
             System.err.println("ERROR: config.properties file not found!");
@@ -34,7 +33,7 @@ public class MiniServer {
                 return;
             }
 
-            if (path.equals("/")) path = "/index.html";
+            if (path.equals("/")) path = "../index.html";
 
             Path file = root.resolve(path.substring(1)).normalize();
 
