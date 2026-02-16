@@ -72,8 +72,8 @@ public class MiniServer {
                 conn.setDoOutput(true);
                 
                 // Send query
-                int randomOffset = (int)(Math.random() * 500);
-                String body = "fields name, cover.image_id; where rating > 80 & cover != null; limit 12; offset " + randomOffset + ";";
+                int randomOffset = (int)(Math.random() * 200);
+                String body = "fields name, cover.image_id; where cover != null & rating > 80 & rating_count > 500; limit 12; offset " + randomOffset + ";";
                 conn.getOutputStream().write(body.getBytes());
                 
                 // Read response
