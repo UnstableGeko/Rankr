@@ -3,7 +3,7 @@ import java.net.InetSocketAddress;
 import java.nio.file.*;
 import java.io.*;
 import java.net.*;
-import java.util.Properties;  // ADD THIS IMPORT
+import java.util.Properties;
 
 public class MiniServer {
     public static void main(String[] args) throws Exception {
@@ -63,7 +63,6 @@ public class MiniServer {
             }
 
             try {
-                // 👇 CHANGE THIS SECTION - Use config instead of environment
                 String clientId = configClientId;
                 String accessToken = configAccessToken;
                 
@@ -74,7 +73,6 @@ public class MiniServer {
                     exchange.close();
                     return;
                 }
-                // 👆 END OF CHANGED SECTION
                 
                 // Create connection to IGDB
                 URI uri = new URI("https://api.igdb.com/v4/games");
