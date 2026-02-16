@@ -1,129 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Rankr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.ico">
-    <title>Rankr</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Tapestry&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #282828;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        nav {
-            position: relative;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .name-title {
-            font-family: 'Tapestry', serif;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 20px;
-        }
-
-        .content-block {
-            position: absolute;
-            top: 50%;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-
-        .content-block p {
-            margin-bottom: 1rem;
-        }
-        
-        .off-screen-menu{
-                background-color: #4F4F4F;
-                height: 100vh;
-                width: 75%;
-                max-width: 300px;
-                position: fixed;
-                top: 0;
-                right: -400px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                font-size: 3rem;
-                transition: .3s ease;
-                z-index: 999;
-        }
-        .off-screen-menu.active{
-            right: 0;
-        }
-        .off-screen-menu ul{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .ham-menu{
-            height: 50px;
-            width: 50px;
-            margin-left: auto;
-            position: relative;
-            z-index: 1000;
-        }
-        .ham-menu span{
-            height: 5px;
-            width: 100%;
-            background-color: #b3b3b3;
-            border-radius: 25px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            transition: .3s ease;
-        }
-        .ham-menu span:nth-child(1){
-            top: 25%;
-        }
-        .ham-menu span:nth-child(2){
-            top: 50%;
-        }
-        .ham-menu span:nth-child(3){
-            top: 75%;
-        }
-        .ham-menu.active span:nth-child(1){
-            top: 50%;
-            transform: translate(-50%,-50%) rotate(45deg);
-        }
-        .ham-menu.active span:nth-child(2){
-            opacity: 0;
-        }
-        .ham-menu.active span:nth-child(3){
-            top: 50%;
-            transform: translate(-50%,-50%) rotate(-45deg);
-        }
-        
-    </style>
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
     <div class="container">
