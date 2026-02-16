@@ -3,11 +3,26 @@ import java.net.InetSocketAddress;
 import java.nio.file.*;
 import java.io.*;
 import java.net.*;
+import java.util.Properties;  // ADD THIS IMPORT
 
 public class MiniServer {
     public static void main(String[] args) throws Exception {
         int port = 8080;
         Path root = Paths.get(".").toAbsolutePath().normalize();
+
+        Properties config = new Properties();
+        try (FileInputStream fis = new FileInputStream("config.properties")) {
+            config.load(fis);
+        } catch (IOException e) {
+            System.err.println("ERROR: config.properties file not found!");
+            System.err.println("Please create config.properties with your IGDB credentials");
+            System.err.println("See README.md for setup instructions");
+            System.exit(1);
+        }
+        
+        // Store credentials for use in the endpoint
+        final String configClientId = config.getProperty("igdb.client.id");
+        final String configAccessToken = config.getProperty("igdb.access.token");
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         
@@ -48,17 +63,18 @@ public class MiniServer {
             }
 
             try {
-                String clientId = System.getenv("IGDB_CLIENT_ID");
-                String accessToken = System.getenv("IGDB_ACCESS_TOKEN");
+                // 👇 CHANGE THIS SECTION - Use config instead of environment
+                String clientId = configClientId;
+                String accessToken = configAccessToken;
                 
-                // Check if they're set
                 if (clientId == null || accessToken == null) {
-                    String error = "{\"error\": \"Missing IGDB credentials. Please set IGDB_CLIENT_ID and IGDB_ACCESS_TOKEN environment variables.\"}";
+                    String error = "{\"error\": \"Missing IGDB credentials in config.properties\"}";
                     exchange.sendResponseHeaders(500, error.length());
                     exchange.getResponseBody().write(error.getBytes());
                     exchange.close();
                     return;
                 }
+                // 👆 END OF CHANGED SECTION
                 
                 // Create connection to IGDB
                 URI uri = new URI("https://api.igdb.com/v4/games");
@@ -90,6 +106,7 @@ public class MiniServer {
                 exchange.close();
                 
             } catch (Exception e) {
+                e.printStackTrace();  // Helpful for debugging
                 String error = "{\"error\": \"" + e.getMessage() + "\"}";
                 exchange.sendResponseHeaders(500, error.length());
                 exchange.getResponseBody().write(error.getBytes());
