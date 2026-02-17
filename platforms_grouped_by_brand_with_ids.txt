@@ -1,0 +1,237 @@
+Total platforms: 220
+Format: id | name | slug | familyName (familyId)
+
+=== Microsoft / Xbox (4) ===
+  - 11 | Xbox | xbox | Xbox (2)
+  - 12 | Xbox 360 | xbox360 | Xbox (2)
+  - 49 | Xbox One | xboxone | Xbox (2)
+  - 169 | Xbox Series X|S | series-x-s | Xbox (2)
+
+=== Nintendo (26) ===
+  - 416 | 64DD | 64dd | Nintendo (5)
+  - 510 | e-Reader / Card-e Reader | e-reader-slash-card-e-reader | Nintendo (5)
+  - 99 | Family Computer | famicom | Nintendo (5)
+  - 51 | Family Computer Disk System | fds | Nintendo (5)
+  - 307 | Game \u0026 Watch | g-and-w | Nintendo (5)
+  - 33 | Game Boy | gb | Nintendo (5)
+  - 24 | Game Boy Advance | gba | Nintendo (5)
+  - 22 | Game Boy Color | gbc | Nintendo (5)
+  - 137 | New Nintendo 3DS | new-3ds | Nintendo (5)
+  - 37 | Nintendo 3DS | 3ds | Nintendo (5)
+  - 4 | Nintendo 64 | n64 | Nintendo (5)
+  - 20 | Nintendo DS | nds | Nintendo (5)
+  - 159 | Nintendo DSi | nintendo-dsi | Nintendo (5)
+  - 18 | Nintendo Entertainment System | nes | Nintendo (5)
+  - 21 | Nintendo GameCube | ngc | Nintendo (5)
+  - 130 | Nintendo Switch | switch | Nintendo (5)
+  - 508 | Nintendo Switch 2 | switch-2 | Nintendo (5)
+  - 166 | Pokémon mini | pokemon-mini | Nintendo (5)
+  - 306 | Satellaview | satellaview | Nintendo (5)
+  - 58 | Super Famicom | sfam | Nintendo (5)
+  - 131 | Super NES CD-ROM System | super-nes-cd-rom-system | Nintendo (5)
+  - 19 | Super Nintendo Entertainment System | snes | Nintendo (5)
+  - 87 | Virtual Boy | virtualboy | Nintendo (5)
+  - 47 | Virtual Console | vc | Nintendo (5)
+  - 5 | Wii | wii | Nintendo (5)
+  - 41 | Wii U | wiiu | Nintendo (5)
+
+=== Other / Unknown (150) ===
+  - 139 | 1292 Advanced Programmable Video System | 1292-advanced-programmable-video-system | None
+  - 50 | 3DO Interactive Multiplayer | 3do | None
+  - 116 | Acorn Archimedes | acorn-archimedes | None
+  - 134 | Acorn Electron | acorn-electron | None
+  - 389 | AirConsole | airconsole | None
+  - 132 | Amazon Fire TV | firetv | None
+  - 16 | Amiga | amiga | None
+  - 114 | Amiga CD32 | amiga-cd32 | None
+  - 506 | Amstrad GX4000 | gx4000 | None
+  - 100 | Analogue electronics | analogueelectronics | None
+  - 75 | Apple II | appleii | None
+  - 115 | Apple IIGS | apple-iigs | None
+  - 476 | Apple Pippin | apple-pippin | None
+  - 52 | Arcade | arcade | None
+  - 473 | Arcadia 2001 | arcadia-2001 | None
+  - 438 | Arduboy | arduboy | None
+  - 59 | Atari 2600 | atari2600 | None
+  - 66 | Atari 5200 | atari5200 | None
+  - 60 | Atari 7800 | atari7800 | None
+  - 65 | Atari 8-bit | atari8bit | None
+  - 62 | Atari Jaguar | jaguar | None
+  - 410 | Atari Jaguar CD | atari-jaguar-cd | None
+  - 61 | Atari Lynx | lynx | None
+  - 63 | Atari ST/STE | atari-st | None
+  - 140 | AY-3-8500 | ay-3-8500 | None
+  - 145 | AY-3-8603 | ay-3-8603 | None
+  - 146 | AY-3-8605 | ay-3-8605 | None
+  - 147 | AY-3-8606 | ay-3-8606 | None
+  - 148 | AY-3-8607 | ay-3-8607 | None
+  - 141 | AY-3-8610 | ay-3-8610 | None
+  - 144 | AY-3-8710 | ay-3-8710 | None
+  - 143 | AY-3-8760 | ay-3-8760 | None
+  - 91 | Bally Astrocade | astrocade | None
+  - 69 | BBC Microcomputer System | bbcmicro | None
+  - 73 | BlackBerry OS | blackberry | None
+  - 239 | Blu-ray Player | blu-ray-player | None
+  - 107 | Call-A-Computer time-shared mainframe computer system | call-a-computer | None
+  - 380 | Casio Loopy | casio-loopy | None
+  - 109 | CDC Cyber 70 | cdccyber70 | None
+  - 68 | ColecoVision | colecovision | None
+  - 93 | Commodore 16 | c16 | None
+  - 15 | Commodore C64/128/MAX | c64 | None
+  - 158 | Commodore CDTV | commodore-cdtv | None
+  - 90 | Commodore PET | cpet | None
+  - 94 | Commodore Plus/4 | c-plus-4 | None
+  - 71 | Commodore VIC-20 | vic-20 | None
+  - 164 | Daydream | daydream | None
+  - 98 | DEC GT40 | gt40 | None
+  - 486 | Digiblast | digiblast | None
+  - 85 | Donner Model 30 | donner30 | None
+  - 13 | DOS | dos | None
+  - 153 | Dragon 32/64 | dragon-32-slash-64 | None
+  - 203 | DUPLICATE Stadia | duplicate-stadia | None
+  - 238 | DVD Player | dvd-player | None
+  - 102 | EDSAC | edsac--1 | None
+  - 505 | Elektor TV Games Computer | elektor-tv-games-computer | None
+  - 375 | Epoch Cassette Vision | epoch-cassette-vision | None
+  - 376 | Epoch Super Cassette Vision | epoch-super-cassette-vision | None
+  - 309 | Evercade | evercade | None
+  - 236 | Exidy Sorcerer | exidy-sorcerer | None
+  - 127 | Fairchild Channel F | fairchild-channel-f | None
+  - 101 | Ferranti Nimrod Computer | nimrod | None
+  - 118 | FM Towns | fm-towns | None
+  - 152 | FM-7 | fm-7 | None
+  - 378 | Gamate | gamate | None
+  - 379 | Game.com | game-dot-com | None
+  - 388 | Gear VR | gear-vr | None
+  - 474 | Gizmondo | gizmondo | None
+  - 411 | Handheld Electronic LCD | handheld | None
+  - 104 | HP 2100 | hp2100 | None
+  - 105 | HP 3000 | hp3000 | None
+  - 135 | Hyper Neo Geo 64 | hyper-neo-geo-64 | None
+  - 407 | HyperScan | hyperscan | None
+  - 111 | Imlac PDS-1 | imlac-pds1 | None
+  - 67 | Intellivision | intellivision | None
+  - 382 | Intellivision Amico | intellivision-amico | None
+  - 39 | iOS | ios | None
+  - 487 | LaserActive | laseractive | None
+  - 412 | Leapster | leapster | None
+  - 413 | Leapster Explorer/LeadPad Explorer | leapster-explorer-slash-leadpad-explorer | None
+  - 414 | LeapTV | leaptv | None
+  - 409 | Legacy Computer | legacy-computer | None
+  - 55 | Legacy Mobile Device | mobile | None
+  - 408 | Mega Duck/Cougar Boy | mega-duck-slash-cougar-boy | None
+  - 386 | Meta Quest 2 | meta-quest-2 | None
+  - 471 | Meta Quest 3 | meta-quest-3 | None
+  - 112 | Microcomputer | microcomputer--1 | None
+  - 89 | Microvision | microvision--1 | None
+  - 27 | MSX | msx | None
+  - 53 | MSX2 | msx2 | None
+  - 42 | N-Gage | ngage | None
+  - 80 | Neo Geo AES | neogeoaes | None
+  - 136 | Neo Geo CD | neo-geo-cd | None
+  - 79 | Neo Geo MVS | neogeomvs | None
+  - 119 | Neo Geo Pocket | neo-geo-pocket | None
+  - 120 | Neo Geo Pocket Color | neo-geo-pocket-color | None
+  - 122 | Nuon | nuon | None
+  - 387 | Oculus Go | oculus-go | None
+  - 384 | Oculus Quest | oculus-quest | None
+  - 385 | Oculus Rift | oculus-rift | None
+  - 162 | Oculus VR | oculus-vr | None
+  - 88 | Odyssey | odyssey--1 | None
+  - 133 | Odyssey 2 / Videopac G7000 | odyssey-2-slash-videopac-g7000 | None
+  - 113 | OnLive Game System | onlive | None
+  - 372 | OOParts | ooparts | None
+  - 72 | Ouya | ouya | None
+  - 417 | Palm OS | palm-os | None
+  - 477 | Panasonic Jungle | panasonic-jungle | None
+  - 478 | Panasonic M2 | panasonic-m2 | None
+  - 95 | PDP-1 | pdp1 | None
+  - 96 | PDP-10 | pdp10 | None
+  - 108 | PDP-11 | pdp11 | None
+  - 103 | PDP-7 | pdp-7--1 | None
+  - 97 | PDP-8 | pdp-8--1 | None
+  - 117 | Philips CD-i | philips-cdi | None
+  - 110 | PLATO | plato--1 | None
+  - 381 | Playdate | playdate | None
+  - 308 | Playdia | playdia | None
+  - 377 | Plug \u0026 Play | plug-and-play | None
+  - 509 | Polymega | polymega | None
+  - 475 | R-Zone | r-zone | None
+  - 106 | SDS Sigma 7 | sdssigma7 | None
+  - 374 | Sharp MZ-2200 | sharp-mz-2200 | None
+  - 77 | Sharp X1 | x1 | None
+  - 121 | Sharp X68000 | sharp-x68000 | None
+  - 406 | Sinclair QL | sinclair-ql | None
+  - 373 | Sinclair ZX81 | sinclair-zx81 | None
+  - 237 | Sol-20 | sol-20 | None
+  - 163 | SteamVR | steam-vr | None
+  - 480 | Super A\u0027Can | super-acan | None
+  - 124 | SwanCrystal | swancrystal | None
+  - 44 | Tapwave Zodiac | zod | None
+  - 155 | Tatung Einstein | tatung-einstein | None
+  - 479 | Terebikko / See \u0027n Say Video Phone | terebikko-slash-see-n-say-video-phone | None
+  - 129 | Texas Instruments TI-99 | ti-99 | None
+  - 156 | Thomson MO5 | thomson-mo5 | None
+  - 481 | Tomy Tutor / Pyuta / Grandstand Tutor | tomy-tutor-slash-pyuta-slash-grandstand-tutor | None
+  - 126 | TRS-80 | trs-80 | None
+  - 151 | TRS-80 Color Computer | trs-80-color-computer | None
+  - 504 | Uzebox | uzebox | None
+  - 439 | V.Smile | vsmile | None
+  - 138 | VC 4000 | vc-4000 | None
+  - 70 | Vectrex | vectrex | None
+  - 472 | visionOS | visionos | None
+  - 415 | Watara/QuickShot Supervision | watara-slash-quickshot-supervision | None
+  - 82 | Web browser | browser | None
+  - 57 | WonderSwan | wonderswan | None
+  - 123 | WonderSwan Color | wonderswan-color | None
+  - 240 | Zeebo | zeebo | None
+  - 26 | ZX Spectrum | zxs | None
+
+=== Other Family: Linux (2) ===
+  - 34 | Android | android | Linux (4)
+  - 170 | Google Stadia | stadia | Linux (4)
+
+=== Other Family: Sega (12) ===
+  - 507 | Advanced Pico Beena | advanced-pico-beena | Sega (3)
+  - 23 | Dreamcast | dc | Sega (3)
+  - 30 | Sega 32X | sega32 | Sega (3)
+  - 78 | Sega CD | sega-cd | Sega (3)
+  - 482 | Sega CD 32X | sega-cd-32x | Sega (3)
+  - 35 | Sega Game Gear | gamegear | Sega (3)
+  - 64 | Sega Master System/Mark III | sms | Sega (3)
+  - 29 | Sega Mega Drive/Genesis | genesis-slash-megadrive | Sega (3)
+  - 339 | Sega Pico | sega-pico | Sega (3)
+  - 32 | Sega Saturn | saturn | Sega (3)
+  - 84 | SG-1000 | sg1000 | Sega (3)
+  - 440 | Visual Memory Unit / Visual Memory System | visual-memory-unit-slash-visual-memory-system | Sega (3)
+
+=== PC / OS (16) ===
+  - 25 | Amstrad CPC | acpc | None
+  - 154 | Amstrad PCW | apcw | None
+  - 3 | Linux | linux | Linux (4)
+  - 14 | Mac | mac | None
+  - 157 | NEC PC-6000 Series | nec-pc-6000-series | None
+  - 6 | PC (Microsoft Windows) | win | None
+  - 128 | PC Engine SuperGrafx | supergrafx | None
+  - 142 | PC-50X Family | pc-50x-family | None
+  - 125 | PC-8800 Series | pc-8800-series | None
+  - 149 | PC-9800 Series | pc-9800-series | None
+  - 274 | PC-FX | pc-fx | None
+  - 86 | TurboGrafx-16/PC Engine | turbografx16--1 | None
+  - 150 | Turbografx-16/PC Engine CD | turbografx-16-slash-pc-engine-cd | None
+  - 161 | Windows Mixed Reality | windows-mixed-reality | None
+  - 405 | Windows Mobile | windows-mobile | None
+  - 74 | Windows Phone | winphone | None
+
+=== Sony / PlayStation (10) ===
+  - 7 | PlayStation | ps | PlayStation (1)
+  - 8 | PlayStation 2 | ps2 | PlayStation (1)
+  - 9 | PlayStation 3 | ps3 | PlayStation (1)
+  - 48 | PlayStation 4 | ps4--1 | PlayStation (1)
+  - 167 | PlayStation 5 | ps5 | PlayStation (1)
+  - 38 | PlayStation Portable | psp | PlayStation (1)
+  - 46 | PlayStation Vita | psvita | PlayStation (1)
+  - 165 | PlayStation VR | psvr | PlayStation (1)
+  - 390 | PlayStation VR2 | psvr2 | PlayStation (1)
+  - 441 | PocketStation | pocketstation | PlayStation (1)
+

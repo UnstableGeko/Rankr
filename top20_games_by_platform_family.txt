@@ -1,0 +1,3004 @@
+Top games per platform (by rating_count desc).
+Only MAIN games: category = 0
+Platform format: platformId | platformName | slug | familyName (familyId)
+Game format: gameId | rating_count | gameName
+
+############################################################
+## Linux  (Platforms: 3)
+############################################################
+
+=== 34 | Android | android | Linux (4) ===
+  - 71 | 3800 | Portal
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 233 | 3213 | Half-Life 2
+  - 1164 | 2280 | Tomb Raider
+  - 1011 | 1803 | Borderlands 2
+  - 7599 | 1792 | Life is Strange
+  - 18 | 1697 | Max Payne
+  - 1871 | 1684 | The Walking Dead
+  - 17000 | 1634 | Stardew Valley
+  - 1331 | 1551 | Limbo
+  - 730 | 1542 | Grand Theft Auto III
+  - 116 | 1396 | Star Wars: Knights of the Old Republic
+  - 1384 | 1214 | Hotline Miami
+  - 2993 | 1156 | The Wolf Among Us
+  - 1879 | 968 | Terraria
+  - 1905 | 948 | Fortnite
+  - 3097 | 815 | The Walking Dead: Season Two
+  - 118 | 792 | Star Wars: Knights of the Old Republic II - The Sith Lords
+  - 1334 | 755 | Brothers: A Tale of Two Sons
+  - 1279 | 700 | Hearthstone
+  [Games printed: 20]
+
+=== 170 | Google Stadia | stadia | Linux (4) ===
+  - 25076 | 3359 | Red Dead Redemption 2
+  - 1970 | 1706 | Assassin\u0027s Creed IV Black Flag
+  - 1877 | 1434 | Cyberpunk 2077
+  - 26226 | 1345 | Celeste
+  - 119171 | 1283 | Baldur\u0027s Gate III
+  - 7323 | 1275 | Rise of the Tomb Raider
+  - 76882 | 1260 | Sekiro: Shadows Die Twice
+  - 1384 | 1214 | Hotline Miami
+  - 6801 | 1108 | Far Cry 4
+  - 1121 | 1094 | Watch Dogs
+  - 28540 | 1041 | Assassin\u0027s Creed Origins
+  - 19562 | 974 | Resident Evil 7: Biohazard
+  - 1879 | 968 | Terraria
+  - 74701 | 953 | Star Wars Jedi: Fallen Order
+  - 5606 | 925 | Assassin\u0027s Creed Unity
+  - 103054 | 914 | Assassin\u0027s Creed Odyssey
+  - 103329 | 873 | Control
+  - 28552 | 807 | Far Cry 5
+  - 8263 | 797 | Assassin\u0027s Creed Syndicate
+  - 19441 | 700 | Watch Dogs 2
+  [Games printed: 20]
+
+=== 3 | Linux | linux | Linux (4) ===
+  - 72 | 4205 | Portal 2
+  - 71 | 3800 | Portal
+  - 233 | 3213 | Half-Life 2
+  - 231 | 2738 | Half-Life
+  - 538 | 2581 | BioShock Infinite
+  - 1164 | 2280 | Tomb Raider
+  - 14593 | 1980 | Hollow Knight
+  - 121 | 1971 | Minecraft: Java Edition
+  - 1011 | 1803 | Borderlands 2
+  - 7599 | 1792 | Life is Strange
+  - 12517 | 1755 | Undertale
+  - 1871 | 1684 | The Walking Dead
+  - 17000 | 1634 | Stardew Valley
+  - 1331 | 1551 | Limbo
+  - 247 | 1448 | Half-Life 2: Episode Two
+  - 26226 | 1345 | Celeste
+  - 478 | 1343 | The Witcher 2: Assassins of Kings
+  - 3025 | 1336 | Middle-earth: Shadow of Mordor
+  - 1372 | 1309 | Counter-Strike: Global Offensive
+  - 119171 | 1283 | Baldur\u0027s Gate III
+  [Games printed: 20]
+
+
+############################################################
+## Nintendo  (Platforms: 26)
+############################################################
+
+=== 416 | 64DD | 64dd | Nintendo (5) ===
+  - 1029 | 2035 | The Legend of Zelda: Ocarina of Time
+  - 1030 | 839 | The Legend of Zelda: Majora\u0027s Mask
+  - 2324 | 240 | Pokémon Snap
+  - 2328 | 142 | Mario Party 2
+  - 273 | 125 | Unreal
+  - 45142 | 31 | The Legend of Zelda: Ocarina of Time - Master Quest
+  - 3568 | 22 | Ogre Battle 64: Person of Lordly Caliber
+  - 9895 | 3 | 7th Legion
+  [Games printed: 8]
+
+=== 510 | e-Reader / Card-e Reader | e-reader-slash-card-e-reader | Nintendo (5) ===
+  (No games found)
+  [Games printed: 0]
+
+=== 99 | Family Computer | famicom | Nintendo (5) ===
+  - 1068 | 1645 | Super Mario Bros. 3
+  - 358 | 1267 | Super Mario Bros.
+  - 1022 | 705 | The Legend of Zelda
+  - 1067 | 543 | Super Mario Bros. 2
+  - 1114 | 331 | Castlevania
+  - 1714 | 284 | Mega Man
+  - 385 | 252 | Final Fantasy
+  - 2741 | 228 | Duck Hunt
+  - 3476 | 196 | Dr. Mario
+  - 1716 | 194 | Mega Man 3
+  - 3717 | 190 | Kirby\u0027s Adventure
+  - 6487 | 169 | Disney\u0027s DuckTales
+  - 4600 | 169 | Excitebike
+  - 2970 | 141 | Battletoads
+  - 1717 | 131 | Mega Man 4
+  - 3666 | 127 | Ice Climber
+  - 6490 | 125 | Disney\u0027s Chip \u0027n Dale Rescue Rangers
+  - 3816 | 113 | Teenage Mutant Ninja Turtles II: The Arcade Game
+  - 2195 | 109 | Mike Tyson\u0027s Punch-Out!!
+  - 2735 | 108 | Balloon Fight
+  [Games printed: 20]
+
+=== 51 | Family Computer Disk System | fds | Nintendo (5) ===
+  - 358 | 1267 | Super Mario Bros.
+  - 1022 | 705 | The Legend of Zelda
+  - 1114 | 331 | Castlevania
+  - 1025 | 289 | Zelda II: The Adventure of Link
+  - 1116 | 141 | Castlevania II: Simon\u0027s Quest
+  - 1066 | 123 | Super Mario Bros.: The Lost Levels
+  - 2735 | 108 | Balloon Fight
+  - 3445 | 107 | Bomberman
+  - 141959 | 72 | Donkey Kong
+  - 3663 | 63 | Kid Icarus
+  - 74548 | 36 | Tennis
+  - 178166 | 32 | Donkey Kong Jr.
+  - 86375 | 30 | Soccer
+  - 18532 | 29 | Ice Hockey
+  - 3399 | 28 | Golf
+  - 86428 | 26 | Pinball
+  - 41420 | 25 | Wrecking Crew
+  - 2736 | 24 | Dig Dug II: Trouble in Paradise
+  - 7580 | 23 | Baseball
+  - 204385 | 20 | Pac-Man
+  [Games printed: 20]
+
+=== 307 | Game \u0026 Watch | g-and-w | Nintendo (5) ===
+  - 145209 | 7 | Donkey Kong
+  - 112423 | 5 | Donkey Kong II
+  - 84555 | 4 | Donkey Kong Jr.
+  [Games printed: 3]
+
+=== 33 | Game Boy | gb | Nintendo (5) ===
+  - 1561 | 580 | Pokémon Red Version
+  - 1512 | 516 | Pokémon Yellow Version: Special Pikachu Edition
+  - 1511 | 474 | Pokémon Blue Version
+  - 1069 | 301 | Super Mario Land
+  - 1028 | 227 | The Legend of Zelda: Link\u0027s Awakening
+  - 1071 | 198 | Super Mario Land 2: 6 Golden Coins
+  - 1063 | 178 | Kirby\u0027s Dream Land
+  - 86490 | 130 | Tetris
+  - 1072 | 123 | Wario Land: Super Mario Land 3
+  - 1102 | 90 | Metroid II: Return of Samus
+  - 3718 | 69 | Kirby\u0027s Dream Land 2
+  - 1089 | 63 | Donkey Kong
+  - 1123 | 46 | Castlevania II: Belmont\u0027s Revenge
+  - 1118 | 46 | Castlevania: The Adventure
+  - 1697 | 45 | Wario Land II
+  - 407 | 45 | Final Fantasy Adventure
+  - 48928 | 32 | Teenage Mutant Ninja Turtles: Fall of the Foot Clan
+  - 8377 | 32 | Pokémon Green Version
+  - 1129 | 29 | Castlevania Legends
+  - 15934 | 28 | Gargoyle\u0027s Quest
+  [Games printed: 20]
+
+=== 24 | Game Boy Advance | gba | Nintendo (5) ===
+  - 1517 | 599 | Pokémon Emerald Version
+  - 2899 | 540 | EarthBound
+  - 1559 | 536 | Pokémon FireRed Version
+  - 1035 | 418 | The Legend of Zelda: The Minish Cap
+  - 1557 | 346 | Pokémon Ruby Version
+  - 284 | 307 | Wolfenstein 3D
+  - 1104 | 300 | Metroid Fusion
+  - 1515 | 297 | Pokémon Sapphire Version
+  - 1107 | 279 | Metroid: Zero Mission
+  - 1516 | 269 | Pokémon LeafGreen Version
+  - 1134 | 226 | Castlevania: Aria of Sorrow
+  - 330 | 204 | SimCity 2000
+  - 4348 | 199 | Out of This World
+  - 2473 | 189 | Disney\u0027s Aladdin
+  - 3351 | 187 | Mario \u0026 Luigi: Superstar Saga
+  - 2343 | 176 | Mario Kart: Super Circuit
+  - 3683 | 172 | Mother 3
+  - 414 | 145 | Final Fantasy Tactics Advance
+  - 6294 | 144 | Worms World Party
+  - 1172 | 141 | Golden Sun
+  [Games printed: 20]
+
+=== 22 | Game Boy Color | gbc | Nintendo (5) ===
+  - 1512 | 516 | Pokémon Yellow Version: Special Pikachu Edition
+  - 1514 | 414 | Pokémon Crystal Version
+  - 1513 | 399 | Pokémon Silver Version
+  - 1558 | 384 | Pokémon Gold Version
+  - 675 | 220 | Driver
+  - 1032 | 189 | The Legend of Zelda: Oracle of Seasons
+  - 1027 | 187 | The Legend of Zelda: Link\u0027s Awakening DX
+  - 1041 | 164 | The Legend of Zelda: Oracle of Ages
+  - 4567 | 140 | Pokémon Trading Card Game
+  - 4068 | 115 | Pokémon Pinball
+  - 8235 | 52 | Grand Theft Auto: London 1969
+  - 1698 | 49 | Wario Land 3
+  - 49877 | 41 | Super Mario Bros. Deluxe
+  - 5600 | 39 | Metal Gear Solid
+  - 8432 | 34 | Shantae
+  - 1641 | 34 | James Bond 007: The World Is Not Enough
+  - 9166 | 30 | Spy vs Spy
+  - 11681 | 25 | SkiFree
+  - 969 | 25 | Resident Evil Gaiden
+  - 8580 | 19 | 720 Degrees
+  [Games printed: 20]
+
+=== 137 | New Nintendo 3DS | new-3ds | Nintendo (5) ===
+  - 1070 | 1878 | Super Mario World
+  - 1026 | 1631 | The Legend of Zelda: A Link to the Past
+  - 1103 | 1014 | Super Metroid
+  - 426 | 732 | Final Fantasy III
+  - 1090 | 583 | Donkey Kong Country
+  - 2899 | 540 | EarthBound
+  - 7789 | 527 | The Binding of Isaac: Rebirth
+  - 1092 | 468 | Donkey Kong Country 2: Diddy\u0027s Kong Quest
+  - 2332 | 439 | Super Mario Kart
+  - 1741 | 290 | Mega Man X
+  - 1094 | 239 | Donkey Kong Country 3: Dixie Kong\u0027s Double Trouble!
+  - 16587 | 197 | Final Fantasy IV
+  - 1124 | 187 | Super Castlevania IV
+  - 3490 | 183 | F-Zero
+  - 1742 | 153 | Mega Man X2
+  - 6351 | 123 | Contra III: The Alien Wars
+  - 1743 | 123 | Mega Man X3
+  - 18626 | 113 | Street Fighter II\u0027 Turbo
+  - 6621 | 90 | Super Ghouls\u0027n Ghosts
+  - 1720 | 90 | Mega Man 7
+  [Games printed: 20]
+
+=== 37 | Nintendo 3DS | 3ds | Nintendo (5) ===
+  - 1068 | 1645 | Super Mario Bros. 3
+  - 358 | 1267 | Super Mario Bros.
+  - 1879 | 968 | Terraria
+  - 1022 | 705 | The Legend of Zelda
+  - 2909 | 687 | The Legend of Zelda: A Link Between Worlds
+  - 4438 | 594 | Sonic the Hedgehog 2
+  - 1561 | 580 | Pokémon Red Version
+  - 1067 | 543 | Super Mario Bros. 2
+  - 7789 | 527 | The Binding of Isaac: Rebirth
+  - 1512 | 516 | Pokémon Yellow Version: Special Pikachu Edition
+  - 1039 | 512 | The Legend of Zelda: Ocarina of Time 3D
+  - 7444 | 510 | Shovel Knight
+  - 1511 | 474 | Pokémon Blue Version
+  - 1035 | 418 | The Legend of Zelda: The Minish Cap
+  - 1514 | 414 | Pokémon Crystal Version
+  - 1513 | 399 | Pokémon Silver Version
+  - 1558 | 384 | Pokémon Gold Version
+  - 981 | 384 | Rayman Origins
+  - 1715 | 381 | Mega Man 2
+  - 1079 | 378 | Super Mario 3D Land
+  [Games printed: 20]
+
+=== 4 | Nintendo 64 | n64 | Nintendo (5) ===
+  - 1029 | 2035 | The Legend of Zelda: Ocarina of Time
+  - 1074 | 1922 | Super Mario 64
+  - 1030 | 839 | The Legend of Zelda: Majora\u0027s Mask
+  - 2342 | 586 | Mario Kart 64
+  - 980 | 475 | Grand Theft Auto
+  - 912 | 461 | Tomb Raider
+  - 1626 | 456 | Super Smash Bros.
+  - 1638 | 402 | GoldenEye 007
+  - 2148 | 352 | Banjo-Kazooie
+  - 948 | 347 | Worms Armageddon
+  - 647 | 330 | Command \u0026 Conquer
+  - 3603 | 288 | Spider-Man
+  - 2289 | 281 | Pokémon Stadium
+  - 2591 | 265 | Star Fox 64
+  - 3340 | 256 | Paper Mario
+  - 2324 | 240 | Pokémon Snap
+  - 843 | 203 | Rayman 2: The Great Escape
+  - 1622 | 200 | Mortal Kombat 4
+  - 154 | 196 | Star Wars: Episode I - Racer
+  - 2723 | 185 | Diddy Kong Racing
+  [Games printed: 20]
+
+=== 20 | Nintendo DS | nds | Nintendo (5) ===
+  - 1519 | 408 | Pokémon Platinum Version
+  - 2345 | 398 | Mario Kart DS
+  - 1076 | 391 | New Super Mario Bros.
+  - 1520 | 383 | Pokémon SoulSilver Version
+  - 1521 | 353 | Pokémon Black Version
+  - 1556 | 337 | Pokémon HeartGold Version
+  - 1560 | 324 | Pokémon Diamond Version
+  - 1426 | 305 | Phoenix Wright: Ace Attorney
+  - 1037 | 271 | The Legend of Zelda: Phantom Hourglass
+  - 1522 | 269 | Pokémon White Version
+  - 1518 | 216 | Pokémon Pearl Version
+  - 22301 | 206 | Super Mario 64 DS
+  - 9543 | 192 | Nine Hours, Nine Persons, Nine Doors
+  - 1397 | 190 | Professor Layton and the Curious Village
+  - 1427 | 187 | Phoenix Wright: Ace Attorney - Justice for All
+  - 1038 | 186 | The Legend of Zelda: Spirit Tracks
+  - 8284 | 184 | Pokémon Black Version 2
+  - 1428 | 184 | Phoenix Wright: Ace Attorney - Trials and Tribulations
+  - 8353 | 173 | Pokémon White Version 2
+  - 3270 | 173 | Grand Theft Auto: Chinatown Wars
+  [Games printed: 20]
+
+=== 159 | Nintendo DSi | nintendo-dsi | Nintendo (5) ===
+  - 1277 | 626 | Plants vs. Zombies
+  - 6189 | 128 | Cave Story
+  - 9761 | 87 | Cut the Rope
+  - 8322 | 42 | Zuma\u0027s Revenge!
+  - 11782 | 36 | Shantae: Risky\u0027s Revenge
+  - 1694 | 35 | Advance Wars: Days of Ruin
+  - 2370 | 33 | Puzzle Quest: Challenge of the Warlords
+  - 45143 | 24 | The Legend of Zelda: Four Swords - Anniversary Edition
+  - 47944 | 23 | Nintendogs: Labrador \u0026 Friends
+  - 5454 | 21 | Space Ace
+  - 18865 | 19 | Assassin\u0027s Creed II: Discovery
+  - 9597 | 14 | Solatorobo: Red the Hunter
+  - 8325 | 14 | Bookworm
+  - 14660 | 13 | Dragon\u0027s Lair II: Time Warp
+  - 9839 | 10 | Fieldrunners
+  - 85511 | 9 | Bloons TD 4
+  - 16090 | 9 | Farm Frenzy
+  - 15712 | 9 | Bejeweled Twist
+  - 15103 | 9 | Flight Control
+  - 27893 | 6 | 4 Elements
+  [Games printed: 20]
+
+=== 18 | Nintendo Entertainment System | nes | Nintendo (5) ===
+  - 1068 | 1645 | Super Mario Bros. 3
+  - 358 | 1267 | Super Mario Bros.
+  - 8197 | 939 | Tetris
+  - 1022 | 705 | The Legend of Zelda
+  - 1067 | 543 | Super Mario Bros. 2
+  - 1715 | 381 | Mega Man 2
+  - 1114 | 331 | Castlevania
+  - 1025 | 289 | Zelda II: The Adventure of Link
+  - 1714 | 284 | Mega Man
+  - 385 | 252 | Final Fantasy
+  - 1101 | 234 | Metroid
+  - 2741 | 228 | Duck Hunt
+  - 3476 | 196 | Dr. Mario
+  - 1716 | 194 | Mega Man 3
+  - 3717 | 190 | Kirby\u0027s Adventure
+  - 6487 | 169 | Disney\u0027s DuckTales
+  - 4600 | 169 | Excitebike
+  - 1119 | 151 | Castlevania III: Dracula\u0027s Curse
+  - 2970 | 141 | Battletoads
+  - 1116 | 141 | Castlevania II: Simon\u0027s Quest
+  [Games printed: 20]
+
+=== 21 | Nintendo GameCube | ngc | Nintendo (5) ===
+  - 974 | 1554 | Resident Evil 4
+  - 1627 | 1045 | Super Smash Bros. Melee
+  - 1033 | 995 | The Legend of Zelda: The Wind Waker
+  - 1105 | 847 | Metroid Prime
+  - 97 | 828 | Need for Speed: Underground 2
+  - 96 | 800 | Need for Speed: Underground
+  - 836 | 737 | Prince of Persia: The Sands of Time
+  - 1036 | 682 | The Legend of Zelda: Twilight Princess
+  - 880 | 563 | Resident Evil 2
+  - 3349 | 520 | Paper Mario: The Thousand-Year Door
+  - 837 | 512 | Prince of Persia: Warrior Within
+  - 1075 | 511 | Super Mario Sunshine
+  - 2437 | 455 | Prince of Persia: The Two Thrones
+  - 966 | 429 | Resident Evil 3: Nemesis
+  - 748 | 421 | Hitman 2: Silent Assassin
+  - 1341 | 382 | Beyond Good \u0026 Evil
+  - 2344 | 374 | Mario Kart: Double Dash!!
+  - 911 | 346 | Tom Clancy\u0027s Splinter Cell: Chaos Theory
+  - 152 | 312 | Star Wars: Jedi Knight II - Jedi Outcast
+  - 2844 | 301 | The Simpsons: Hit \u0026 Run
+  [Games printed: 20]
+
+=== 130 | Nintendo Switch | switch | Nintendo (5) ===
+  - 1942 | 5054 | The Witcher 3: Wild Hunt
+  - 72 | 4205 | Portal 2
+  - 71 | 3800 | Portal
+  - 7346 | 2760 | The Legend of Zelda: Breath of the Wild
+  - 501 | 2554 | Batman: Arkham City
+  - 500 | 2506 | Batman: Arkham Asylum
+  - 14593 | 1980 | Hollow Knight
+  - 1011 | 1803 | Borderlands 2
+  - 12517 | 1755 | Undertale
+  - 26758 | 1750 | Super Mario Odyssey
+  - 1970 | 1706 | Assassin\u0027s Creed IV Black Flag
+  - 1871 | 1684 | The Walking Dead
+  - 17000 | 1634 | Stardew Valley
+  - 375 | 1624 | Metal Gear Solid
+  - 7342 | 1569 | Inside
+  - 1331 | 1551 | Limbo
+  - 113112 | 1548 | Hades
+  - 5503 | 1438 | Batman: Arkham Knight
+  - 7344 | 1428 | Ori and the Blind Forest
+  - 116 | 1396 | Star Wars: Knights of the Old Republic
+  [Games printed: 20]
+
+=== 508 | Nintendo Switch 2 | switch-2 | Nintendo (5) ===
+  - 14593 | 1980 | Hollow Knight
+  - 119133 | 1939 | Elden Ring
+  - 26758 | 1750 | Super Mario Odyssey
+  - 17000 | 1634 | Stardew Valley
+  - 1877 | 1434 | Cyberpunk 2077
+  - 19562 | 974 | Resident Evil 7: Biohazard
+  - 1905 | 948 | Fortnite
+  - 114795 | 628 | Apex Legends
+  - 3225 | 580 | No Man\u0027s Sky
+  - 136625 | 574 | Hogwarts Legacy
+  - 55163 | 485 | Resident Evil Village
+  - 11169 | 472 | Final Fantasy VII Remake
+  - 2903 | 470 | Warframe
+  - 125174 | 390 | Overwatch
+  - 115289 | 347 | Hollow Knight: Silksong
+  - 115284 | 287 | The Legend of Zelda: Link\u0027s Awakening
+  - 7046 | 283 | Factorio
+  - 103341 | 282 | Overcooked! 2
+  - 104967 | 264 | Valheim
+  - 12595 | 259 | Yakuza Kiwami
+  [Games printed: 20]
+
+=== 166 | Pokémon mini | pokemon-mini | Nintendo (5) ===
+  (No games found)
+  [Games printed: 0]
+
+=== 306 | Satellaview | satellaview | Nintendo (5) ===
+  - 1026 | 1631 | The Legend of Zelda: A Link to the Past
+  - 1802 | 1268 | Chrono Trigger
+  - 1073 | 687 | Super Mario World 2: Yoshi\u0027s Island
+  - 3490 | 183 | F-Zero
+  - 9633 | 86 | Terranigma
+  - 6468 | 70 | ActRaiser
+  - 3376 | 64 | Harvest Moon
+  - 16476 | 61 | Castlevania: Dracula X
+  - 3450 | 55 | Super Bomberman
+  - 11227 | 49 | Trials of Mana
+  - 5550 | 45 | Tactics Ogre: Let Us Cling Together
+  - 11616 | 43 | Soul Blazer
+  - 27461 | 38 | Top Gear
+  - 14530 | 37 | Super Bomberman 2
+  - 1344 | 34 | Wild Guns
+  - 18618 | 28 | Super Bomberman 3
+  - 1534 | 19 | Pocky \u0026 Rocky
+  - 1177 | 19 | Lufia \u0026 the Fortress of Doom
+  - 77457 | 18 | Super Soccer
+  - 10496 | 17 | Wizardry: Bane of the Cosmic Forge
+  [Games printed: 20]
+
+=== 58 | Super Famicom | sfam | Nintendo (5) ===
+  - 1070 | 1878 | Super Mario World
+  - 1026 | 1631 | The Legend of Zelda: A Link to the Past
+  - 1802 | 1268 | Chrono Trigger
+  - 1103 | 1014 | Super Metroid
+  - 426 | 732 | Final Fantasy III
+  - 1073 | 687 | Super Mario World 2: Yoshi\u0027s Island
+  - 1090 | 583 | Donkey Kong Country
+  - 2899 | 540 | EarthBound
+  - 1092 | 468 | Donkey Kong Country 2: Diddy\u0027s Kong Quest
+  - 2332 | 439 | Super Mario Kart
+  - 1741 | 290 | Mega Man X
+  - 1094 | 239 | Donkey Kong Country 3: Dixie Kong\u0027s Double Trouble!
+  - 5199 | 237 | Super Mario All-Stars
+  - 3166 | 234 | The Lion King
+  - 5418 | 226 | Super Mario RPG: Legend of the Seven Stars
+  - 3216 | 208 | Secret of Mana
+  - 330 | 204 | SimCity 2000
+  - 16587 | 197 | Final Fantasy IV
+  - 2473 | 189 | Disney\u0027s Aladdin
+  - 1124 | 187 | Super Castlevania IV
+  [Games printed: 20]
+
+=== 131 | Super NES CD-ROM System | super-nes-cd-rom-system | Nintendo (5) ===
+  - 3216 | 208 | Secret of Mana
+  - 323 | 32 | The 7th Guest
+  - 20764 | 6 | Syphon Filter: Dark Mirror
+  [Games printed: 3]
+
+=== 19 | Super Nintendo Entertainment System | snes | Nintendo (5) ===
+  - 1070 | 1878 | Super Mario World
+  - 1026 | 1631 | The Legend of Zelda: A Link to the Past
+  - 1802 | 1268 | Chrono Trigger
+  - 1103 | 1014 | Super Metroid
+  - 426 | 732 | Final Fantasy III
+  - 1073 | 687 | Super Mario World 2: Yoshi\u0027s Island
+  - 1090 | 583 | Donkey Kong Country
+  - 2899 | 540 | EarthBound
+  - 1092 | 468 | Donkey Kong Country 2: Diddy\u0027s Kong Quest
+  - 2332 | 439 | Super Mario Kart
+  - 1619 | 319 | Mortal Kombat II
+  - 1741 | 290 | Mega Man X
+  - 1094 | 239 | Donkey Kong Country 3: Dixie Kong\u0027s Double Trouble!
+  - 5199 | 237 | Super Mario All-Stars
+  - 3166 | 234 | The Lion King
+  - 5418 | 226 | Super Mario RPG: Legend of the Seven Stars
+  - 1620 | 221 | Mortal Kombat 3
+  - 3216 | 208 | Secret of Mana
+  - 330 | 204 | SimCity 2000
+  - 9331 | 197 | Worms
+  [Games printed: 20]
+
+=== 87 | Virtual Boy | virtualboy | Nintendo (5) ===
+  - 1696 | 15 | Virtual Boy Wario Land
+  - 20386 | 10 | Mario\u0027s Tennis
+  [Games printed: 2]
+
+=== 47 | Virtual Console | vc | Nintendo (5) ===
+  (No games found)
+  [Games printed: 0]
+
+=== 5 | Wii | wii | Nintendo (5) ===
+  - 1029 | 2035 | The Legend of Zelda: Ocarina of Time
+  - 1074 | 1922 | Super Mario 64
+  - 1070 | 1878 | Super Mario World
+  - 1068 | 1645 | Super Mario Bros. 3
+  - 1026 | 1631 | The Legend of Zelda: A Link to the Past
+  - 1802 | 1268 | Chrono Trigger
+  - 358 | 1267 | Super Mario Bros.
+  - 1077 | 1193 | Super Mario Galaxy
+  - 1103 | 1014 | Super Metroid
+  - 1078 | 884 | Super Mario Galaxy 2
+  - 1030 | 839 | The Legend of Zelda: Majora\u0027s Mask
+  - 885 | 815 | Super Meat Boy
+  - 426 | 732 | Final Fantasy III
+  - 1022 | 705 | The Legend of Zelda
+  - 3192 | 606 | Sonic the Hedgehog
+  - 4438 | 594 | Sonic the Hedgehog 2
+  - 2342 | 586 | Mario Kart 64
+  - 1090 | 583 | Donkey Kong Country
+  - 1628 | 572 | Super Smash Bros. Brawl
+  - 2183 | 571 | Mario Kart Wii
+  [Games printed: 20]
+
+=== 41 | Wii U | wiiu | Nintendo (5) ===
+  - 7346 | 2760 | The Legend of Zelda: Breath of the Wild
+  - 1029 | 2035 | The Legend of Zelda: Ocarina of Time
+  - 14593 | 1980 | Hollow Knight
+  - 1074 | 1922 | Super Mario 64
+  - 1070 | 1878 | Super Mario World
+  - 1970 | 1706 | Assassin\u0027s Creed IV Black Flag
+  - 1068 | 1645 | Super Mario Bros. 3
+  - 17000 | 1634 | Stardew Valley
+  - 1026 | 1631 | The Legend of Zelda: A Link to the Past
+  - 1266 | 1439 | Assassin\u0027s Creed III
+  - 358 | 1267 | Super Mario Bros.
+  - 1077 | 1193 | Super Mario Galaxy
+  - 1121 | 1094 | Watch Dogs
+  - 1103 | 1014 | Super Metroid
+  - 1879 | 968 | Terraria
+  - 1078 | 884 | Super Mario Galaxy 2
+  - 1030 | 839 | The Legend of Zelda: Majora\u0027s Mask
+  - 885 | 815 | Super Meat Boy
+  - 2003 | 778 | Batman: Arkham Origins
+  - 426 | 732 | Final Fantasy III
+  [Games printed: 20]
+
+
+############################################################
+## No Family / Other  (Platforms: 165)
+############################################################
+
+=== 139 | 1292 Advanced Programmable Video System | 1292-advanced-programmable-video-system | No Family ===
+  - 5667 | 16 | Circus Atari
+  [Games printed: 1]
+
+=== 50 | 3DO Interactive Multiplayer | 3do | No Family ===
+  - 236 | 180 | Myst
+  - 4275 | 105 | Flashback: The Quest for Identity
+  - 283 | 103 | Theme Park
+  - 90 | 96 | The Need for Speed
+  - 1956 | 81 | Alone in the Dark
+  - 4238 | 70 | Super Street Fighter II Turbo
+  - 5519 | 61 | Cannon Fodder
+  - 2603 | 60 | Battle Chess
+  - 4260 | 56 | Samurai Shodown
+  - 4271 | 48 | Primal Rage
+  - 4243 | 47 | The Incredible Machine
+  - 4248 | 44 | Dragon\u0027s Lair
+  - 141271 | 37 | Road Rash
+  - 28391 | 36 | Bust-A-Move
+  - 4309 | 30 | Gex
+  - 2588 | 25 | Wing Commander III: Heart of the Tiger
+  - 1957 | 24 | Alone in the Dark 2
+  - 1046 | 23 | Star Control II
+  - 161 | 23 | Star Wars: Rebel Assault
+  - 7519 | 22 | SimTower
+  [Games printed: 20]
+
+=== 116 | Acorn Archimedes | acorn-archimedes | No Family ===
+  - 284 | 307 | Wolfenstein 3D
+  - 4239 | 162 | Lemmings
+  - 1272 | 139 | SimCity
+  - 86 | 106 | Dune II: The Building of a Dynasty
+  - 4275 | 105 | Flashback: The Quest for Identity
+  - 1956 | 81 | Alone in the Dark
+  - 5519 | 61 | Cannon Fodder
+  - 2603 | 60 | Battle Chess
+  - 459 | 53 | Simon the Sorcerer
+  - 248 | 47 | Populous
+  - 2951 | 35 | Elite
+  - 4443 | 32 | James Pond 2: Codename - RoboCod
+  - 2547 | 32 | Zool: Ninja of the Nth Dimension
+  - 8400 | 24 | The Last Ninja
+  - 12236 | 23 | Xenon 2: Megablast
+  - 4516 | 23 | Chuck Rock
+  - 12202 | 22 | Rick Dangerous
+  - 10152 | 21 | Speedball 2: Brutal Deluxe
+  - 12118 | 20 | Gods
+  - 7817 | 16 | Nebulus
+  [Games printed: 20]
+
+=== 134 | Acorn Electron | acorn-electron | No Family ===
+  - 1272 | 139 | SimCity
+  - 11762 | 96 | Paperboy
+  - 5668 | 54 | Commando
+  - 2951 | 35 | Elite
+  - 9166 | 30 | Spy vs Spy
+  - 4929 | 26 | Impossible Mission
+  - 8400 | 24 | The Last Ninja
+  - 4639 | 21 | Death Sword
+  - 15383 | 20 | Tempest
+  - 12858 | 20 | Star Wars
+  - 3592 | 18 | Robotron: 2084
+  - 8401 | 16 | Last Ninja 2: Back with a Vengeance
+  - 11207 | 14 | Crystal Castles
+  - 8170 | 14 | Jet Set Willy
+  - 14900 | 13 | Hostages
+  - 13045 | 10 | The Way of the Exploding Fist
+  - 10235 | 10 | Chuckie Egg
+  - 2298 | 7 | Adventureland
+  - 24496 | 6 | Falcon Patrol
+  - 15345 | 6 | Predator
+  [Games printed: 20]
+
+=== 389 | AirConsole | airconsole | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 132 | Amazon Fire TV | firetv | No Family ===
+  - 135400 | 464 | Minecraft
+  - 19082 | 76 | The Jackbox Party Pack 3
+  - 5636 | 76 | Candy Crush Saga
+  - 28213 | 48 | The Jackbox Party Pack 4
+  - 10635 | 48 | Crossy Road
+  - 11529 | 45 | The Jackbox Party Pack
+  - 19081 | 37 | The Jackbox Party Pack 2
+  - 86807 | 35 | Sonic CD
+  - 19083 | 34 | Drawful 2
+  - 96213 | 33 | The Jackbox Party Pack 5
+  - 138765 | 30 | Scott Pilgrim vs. the World: The Game - Complete Edition
+  - 125021 | 29 | The Jackbox Party Pack 6
+  - 27241 | 26 | Shovel Knight: King of Cards
+  - 138375 | 23 | The Jackbox Party Pack 7
+  - 11588 | 23 | Quiplash
+  - 144783 | 12 | The Jackbox Party Pack 8
+  - 38946 | 12 | Dan the Man
+  - 198560 | 10 | The Jackbox Party Pack 9
+  - 20191 | 6 | Super Cyborg
+  [Games printed: 19]
+
+=== 16 | Amiga | amiga | No Family ===
+  - 61 | 576 | Monkey Island 2: LeChuck\u0027s Revenge
+  - 60 | 484 | The Secret of Monkey Island
+  - 193 | 447 | Day of the Tentacle
+  - 184 | 409 | Indiana Jones and the Fate of Atlantis
+  - 333 | 384 | Quake
+  - 1619 | 319 | Mortal Kombat II
+  - 286 | 318 | Quake II
+  - 1618 | 288 | Mortal Kombat
+  - 902 | 245 | Sid Meier\u0027s Civilization
+  - 3166 | 234 | The Lion King
+  - 5565 | 216 | Golden Axe
+  - 330 | 204 | SimCity 2000
+  - 4348 | 199 | Out of This World
+  - 9331 | 197 | Worms
+  - 236 | 180 | Myst
+  - 8118 | 177 | Disney\u0027s Aladdin
+  - 4239 | 162 | Lemmings
+  - 1655 | 143 | Final Fight
+  - 2970 | 141 | Battletoads
+  - 1272 | 139 | SimCity
+  [Games printed: 20]
+
+=== 114 | Amiga CD32 | amiga-cd32 | No Family ===
+  - 9331 | 197 | Worms
+  - 4239 | 162 | Lemmings
+  - 2970 | 141 | Battletoads
+  - 24 | 129 | X-COM: UFO Defense
+  - 612 | 105 | Beneath a Steel Sky
+  - 283 | 103 | Theme Park
+  - 4238 | 70 | Super Street Fighter II Turbo
+  - 5519 | 61 | Cannon Fodder
+  - 2603 | 60 | Battle Chess
+  - 459 | 53 | Simon the Sorcerer
+  - 924 | 40 | Wing Commander
+  - 4443 | 32 | James Pond 2: Codename - RoboCod
+  - 2547 | 32 | Zool: Ninja of the Nth Dimension
+  - 8397 | 31 | International Karate +
+  - 4368 | 31 | Jungle Strike
+  - 13057 | 23 | Top Gear 2
+  - 4516 | 23 | Chuck Rock
+  - 10152 | 21 | Speedball 2: Brutal Deluxe
+  - 6023 | 19 | Pinball Fantasies
+  - 2953 | 18 | Frontier: Elite II
+  [Games printed: 20]
+
+=== 25 | Amstrad CPC | acpc | No Family ===
+  - 5565 | 216 | Golden Axe
+  - 1655 | 143 | Final Fight
+  - 1272 | 139 | SimCity
+  - 2604 | 111 | Altered Beast
+  - 3815 | 102 | Teenage Mutant Ninja Turtles
+  - 6807 | 100 | Ghosts \u0027n Goblins
+  - 11762 | 96 | Paperboy
+  - 6075 | 94 | 1942
+  - 5668 | 54 | Commando
+  - 4603 | 52 | Lode Runner
+  - 18139 | 50 | Michael Jackson\u0027s Moonwalker
+  - 6899 | 48 | Shinobi
+  - 6145 | 47 | Super Hang-On
+  - 86386 | 46 | Teenage Mutant Ninja Turtles
+  - 6823 | 46 | Buster Bros.
+  - 6969 | 45 | Strider
+  - 3502 | 45 | Gauntlet
+  - 6076 | 43 | 1943: The Battle of Midway
+  - 4599 | 43 | Elevator Action
+  - 14288 | 41 | Batman
+  [Games printed: 20]
+
+=== 506 | Amstrad GX4000 | gx4000 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 154 | Amstrad PCW | apcw | No Family ===
+  - 1944 | 25 | Zork
+  - 1945 | 16 | Zork II: The Wizard of Frobozz
+  - 12143 | 14 | The Hitchhiker\u0027s Guide to the Galaxy
+  - 7564 | 12 | Deadline
+  - 1946 | 11 | Zork III: The Dungeon Master
+  - 12620 | 7 | Planetfall
+  - 10798 | 6 | The Fellowship of the Ring: A Software Adventure
+  - 7565 | 6 | Starcross
+  - 1947 | 6 | Enchanter
+  - 1950 | 5 | Wishbringer
+  - 1949 | 5 | Spellbreaker
+  - 1948 | 5 | Sorcerer
+  [Games printed: 12]
+
+=== 100 | Analogue electronics | analogueelectronics | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 75 | Apple II | appleii | No Family ===
+  - 2472 | 264 | Prince of Persia
+  - 192 | 133 | Maniac Mansion
+  - 11762 | 96 | Paperboy
+  - 7452 | 87 | Ms. Pac-Man
+  - 7758 | 78 | Asteroids
+  - 2603 | 60 | Battle Chess
+  - 5668 | 54 | Commando
+  - 2906 | 53 | Leisure Suit Larry in the Land of the Lounge Lizards
+  - 4603 | 52 | Lode Runner
+  - 3502 | 45 | Gauntlet
+  - 6054 | 39 | Ghostbusters
+  - 9231 | 38 | Sid Meier\u0027s Pirates!
+  - 4609 | 38 | BurgerTime
+  - 4167 | 38 | Spy Hunter
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 892 | 37 | King\u0027s Quest: Quest for the Crown
+  - 2951 | 35 | Elite
+  - 12268 | 31 | Winter Games
+  - 2200 | 31 | Test Drive
+  - 9166 | 30 | Spy vs Spy
+  [Games printed: 20]
+
+=== 115 | Apple IIGS | apple-iigs | No Family ===
+  - 11762 | 96 | Paperboy
+  - 2603 | 60 | Battle Chess
+  - 2906 | 53 | Leisure Suit Larry in the Land of the Lounge Lizards
+  - 3502 | 45 | Gauntlet
+  - 9231 | 38 | Sid Meier\u0027s Pirates!
+  - 892 | 37 | King\u0027s Quest: Quest for the Crown
+  - 12268 | 31 | Winter Games
+  - 8697 | 30 | Shadowgate
+  - 1873 | 29 | Defender of the Crown
+  - 852 | 29 | King\u0027s Quest II: Romancing the Throne
+  - 893 | 28 | King\u0027s Quest III: To Heir is Human
+  - 28 | 27 | Space Quest: The Sarien Encounter
+  - 3798 | 26 | Dungeon Master
+  - 12267 | 25 | Skate or Die
+  - 29 | 25 | Space Quest II: Vohaul\u0027s Revenge
+  - 8400 | 24 | The Last Ninja
+  - 5454 | 21 | Space Ace
+  - 2201 | 20 | The Duel: Test Drive II
+  - 744 | 20 | King\u0027s Quest IV: The Perils of Rosella
+  - 10208 | 18 | Blockout
+  [Games printed: 20]
+
+=== 476 | Apple Pippin | apple-pippin | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 52 | Arcade | arcade | No Family ===
+  - 1070 | 1878 | Super Mario World
+  - 1068 | 1645 | Super Mario Bros. 3
+  - 358 | 1267 | Super Mario Bros.
+  - 3192 | 606 | Sonic the Hedgehog
+  - 1244 | 544 | Tekken 3
+  - 1067 | 543 | Super Mario Bros. 2
+  - 3186 | 370 | Street Fighter II
+  - 1114 | 331 | Castlevania
+  - 1619 | 319 | Mortal Kombat II
+  - 1618 | 288 | Mortal Kombat
+  - 1404 | 274 | Metal Slug
+  - 1246 | 267 | Tekken 5
+  - 7498 | 262 | Tekken 7
+  - 4598 | 261 | Contra
+  - 2750 | 260 | Pac-Man
+  - 1805 | 237 | Crazy Taxi
+  - 1101 | 234 | Metroid
+  - 2741 | 228 | Duck Hunt
+  - 1620 | 221 | Mortal Kombat 3
+  - 5565 | 216 | Golden Axe
+  [Games printed: 20]
+
+=== 473 | Arcadia 2001 | arcadia-2001 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 438 | Arduboy | arduboy | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 59 | Atari 2600 | atari2600 | No Family ===
+  - 236 | 180 | Myst
+  - 5411 | 95 | Pitfall!
+  - 2754 | 49 | Breakout
+  - 4599 | 43 | Elevator Action
+  - 6706 | 42 | E.T. the Extra-Terrestrial
+  - 8253 | 41 | Adventure
+  - 6054 | 39 | Ghostbusters
+  - 4167 | 38 | Spy Hunter
+  - 5693 | 36 | River Raid
+  - 16759 | 32 | Combat
+  - 12268 | 31 | Winter Games
+  - 7559 | 31 | Pac-Man
+  - 12346 | 26 | Xevious
+  - 4618 | 26 | Pooyan
+  - 18711 | 24 | Superman
+  - 11859 | 24 | Air-Sea Battle
+  - 9757 | 24 | Yars\u0027 Revenge
+  - 6112 | 24 | H.E.R.O.
+  - 12314 | 21 | Moon Patrol
+  - 12858 | 20 | Star Wars
+  [Games printed: 20]
+
+=== 66 | Atari 5200 | atari5200 | No Family ===
+  - 5411 | 95 | Pitfall!
+  - 5691 | 40 | Pole Position
+  - 5693 | 36 | River Raid
+  - 12346 | 26 | Xevious
+  - 12314 | 21 | Moon Patrol
+  - 12858 | 20 | Star Wars
+  - 12309 | 18 | Kaboom!
+  - 4484 | 18 | Klax
+  - 3592 | 18 | Robotron: 2084
+  - 2753 | 18 | Zaxxon
+  - 12311 | 15 | Keystone Kapers
+  - 12297 | 15 | Montezuma\u0027s Revenge featuring Panama Joe
+  - 2217 | 14 | Star Raiders
+  - 5669 | 11 | Congo Bongo
+  - 18693 | 10 | Sinistar
+  - 12312 | 10 | Megamania
+  - 18651 | 9 | Miner 2049er
+  - 12316 | 9 | Pengo
+  - 7453 | 9 | Jr. Pac-Man
+  - 21681 | 8 | Super Pac-Man
+  [Games printed: 20]
+
+=== 60 | Atari 7800 | atari7800 | No Family ===
+  - 5668 | 54 | Commando
+  - 12268 | 31 | Winter Games
+  - 4602 | 28 | Karateka
+  - 12346 | 26 | Xevious
+  - 4929 | 26 | Impossible Mission
+  - 4484 | 18 | Klax
+  - 3592 | 18 | Robotron: 2084
+  - 7817 | 16 | Nebulus
+  - 176 | 8 | Ballblazer
+  - 12337 | 7 | Pole Position II
+  - 12245 | 7 | Xenophobe
+  - 11863 | 7 | Ace of Aces
+  - 11868 | 5 | Crossbow
+  - 11867 | 5 | Basketbrawl
+  - 80452 | 1 | Pac-Man Collection
+  [Games printed: 15]
+
+=== 65 | Atari 8-bit | atari8bit | No Family ===
+  - 5411 | 95 | Pitfall!
+  - 7452 | 87 | Ms. Pac-Man
+  - 4603 | 52 | Lode Runner
+  - 3502 | 45 | Gauntlet
+  - 5691 | 40 | Pole Position
+  - 6054 | 39 | Ghostbusters
+  - 4167 | 38 | Spy Hunter
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 5693 | 36 | River Raid
+  - 12942 | 35 | Boulder Dash
+  - 9166 | 30 | Spy vs Spy
+  - 7414 | 30 | Ultima
+  - 5539 | 29 | Archon
+  - 4602 | 28 | Karateka
+  - 4618 | 26 | Pooyan
+  - 4604 | 26 | Millipede
+  - 1944 | 25 | Zork
+  - 6112 | 24 | H.E.R.O.
+  - 2872 | 24 | Rogue
+  - 13447 | 23 | Bruce Lee
+  [Games printed: 20]
+
+=== 62 | Atari Jaguar | jaguar | No Family ===
+  - 9331 | 197 | Worms
+  - 4275 | 105 | Flashback: The Quest for Identity
+  - 283 | 103 | Theme Park
+  - 5519 | 61 | Cannon Fodder
+  - 4271 | 48 | Primal Rage
+  - 4248 | 44 | Dragon\u0027s Lair
+  - 5410 | 27 | Pitfall: The Mayan Adventure
+  - 6841 | 23 | Raiden
+  - 46687 | 22 | ClayFighter
+  - 19712 | 22 | NBA Jam Tournament Edition
+  - 5454 | 21 | Space Ace
+  - 12118 | 20 | Gods
+  - 13074 | 19 | World Circuit: The Grand Prix Race Simulation
+  - 6023 | 19 | Pinball Fantasies
+  - 8477 | 15 | Alien vs Predator
+  - 9791 | 13 | Tempest 2000
+  - 12138 | 11 | Head Over Heels
+  - 4475 | 11 | Double Dragon V: The Shadow Falls
+  - 12307 | 10 | Gorf
+  - 18617 | 9 | Dragon: The Bruce Lee Story
+  [Games printed: 20]
+
+=== 410 | Atari Jaguar CD | atari-jaguar-cd | No Family ===
+  - 236 | 180 | Myst
+  - 15428 | 68 | The King of Fighters \u002797
+  - 4271 | 48 | Primal Rage
+  - 4248 | 44 | Dragon\u0027s Lair
+  - 5454 | 21 | Space Ace
+  - 9258 | 6 | Brain Dead 13
+  - 23033 | 5 | Batman Forever: The Arcade Game
+  - 5373 | 5 | Crime Patrol
+  [Games printed: 8]
+
+=== 61 | Atari Lynx | lynx | No Family ===
+  - 5384 | 41 | Eye of the Beholder
+  - 5434 | 25 | Shadow of the Beast
+  - 6856 | 23 | Rygar
+  - 6841 | 23 | Raiden
+  - 12916 | 20 | Battlezone
+  - 10208 | 18 | Blockout
+  - 4484 | 18 | Klax
+  - 3592 | 18 | Robotron: 2084
+  - 12765 | 15 | Shanghai
+  - 12370 | 13 | Xybots
+  - 12367 | 11 | RoadBlasters
+  - 12134 | 9 | Hard Drivin\u0027
+  - 12245 | 7 | Xenophobe
+  - 4543 | 6 | Todd\u0027s Adventures in Slime World
+  - 74903 | 5 | Blue Lightning
+  - 12368 | 5 | S.T.U.N. Runner
+  - 77213 | 3 | Loopz
+  [Games printed: 17]
+
+=== 63 | Atari ST/STE | atari-st | No Family ===
+  - 60 | 484 | The Secret of Monkey Island
+  - 902 | 245 | Sid Meier\u0027s Civilization
+  - 5565 | 216 | Golden Axe
+  - 4348 | 199 | Out of This World
+  - 1655 | 143 | Final Fight
+  - 1272 | 139 | SimCity
+  - 192 | 133 | Maniac Mansion
+  - 2604 | 111 | Altered Beast
+  - 3815 | 102 | Teenage Mutant Ninja Turtles
+  - 6807 | 100 | Ghosts \u0027n Goblins
+  - 11762 | 96 | Paperboy
+  - 191 | 94 | Loom
+  - 186 | 73 | Indiana Jones and the Last Crusade: The Graphic Adventure
+  - 6817 | 70 | Ghouls \u0027n Ghosts
+  - 3249 | 68 | Road Rash
+  - 6840 | 61 | R-Type
+  - 5519 | 61 | Cannon Fodder
+  - 2603 | 60 | Battle Chess
+  - 5668 | 54 | Commando
+  - 2906 | 53 | Leisure Suit Larry in the Land of the Lounge Lizards
+  [Games printed: 20]
+
+=== 140 | AY-3-8500 | ay-3-8500 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 145 | AY-3-8603 | ay-3-8603 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 146 | AY-3-8605 | ay-3-8605 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 147 | AY-3-8606 | ay-3-8606 | No Family ===
+  - 2754 | 49 | Breakout
+  [Games printed: 1]
+
+=== 148 | AY-3-8607 | ay-3-8607 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 141 | AY-3-8610 | ay-3-8610 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 144 | AY-3-8710 | ay-3-8710 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 143 | AY-3-8760 | ay-3-8760 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 91 | Bally Astrocade | astrocade | No Family ===
+  - 7743 | 17 | Wizard of Wor
+  - 85868 | 9 | Gun Fight
+  - 12241 | 5 | Artillery Duel
+  [Games printed: 3]
+
+=== 69 | BBC Microcomputer System | bbcmicro | No Family ===
+  - 1272 | 139 | SimCity
+  - 11762 | 96 | Paperboy
+  - 5668 | 54 | Commando
+  - 4603 | 52 | Lode Runner
+  - 5691 | 40 | Pole Position
+  - 18170 | 38 | Yie Ar Kung-Fu
+  - 4167 | 38 | Spy Hunter
+  - 2951 | 35 | Elite
+  - 9166 | 30 | Spy vs Spy
+  - 4929 | 26 | Impossible Mission
+  - 8400 | 24 | The Last Ninja
+  - 13447 | 23 | Bruce Lee
+  - 90990 | 22 | Rush\u0027n Attack
+  - 4639 | 21 | Death Sword
+  - 15383 | 20 | Tempest
+  - 12858 | 20 | Star Wars
+  - 4484 | 18 | Klax
+  - 3592 | 18 | Robotron: 2084
+  - 8401 | 16 | Last Ninja 2: Back with a Vengeance
+  - 10161 | 15 | Manic Miner
+  [Games printed: 20]
+
+=== 73 | BlackBerry OS | blackberry | No Family ===
+  - 2035 | 230 | Angry Birds
+  - 3251 | 136 | Super Hexagon
+  - 3751 | 113 | Peggle
+  - 8978 | 99 | Jetpack Joyride
+  - 4674 | 88 | Angry Birds Star Wars
+  - 23306 | 68 | Asphalt 8: Airborne
+  - 16365 | 63 | Angry Birds Space
+  - 6798 | 62 | Desert Strike: Return to the Gulf
+  - 8901 | 61 | Badland
+  - 5519 | 61 | Cannon Fodder
+  - 9473 | 53 | Sonic the Hedgehog 4: Episode I
+  - 28729 | 48 | Doodle Jump
+  - 19275 | 45 | Angry Birds Seasons
+  - 19902 | 40 | Bad Piggies
+  - 121688 | 36 | Final Fantasy
+  - 8758 | 34 | Anomaly: Warzone Earth
+  - 2547 | 32 | Zool: Ninja of the Nth Dimension
+  - 3803 | 31 | The Bard\u0027s Tale
+  - 13151 | 29 | The Sims FreePlay
+  - 5164 | 28 | Turrican
+  [Games printed: 20]
+
+=== 239 | Blu-ray Player | blu-ray-player | No Family ===
+  - 15830 | 91 | Saya no Uta
+  - 4248 | 44 | Dragon\u0027s Lair
+  - 114807 | 1 | Funbag Fantasy
+  [Games printed: 3]
+
+=== 107 | Call-A-Computer time-shared mainframe computer system | call-a-computer | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 380 | Casio Loopy | casio-loopy | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 109 | CDC Cyber 70 | cdccyber70 | No Family ===
+  - 11325 | 29 | The Oregon Trail
+  [Games printed: 1]
+
+=== 68 | ColecoVision | colecovision | No Family ===
+  - 5411 | 95 | Pitfall!
+  - 4592 | 41 | Antarctic Adventure
+  - 4609 | 38 | BurgerTime
+  - 4167 | 38 | Spy Hunter
+  - 5693 | 36 | River Raid
+  - 6112 | 24 | H.E.R.O.
+  - 12858 | 20 | Star Wars
+  - 2753 | 18 | Zaxxon
+  - 9554 | 17 | Mr. DO!
+  - 6125 | 17 | Pitfall II: The Lost Caverns
+  - 12311 | 15 | Keystone Kapers
+  - 12297 | 15 | Montezuma\u0027s Revenge featuring Panama Joe
+  - 5664 | 15 | Bump \u0027n\u0027 Jump
+  - 5671 | 12 | Dragonfire
+  - 10273 | 11 | Time Pilot
+  - 5669 | 11 | Congo Bongo
+  - 12307 | 10 | Gorf
+  - 12294 | 10 | B.C.\u0027s Quest for Tires
+  - 5687 | 10 | Mouse Trap
+  - 18228 | 9 | Jungle Hunt
+  [Games printed: 20]
+
+=== 93 | Commodore 16 | c16 | No Family ===
+  - 11762 | 96 | Paperboy
+  - 5668 | 54 | Commando
+  - 18170 | 38 | Yie Ar Kung-Fu
+  - 9166 | 30 | Spy vs Spy
+  - 1944 | 25 | Zork
+  - 90990 | 22 | Rush\u0027n Attack
+  - 1945 | 16 | Zork II: The Wizard of Frobozz
+  - 10161 | 15 | Manic Miner
+  - 12143 | 14 | The Hitchhiker\u0027s Guide to the Galaxy
+  - 8170 | 14 | Jet Set Willy
+  - 1946 | 11 | Zork III: The Dungeon Master
+  - 26354 | 10 | Saboteur!
+  - 13045 | 10 | The Way of the Exploding Fist
+  - 13350 | 9 | Auf Wiedersehen Monty
+  - 12620 | 7 | Planetfall
+  - 24496 | 6 | Falcon Patrol
+  - 11973 | 6 | BMX Simulator
+  - 7565 | 6 | Starcross
+  - 26271 | 5 | Superman: The Game
+  - 25966 | 5 | Kikstart
+  [Games printed: 20]
+
+=== 15 | Commodore C64/128/MAX | c64 | No Family ===
+  - 5565 | 216 | Golden Axe
+  - 1655 | 143 | Final Fight
+  - 1272 | 139 | SimCity
+  - 192 | 133 | Maniac Mansion
+  - 2604 | 111 | Altered Beast
+  - 3815 | 102 | Teenage Mutant Ninja Turtles
+  - 6807 | 100 | Ghosts \u0027n Goblins
+  - 11762 | 96 | Paperboy
+  - 5411 | 95 | Pitfall!
+  - 6075 | 94 | 1942
+  - 7452 | 87 | Ms. Pac-Man
+  - 2826 | 63 | The Simpsons Arcade Game
+  - 6840 | 61 | R-Type
+  - 2603 | 60 | Battle Chess
+  - 25692 | 56 | Circus Charlie
+  - 5668 | 54 | Commando
+  - 4603 | 52 | Lode Runner
+  - 18139 | 50 | Michael Jackson\u0027s Moonwalker
+  - 6899 | 48 | Shinobi
+  - 6145 | 47 | Super Hang-On
+  [Games printed: 20]
+
+=== 158 | Commodore CDTV | commodore-cdtv | No Family ===
+  - 4239 | 162 | Lemmings
+  - 2603 | 60 | Battle Chess
+  - 5164 | 28 | Turrican
+  - 11845 | 16 | Turrican II: The Final Fight
+  [Games printed: 4]
+
+=== 90 | Commodore PET | cpet | No Family ===
+  - 2298 | 7 | Adventureland
+  - 68778 | 6 | Dunjonquest: Temple of Apshai
+  - 18512 | 5 | Pirate Adventure
+  - 2879 | 5 | Telengard
+  - 2870 | 5 | StarQuest: Rescue at Rigel
+  [Games printed: 5]
+
+=== 94 | Commodore Plus/4 | c-plus-4 | No Family ===
+  - 11762 | 96 | Paperboy
+  - 5668 | 54 | Commando
+  - 9166 | 30 | Spy vs Spy
+  - 1944 | 25 | Zork
+  - 1945 | 16 | Zork II: The Wizard of Frobozz
+  - 10161 | 15 | Manic Miner
+  - 12143 | 14 | The Hitchhiker\u0027s Guide to the Galaxy
+  - 8170 | 14 | Jet Set Willy
+  - 1946 | 11 | Zork III: The Dungeon Master
+  - 12620 | 7 | Planetfall
+  - 24496 | 6 | Falcon Patrol
+  - 11973 | 6 | BMX Simulator
+  - 7565 | 6 | Starcross
+  - 25966 | 5 | Kikstart
+  - 24384 | 5 | Questprobe featuring Spider-Man
+  - 18512 | 5 | Pirate Adventure
+  - 13296 | 5 | Airwolf
+  - 12934 | 5 | Questprobe featuring The Hulk
+  - 8526 | 5 | Beach-Head
+  [Games printed: 19]
+
+=== 71 | Commodore VIC-20 | vic-20 | No Family ===
+  - 7452 | 87 | Ms. Pac-Man
+  - 4603 | 52 | Lode Runner
+  - 5691 | 40 | Pole Position
+  - 5434 | 25 | Shadow of the Beast
+  - 12314 | 21 | Moon Patrol
+  - 12916 | 20 | Battlezone
+  - 5658 | 18 | Atlantis
+  - 3592 | 18 | Robotron: 2084
+  - 7851 | 15 | Jetpac
+  - 5671 | 12 | Dragonfire
+  - 5670 | 11 | Demon Attack
+  - 5669 | 11 | Congo Bongo
+  - 13809 | 10 | Aztec Challenge
+  - 12307 | 10 | Gorf
+  - 18228 | 9 | Jungle Hunt
+  - 18620 | 7 | Rally-X
+  - 5701 | 7 | Tutankham
+  - 2298 | 7 | Adventureland
+  - 68778 | 6 | Dunjonquest: Temple of Apshai
+  - 24496 | 6 | Falcon Patrol
+  [Games printed: 20]
+
+=== 164 | Daydream | daydream | No Family ===
+  - 13226 | 112 | Keep Talking and Nobody Explodes
+  - 15432 | 32 | The King of Fighters 2001
+  - 19746 | 25 | Rez Infinite
+  - 96698 | 3 | Virtual Virtual Reality
+  [Games printed: 4]
+
+=== 98 | DEC GT40 | gt40 | No Family ===
+  - 9129 | 8 | Moonlander
+  [Games printed: 1]
+
+=== 486 | Digiblast | digiblast | No Family ===
+  - 3743 | 19 | Freddi Fish and The Case of the Missing Kelp Seeds
+  - 6605 | 12 | Spider-Man: Mysterio\u0027s Menace
+  [Games printed: 2]
+
+=== 85 | Donner Model 30 | donner30 | No Family ===
+  - 6763 | 13 | Tennis for Two
+  [Games printed: 1]
+
+=== 13 | DOS | dos | No Family ===
+  - 673 | 975 | Doom
+  - 13 | 632 | Fallout: A Post Nuclear Role Playing Game
+  - 61 | 576 | Monkey Island 2: LeChuck\u0027s Revenge
+  - 312 | 515 | Doom II: Hell on Earth
+  - 60 | 484 | The Secret of Monkey Island
+  - 980 | 475 | Grand Theft Auto
+  - 912 | 461 | Tomb Raider
+  - 193 | 447 | Day of the Tentacle
+  - 342 | 434 | Duke Nukem 3D
+  - 184 | 409 | Indiana Jones and the Fate of Atlantis
+  - 333 | 384 | Quake
+  - 130 | 377 | Warcraft II: Tides of Darkness
+  - 295 | 357 | Command \u0026 Conquer: Red Alert
+  - 647 | 330 | Command \u0026 Conquer
+  - 1619 | 319 | Mortal Kombat II
+  - 284 | 307 | Wolfenstein 3D
+  - 1741 | 290 | Mega Man X
+  - 1618 | 288 | Mortal Kombat
+  - 999 | 248 | Oddworld: Abe\u0027s Oddysee
+  - 902 | 245 | Sid Meier\u0027s Civilization
+  [Games printed: 20]
+
+=== 153 | Dragon 32/64 | dragon-32-slash-64 | No Family ===
+  - 10161 | 15 | Manic Miner
+  - 8170 | 14 | Jet Set Willy
+  - 10235 | 10 | Chuckie Egg
+  - 18762 | 8 | Moon Cresta
+  - 2298 | 7 | Adventureland
+  - 26118 | 5 | Hunchback
+  - 18521 | 5 | Pyramid of Doom
+  - 12934 | 5 | Questprobe featuring The Hulk
+  [Games printed: 8]
+
+=== 203 | DUPLICATE Stadia | duplicate-stadia | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 238 | DVD Player | dvd-player | No Family ===
+  - 4248 | 44 | Dragon\u0027s Lair
+  - 3732 | 16 | Pajama Sam 3: You Are What You Eat From Your Head to Your Feet
+  - 46980 | 15 | Kara no Shojo
+  - 12450 | 12 | Nancy Drew: Curse of Blackmoor Manor
+  - 3744 | 12 | Freddi Fish 2: The Case of the Haunted Schoolhouse
+  - 4254 | 11 | Mad Dog McCree
+  - 4246 | 5 | Space Pirates
+  - 3748 | 4 | Freddi Fish and Luther\u0027s Maze Madness
+  - 29439 | 3 | Tender Loving Care
+  - 35882 | 2 | Princess Evangile
+  - 114807 | 1 | Funbag Fantasy
+  - 95173 | 1 | Momoiro Closet
+  [Games printed: 12]
+
+=== 102 | EDSAC | edsac--1 | No Family ===
+  - 11323 | 7 | OXO
+  [Games printed: 1]
+
+=== 505 | Elektor TV Games Computer | elektor-tv-games-computer | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 375 | Epoch Cassette Vision | epoch-cassette-vision | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 376 | Epoch Super Cassette Vision | epoch-super-cassette-vision | No Family ===
+  - 66405 | 5 | Dragon Ball: Dragon Daihikyou
+  [Games printed: 1]
+
+=== 309 | Evercade | evercade | No Family ===
+  - 204028 | 5 | Full Void
+  [Games printed: 1]
+
+=== 236 | Exidy Sorcerer | exidy-sorcerer | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 127 | Fairchild Channel F | fairchild-channel-f | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 101 | Ferranti Nimrod Computer | nimrod | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 118 | FM Towns | fm-towns | No Family ===
+  - 60 | 484 | The Secret of Monkey Island
+  - 1272 | 139 | SimCity
+  - 191 | 94 | Loom
+  - 1956 | 81 | Alone in the Dark
+  - 186 | 73 | Indiana Jones and the Last Crusade: The Graphic Adventure
+  - 2246 | 71 | Marble Madness
+  - 12860 | 62 | Super Street Fighter II: The New Challengers
+  - 49 | 62 | Syndicate
+  - 2603 | 60 | Battle Chess
+  - 4260 | 56 | Samurai Shodown
+  - 4446 | 55 | Columns
+  - 3164 | 43 | Prince of Persia 2: The Shadow and the Flame
+  - 924 | 40 | Wing Commander
+  - 106 | 40 | Zak McKracken and the Alien Mindbenders
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 11630 | 34 | Stunts
+  - 1282 | 34 | The Legend of Kyrandia
+  - 5385 | 33 | Fatal Fury Special
+  - 2238 | 31 | King\u0027s Quest V: Absence Makes the Heart Go Yonder!
+  - 12908 | 28 | Ultima Underworld: The Stygian Abyss
+  [Games printed: 20]
+
+=== 152 | FM-7 | fm-7 | No Family ===
+  - 2751 | 115 | Galaga
+  - 6075 | 94 | 1942
+  - 4596 | 93 | Battle City
+  - 5668 | 54 | Commando
+  - 4603 | 52 | Lode Runner
+  - 4599 | 43 | Elevator Action
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 2710 | 35 | Mappy
+  - 5539 | 29 | Archon
+  - 12346 | 26 | Xevious
+  - 6094 | 24 | Choplifter!
+  - 13447 | 23 | Bruce Lee
+  - 2868 | 22 | Ultima II: The Revenge of the Enchantress
+  - 2867 | 22 | Ultima III: Exodus
+  - 11763 | 17 | Soko-Ban
+  - 4617 | 15 | Nuts \u0026 Milk
+  - 9071 | 14 | Hydlide
+  - 2479 | 14 | Mystery House
+  - 9681 | 12 | Thexder
+  - 651 | 10 | The Wizard and the Princess
+  [Games printed: 20]
+
+=== 378 | Gamate | gamate | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 379 | Game.com | game-dot-com | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 388 | Gear VR | gear-vr | No Family ===
+  - 135400 | 464 | Minecraft
+  - 13226 | 112 | Keep Talking and Nobody Explodes
+  - 34665 | 4 | Rise of Insanity
+  [Games printed: 3]
+
+=== 474 | Gizmondo | gizmondo | No Family ===
+  - 5786 | 12 | Conflict: Vietnam
+  [Games printed: 1]
+
+=== 411 | Handheld Electronic LCD | handheld | No Family ===
+  - 3601 | 170 | Space Invaders
+  - 178104 | 7 | Super Mario World
+  - 198650 | 5 | Streets of Rage
+  - 106202 | 5 | Brick Game
+  [Games printed: 4]
+
+=== 104 | HP 2100 | hp2100 | No Family ===
+  - 11325 | 29 | The Oregon Trail
+  - 11485 | 4 | Star Trek
+  [Games printed: 2]
+
+=== 105 | HP 3000 | hp3000 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 135 | Hyper Neo Geo 64 | hyper-neo-geo-64 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 407 | HyperScan | hyperscan | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 111 | Imlac PDS-1 | imlac-pds1 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 67 | Intellivision | intellivision | No Family ===
+  - 5411 | 95 | Pitfall!
+  - 5668 | 54 | Commando
+  - 5691 | 40 | Pole Position
+  - 4609 | 38 | BurgerTime
+  - 5693 | 36 | River Raid
+  - 5658 | 18 | Atlantis
+  - 5664 | 15 | Bump \u0027n\u0027 Jump
+  - 5706 | 13 | Star Wars: The Empire Strikes Back
+  - 5671 | 12 | Dragonfire
+  - 5704 | 11 | Stampede
+  - 5669 | 11 | Congo Bongo
+  - 22717 | 10 | Lock \u0027n\u0027 Chase
+  - 5687 | 10 | Mouse Trap
+  - 5702 | 8 | Utopia
+  - 5681 | 8 | Loco-Motion
+  - 5657 | 8 | Astrosmash
+  - 5654 | 8 | Advanced Dungeons \u0026 Dragons Cartridge
+  - 18740 | 7 | Space Battle
+  - 18553 | 7 | Frog Bog
+  - 5703 | 7 | Venture
+  [Games printed: 20]
+
+=== 382 | Intellivision Amico | intellivision-amico | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 39 | iOS | ios | No Family ===
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 127 | 3044 | Assassin\u0027s Creed II
+  - 1164 | 2280 | Tomb Raider
+  - 7599 | 1792 | Life is Strange
+  - 18 | 1697 | Max Payne
+  - 1871 | 1684 | The Walking Dead
+  - 17000 | 1634 | Stardew Valley
+  - 7342 | 1569 | Inside
+  - 1331 | 1551 | Limbo
+  - 113112 | 1548 | Hades
+  - 730 | 1542 | Grand Theft Auto III
+  - 116 | 1396 | Star Wars: Knights of the Old Republic
+  - 19686 | 1297 | Resident Evil 2
+  - 2993 | 1156 | The Wolf Among Us
+  - 1352 | 1121 | Journey
+  - 19562 | 974 | Resident Evil 7: Biohazard
+  - 1879 | 968 | Terraria
+  - 1905 | 948 | Fortnite
+  - 11233 | 944 | What Remains of Edith Finch
+  - 3097 | 815 | The Walking Dead: Season Two
+  [Games printed: 20]
+
+=== 487 | LaserActive | laseractive | No Family ===
+  - 236 | 180 | Myst
+  [Games printed: 1]
+
+=== 412 | Leapster | leapster | No Family ===
+  - 80436 | 1 | Sonic the Hedgehog
+  [Games printed: 1]
+
+=== 413 | Leapster Explorer/LeadPad Explorer | leapster-explorer-slash-leadpad-explorer | No Family ===
+  - 28729 | 48 | Doodle Jump
+  [Games printed: 1]
+
+=== 414 | LeapTV | leaptv | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 409 | Legacy Computer | legacy-computer | No Family ===
+  - 11885 | 17 | Action Fighter
+  - 12497 | 13 | 4-D Boxing
+  - 130749 | 12 | Tetris
+  - 18228 | 9 | Jungle Hunt
+  - 18659 | 5 | Shamus
+  - 11485 | 4 | Star Trek
+  [Games printed: 6]
+
+=== 55 | Legacy Mobile Device | mobile | No Family ===
+  - 333 | 384 | Quake
+  - 2973 | 264 | The Lord of the Rings: The Return of the King
+  - 546 | 201 | Prey
+  - 3601 | 170 | Space Invaders
+  - 1744 | 142 | Mega Man X4
+  - 1333 | 127 | Pong
+  - 1743 | 123 | Mega Man X3
+  - 3751 | 113 | Peggle
+  - 1684 | 109 | Fruit Ninja
+  - 2735 | 108 | Balloon Fight
+  - 1398 | 101 | Professor Layton and the Diabolical Box
+  - 8978 | 99 | Jetpack Joyride
+  - 11762 | 96 | Paperboy
+  - 5411 | 95 | Pitfall!
+  - 4959 | 91 | Klonoa: Door to Phantomile
+  - 26841 | 81 | Fire Emblem Heroes
+  - 18294 | 78 | The Punisher
+  - 1812 | 76 | Dragon Quest
+  - 3753 | 67 | Zuma
+  - 5519 | 61 | Cannon Fodder
+  [Games printed: 20]
+
+=== 14 | Mac | mac | No Family ===
+  - 72 | 4205 | Portal 2
+  - 71 | 3800 | Portal
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 233 | 3213 | Half-Life 2
+  - 127 | 3044 | Assassin\u0027s Creed II
+  - 20 | 3021 | BioShock
+  - 733 | 2926 | Grand Theft Auto: Vice City
+  - 231 | 2738 | Half-Life
+  - 538 | 2581 | BioShock Infinite
+  - 500 | 2506 | Batman: Arkham Asylum
+  - 1164 | 2280 | Tomb Raider
+  - 14593 | 1980 | Hollow Knight
+  - 121 | 1971 | Minecraft: Java Edition
+  - 1011 | 1803 | Borderlands 2
+  - 7599 | 1792 | Life is Strange
+  - 623 | 1769 | Call of Duty 4: Modern Warfare
+  - 12517 | 1755 | Undertale
+  - 18 | 1697 | Max Payne
+  - 1871 | 1684 | The Walking Dead
+  - 113 | 1680 | Assassin\u0027s Creed Brotherhood
+  [Games printed: 20]
+
+=== 408 | Mega Duck/Cougar Boy | mega-duck-slash-cougar-boy | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 386 | Meta Quest 2 | meta-quest-2 | No Family ===
+  - 17269 | 355 | Roblox
+  - 83731 | 171 | Beat Saber
+  - 13226 | 112 | Keep Talking and Nobody Explodes
+  - 33615 | 90 | VRChat
+  - 25632 | 89 | SuperHot VR
+  - 10960 | 89 | Thumper
+  - 318395 | 74 | Animal Company
+  - 135999 | 70 | Tetris Effect: Connected
+  - 32617 | 41 | Rec Room
+  - 37095 | 40 | Moss
+  - 124257 | 35 | Killer Frequency
+  - 159116 | 34 | Grid Legends
+  - 143228 | 31 | Gorilla Tag
+  - 122565 | 31 | Humanity
+  - 141568 | 29 | Myst
+  - 103331 | 28 | Trover Saves the Universe
+  - 12596 | 26 | Job Simulator: The 2050 Archives
+  - 115304 | 24 | Five Nights at Freddy\u0027s: Help Wanted
+  - 18303 | 24 | Arizona Sunshine
+  - 119341 | 23 | Pistol Whip
+  [Games printed: 20]
+
+=== 471 | Meta Quest 3 | meta-quest-3 | No Family ===
+  - 17269 | 355 | Roblox
+  - 83731 | 171 | Beat Saber
+  - 32617 | 41 | Rec Room
+  - 37095 | 40 | Moss
+  - 143228 | 31 | Gorilla Tag
+  - 122565 | 31 | Humanity
+  - 115304 | 24 | Five Nights at Freddy\u0027s: Help Wanted
+  - 18303 | 24 | Arizona Sunshine
+  - 105416 | 16 | The Walking Dead: Saints \u0026 Sinners
+  - 105333 | 12 | Synth Riders
+  - 251568 | 8 | Assassin\u0027s Creed Nexus VR
+  - 32889 | 6 | Eleven: Table Tennis VR
+  - 299736 | 5 | Batman: Arkham Shadow
+  - 299582 | 5 | Alien: Rogue Incursion
+  - 284720 | 5 | Metro Awakening VR
+  - 34041 | 5 | Space Pirate Trainer
+  - 111704 | 1 | Clash of Chefs VR
+  - 86445 | 1 | Townsmen VR
+  - 55474 | 1 | Prison Boss VR
+  [Games printed: 19]
+
+=== 112 | Microcomputer | microcomputer--1 | No Family ===
+  - 11498 | 5 | Hunt the Wumpus
+  [Games printed: 1]
+
+=== 89 | Microvision | microvision--1 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 27 | MSX | msx | No Family ===
+  - 2751 | 115 | Galaga
+  - 2604 | 111 | Altered Beast
+  - 5411 | 95 | Pitfall!
+  - 6075 | 94 | 1942
+  - 6840 | 61 | R-Type
+  - 25692 | 56 | Circus Charlie
+  - 5668 | 54 | Commando
+  - 4603 | 52 | Lode Runner
+  - 18139 | 50 | Michael Jackson\u0027s Moonwalker
+  - 4607 | 49 | Road Fighter
+  - 2754 | 49 | Breakout
+  - 6899 | 48 | Shinobi
+  - 86386 | 46 | Teenage Mutant Ninja Turtles
+  - 3502 | 45 | Gauntlet
+  - 4599 | 43 | Elevator Action
+  - 14288 | 41 | Batman
+  - 4592 | 41 | Antarctic Adventure
+  - 6054 | 39 | Ghostbusters
+  - 18170 | 38 | Yie Ar Kung-Fu
+  - 4609 | 38 | BurgerTime
+  [Games printed: 20]
+
+=== 53 | MSX2 | msx2 | No Family ===
+  - 374 | 139 | Metal Gear
+  - 377 | 102 | Metal Gear 2: Solid Snake
+  - 205229 | 30 | Dragon Warrior
+  - 3074 | 28 | The Great Giana Sisters
+  - 12765 | 15 | Shanghai
+  - 205592 | 14 | Dragon Warrior II
+  - 1115 | 13 | Vampire Killer
+  - 12128 | 10 | Gunship
+  - 6687 | 8 | Fantasy Zone II
+  - 2411 | 8 | The Ancient Land of Ys
+  - 19113 | 7 | Legacy of the Wizard
+  - 159296 | 6 | Final Fantasy
+  - 48208 | 6 | Ring King
+  - 7517 | 5 | Labyrinth: The Computer Game
+  - 7026 | 5 | Romance of the Three Kingdoms II
+  - 5579 | 5 | Dragon Slayer: The Legend of Heroes
+  [Games printed: 16]
+
+=== 42 | N-Gage | ngage | No Family ===
+  - 475 | 438 | Star Wars: The Force Unleashed
+  - 6692 | 234 | Tony Hawk\u0027s Pro Skater
+  - 6294 | 144 | Worms World Party
+  - 6268 | 52 | Pandemonium!
+  - 6291 | 47 | Virtua Tennis
+  - 1571 | 38 | Sega Rally Championship
+  - 77290 | 27 | Call of Duty
+  - 134350 | 14 | Tom Clancy\u0027s Splinter Cell
+  - 49195 | 12 | FIFA Soccer 2005
+  - 210728 | 10 | The Sims Bustin\u0027 Out
+  - 6622 | 9 | Super Monkey Ball Jr.
+  - 6260 | 8 | Asphalt: Urban GT
+  - 6296 | 6 | Xanadu Next
+  - 4128 | 5 | Gekido
+  [Games printed: 14]
+
+=== 157 | NEC PC-6000 Series | nec-pc-6000-series | No Family ===
+  - 4603 | 52 | Lode Runner
+  - 2710 | 35 | Mappy
+  - 11763 | 17 | Soko-Ban
+  - 2528 | 17 | Lands of Lore: The Throne of Chaos
+  - 4617 | 15 | Nuts \u0026 Milk
+  - 76455 | 10 | True Love
+  - 12222 | 8 | Shufflepuck Cafe
+  - 5701 | 7 | Tutankham
+  - 41109 | 6 | Midnight Magic
+  - 22771 | 6 | Front Line
+  - 11116 | 6 | Amidar
+  - 5708 | 6 | Super Cobra
+  - 2494 | 6 | Lands of Lore: Guardians of Destiny
+  - 18659 | 5 | Shamus
+  - 78559 | 4 | Earthbound
+  [Games printed: 15]
+
+=== 80 | Neo Geo AES | neogeoaes | No Family ===
+  - 1404 | 274 | Metal Slug
+  - 1408 | 189 | Metal Slug 3
+  - 1407 | 175 | Metal Slug 2
+  - 18840 | 138 | Metal Slug X
+  - 1409 | 100 | Metal Slug 4
+  - 1410 | 75 | Metal Slug 5
+  - 15429 | 74 | The King of Fighters \u002798
+  - 15428 | 68 | The King of Fighters \u002797
+  - 10605 | 61 | Garou: Mark of the Wolves
+  - 4260 | 56 | Samurai Shodown
+  - 15427 | 52 | The King of Fighters \u002795
+  - 12588 | 49 | The King of Fighters \u002796
+  - 5884 | 43 | The King of Fighters 2002
+  - 15430 | 42 | The King of Fighters \u002799: Millennium Battle
+  - 15426 | 41 | The King of Fighters \u002794
+  - 71128 | 40 | Fatal Fury
+  - 15431 | 40 | The King of Fighters 2000
+  - 4514 | 38 | Art of Fighting
+  - 4435 | 37 | Fatal Fury 2
+  - 28391 | 36 | Bust-A-Move
+  [Games printed: 20]
+
+=== 136 | Neo Geo CD | neo-geo-cd | No Family ===
+  - 1404 | 274 | Metal Slug
+  - 1407 | 175 | Metal Slug 2
+  - 15429 | 74 | The King of Fighters \u002798
+  - 15428 | 68 | The King of Fighters \u002797
+  - 4260 | 56 | Samurai Shodown
+  - 15427 | 52 | The King of Fighters \u002795
+  - 12588 | 49 | The King of Fighters \u002796
+  - 15430 | 42 | The King of Fighters \u002799: Millennium Battle
+  - 15426 | 41 | The King of Fighters \u002794
+  - 71128 | 40 | Fatal Fury
+  - 4514 | 38 | Art of Fighting
+  - 4435 | 37 | Fatal Fury 2
+  - 28391 | 36 | Bust-A-Move
+  - 19986 | 35 | Samurai Shodown II
+  - 5385 | 33 | Fatal Fury Special
+  - 19987 | 28 | Samurai Shodown III
+  - 11222 | 27 | Windjammers
+  - 6556 | 27 | Art of Fighting 2
+  - 19988 | 25 | Samurai Shodown IV: Amakusa\u0027s Revenge
+  - 4463 | 23 | World Heroes
+  [Games printed: 20]
+
+=== 79 | Neo Geo MVS | neogeomvs | No Family ===
+  - 1408 | 189 | Metal Slug 3
+  - 1407 | 175 | Metal Slug 2
+  - 18840 | 138 | Metal Slug X
+  - 1409 | 100 | Metal Slug 4
+  - 1410 | 75 | Metal Slug 5
+  - 10605 | 61 | Garou: Mark of the Wolves
+  - 4514 | 38 | Art of Fighting
+  - 28391 | 36 | Bust-A-Move
+  - 19986 | 35 | Samurai Shodown II
+  - 11222 | 27 | Windjammers
+  - 6556 | 27 | Art of Fighting 2
+  - 4463 | 23 | World Heroes
+  - 6773 | 22 | Aero Fighters 2
+  - 6690 | 22 | Fatal Fury 3: Road to the Final Victory
+  - 76045 | 19 | The Last Blade 2
+  - 46787 | 18 | Real Bout Fatal Fury 2: The Newcomers
+  - 5433 | 17 | Sengoku
+  - 46784 | 16 | Sengoku 3
+  - 6566 | 15 | Art of Fighting 3: The Path of The Warrior
+  - 6026 | 15 | Samurai Shodown V
+  [Games printed: 20]
+
+=== 119 | Neo Geo Pocket | neo-geo-pocket | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 120 | Neo Geo Pocket Color | neo-geo-pocket-color | No Family ===
+  - 43323 | 13 | Sonic the Hedgehog Pocket Adventure
+  - 20323 | 12 | Neo Turf Masters
+  [Games printed: 2]
+
+=== 122 | Nuon | nuon | No Family ===
+  - 51180 | 1 | Freefall 3050 A.D.
+  [Games printed: 1]
+
+=== 387 | Oculus Go | oculus-go | No Family ===
+  - 34665 | 4 | Rise of Insanity
+  - 69415 | 1 | End Space
+  [Games printed: 2]
+
+=== 384 | Oculus Quest | oculus-quest | No Family ===
+  - 83731 | 171 | Beat Saber
+  - 13226 | 112 | Keep Talking and Nobody Explodes
+  - 33615 | 90 | VRChat
+  - 25632 | 89 | SuperHot VR
+  - 10960 | 89 | Thumper
+  - 103221 | 83 | Tetris Effect
+  - 135999 | 70 | Tetris Effect: Connected
+  - 32617 | 41 | Rec Room
+  - 37095 | 40 | Moss
+  - 141568 | 29 | Myst
+  - 103331 | 28 | Trover Saves the Universe
+  - 12596 | 26 | Job Simulator: The 2050 Archives
+  - 19746 | 25 | Rez Infinite
+  - 115304 | 24 | Five Nights at Freddy\u0027s: Help Wanted
+  - 18303 | 24 | Arizona Sunshine
+  - 119341 | 23 | Pistol Whip
+  - 27034 | 21 | Linelight
+  - 41047 | 20 | Gorn
+  - 110419 | 17 | Vader Immortal: Episode I
+  - 25948 | 17 | I Expect You to Die
+  [Games printed: 20]
+
+=== 385 | Oculus Rift | oculus-rift | No Family ===
+  - 3225 | 580 | No Man\u0027s Sky
+  - 9254 | 546 | Subnautica
+  - 132516 | 204 | Phasmophobia
+  - 2955 | 179 | Elite: Dangerous
+  - 83731 | 171 | Beat Saber
+  - 9928 | 138 | Dirt Rally
+  - 134706 | 128 | Star Wars: Squadrons
+  - 13226 | 112 | Keep Talking and Nobody Explodes
+  - 5319 | 98 | Project CARS
+  - 25632 | 89 | SuperHot VR
+  - 10960 | 89 | Thumper
+  - 103221 | 83 | Tetris Effect
+  - 11172 | 79 | TrackMania Turbo
+  - 8983 | 60 | Obduction
+  - 8204 | 43 | iRacing
+  - 32617 | 41 | Rec Room
+  - 37095 | 40 | Moss
+  - 26102 | 40 | Gnog
+  - 8654 | 35 | Adr1ft
+  - 141568 | 29 | Myst
+  [Games printed: 20]
+
+=== 162 | Oculus VR | oculus-vr | No Family ===
+  - 110411 | 83 | Dirt Rally 2.0
+  - 141568 | 29 | Myst
+  - 119341 | 23 | Pistol Whip
+  - 33308 | 21 | The Lab
+  - 115789 | 20 | Boneworks
+  - 111474 | 18 | Blade \u0026 Sorcery
+  - 109907 | 16 | Red Matter
+  - 139399 | 15 | Ragnarock
+  - 139377 | 11 | Population: One
+  - 142095 | 10 | Walkabout Mini Golf
+  - 123991 | 10 | The Room VR: A Dark Matter
+  - 26451 | 10 | Robo Recall
+  - 24917 | 9 | Lone Echo
+  - 172560 | 8 | Resident Evil 4 VR
+  - 110104 | 7 | Vegas Infinite by PokerStars
+  - 33070 | 6 | Allumette
+  - 29791 | 6 | Neverout
+  - 19169 | 6 | Raw Data
+  - 9267 | 6 | EVE: Valkyrie
+  - 144763 | 5 | Demeo
+  [Games printed: 20]
+
+=== 88 | Odyssey | odyssey--1 | No Family ===
+  - 7582 | 6 | Baseball
+  [Games printed: 1]
+
+=== 133 | Odyssey 2 / Videopac G7000 | odyssey-2-slash-videopac-g7000 | No Family ===
+  - 5658 | 18 | Atlantis
+  - 3325 | 17 | Spider-Man
+  - 5670 | 11 | Demon Attack
+  - 18738 | 7 | K.C. Munchkin!
+  - 5701 | 7 | Tutankham
+  [Games printed: 5]
+
+=== 113 | OnLive Game System | onlive | No Family ===
+  - 501 | 2554 | Batman: Arkham City
+  - 13 | 632 | Fallout: A Post Nuclear Role Playing Game
+  - 1161 | 284 | Tomb Raider: Legend
+  - 1163 | 247 | Tomb Raider: Underworld
+  - 1162 | 237 | Tomb Raider: Anniversary
+  - 3149 | 213 | LEGO Harry Potter: Years 1-4
+  - 2539 | 147 | Alpha Protocol
+  - 561 | 135 | Colin McRae: Dirt 2
+  - 5056 | 64 | NBA 2K11
+  - 5057 | 48 | NBA 2K12
+  - 984 | 22 | Tom Clancy\u0027s H.A.W.X 2
+  - 14145 | 6 | Alien Shooter: Vengeance
+  [Games printed: 12]
+
+=== 372 | OOParts | ooparts | No Family ===
+  - 26653 | 40 | Nekopara Vol. 1
+  - 26654 | 35 | Nekopara Vol. 0
+  - 37138 | 29 | Sengoku Rance
+  - 106416 | 9 | Nekopara Extra
+  - 36236 | 2 | Cho Dengeki Stryker
+  - 116729 | 1 | Lamunation!: International
+  - 115310 | 1 | Lilycle Rainbow Stage!!!
+  - 101249 | 1 | 2236 A.D.
+  [Games printed: 8]
+
+=== 72 | Ouya | ouya | No Family ===
+  - 500 | 2506 | Batman: Arkham Asylum
+  - 3097 | 815 | The Walking Dead: Season Two
+  - 1990 | 180 | VVVVVV
+  - 3087 | 175 | Broken Age
+  - 11247 | 102 | Duck Game
+  - 9567 | 88 | TowerFall Ascension
+  - 2175 | 75 | The Cave
+  - 1002 | 45 | Oddworld: Stranger\u0027s Wrath
+  - 13171 | 44 | 2064: Read Only Memories
+  - 8138 | 40 | Neverending Nightmares
+  - 86807 | 35 | Sonic CD
+  - 15545 | 34 | Vector
+  - 9418 | 33 | Back to Bed
+  - 3803 | 31 | The Bard\u0027s Tale
+  - 16493 | 27 | Another World: 20th Anniversary Edition
+  - 15925 | 27 | That Dragon, Cancer
+  - 9474 | 25 | Sonic the Hedgehog 4: Episode II
+  - 9369 | 22 | Whispering Willows
+  - 2270 | 22 | Canabalt
+  - 10832 | 19 | Sine Mora
+  [Games printed: 20]
+
+=== 417 | Palm OS | palm-os | No Family ===
+  - 20509 | 46 | Zuma Deluxe
+  - 8323 | 32 | Insaniquarium! Deluxe
+  - 8318 | 24 | Bejeweled
+  - 41319 | 10 | Zanac
+  - 4075 | 9 | Puyo Pop Fever
+  - 22485 | 8 | Sexy Beach Premium Resort
+  - 291050 | 4 | Serious Sam
+  [Games printed: 7]
+
+=== 477 | Panasonic Jungle | panasonic-jungle | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 478 | Panasonic M2 | panasonic-m2 | No Family ===
+  - 1872 | 66 | Descent
+  - 44043 | 16 | ClayFighter 63 1/3
+  - 36736 | 5 | D2
+  [Games printed: 3]
+
+=== 6 | PC (Microsoft Windows) | win | No Family ===
+  - 1020 | 5515 | Grand Theft Auto V
+  - 1942 | 5054 | The Witcher 3: Wild Hunt
+  - 72 | 4205 | Portal 2
+  - 472 | 4073 | The Elder Scrolls V: Skyrim
+  - 71 | 3800 | Portal
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 25076 | 3359 | Red Dead Redemption 2
+  - 19560 | 3219 | God of War
+  - 233 | 3213 | Half-Life 2
+  - 127 | 3044 | Assassin\u0027s Creed II
+  - 20 | 3021 | BioShock
+  - 733 | 2926 | Grand Theft Auto: Vice City
+  - 231 | 2738 | Half-Life
+  - 74 | 2648 | Mass Effect 2
+  - 538 | 2581 | BioShock Infinite
+  - 501 | 2554 | Batman: Arkham City
+  - 500 | 2506 | Batman: Arkham Asylum
+  - 73 | 2423 | Mass Effect
+  - 434 | 2327 | Red Dead Redemption
+  - 11156 | 2288 | Horizon Zero Dawn
+  [Games printed: 20]
+
+=== 128 | PC Engine SuperGrafx | supergrafx | No Family ===
+  - 6077 | 24 | 1941: Counter Attack
+  [Games printed: 1]
+
+=== 142 | PC-50X Family | pc-50x-family | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 125 | PC-8800 Series | pc-8800-series | No Family ===
+  - 6075 | 94 | 1942
+  - 6840 | 61 | R-Type
+  - 5668 | 54 | Commando
+  - 4603 | 52 | Lode Runner
+  - 4599 | 43 | Elevator Action
+  - 4609 | 38 | BurgerTime
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 74548 | 36 | Tennis
+  - 2710 | 35 | Mappy
+  - 12268 | 31 | Winter Games
+  - 9166 | 30 | Spy vs Spy
+  - 5539 | 29 | Archon
+  - 12346 | 26 | Xevious
+  - 4929 | 26 | Impossible Mission
+  - 2872 | 24 | Rogue
+  - 13447 | 23 | Bruce Lee
+  - 2868 | 22 | Ultima II: The Revenge of the Enchantress
+  - 2867 | 22 | Ultima III: Exodus
+  - 23860 | 21 | Alley Cat
+  - 12118 | 20 | Gods
+  [Games printed: 20]
+
+=== 149 | PC-9800 Series | pc-9800-series | No Family ===
+  - 673 | 975 | Doom
+  - 312 | 515 | Doom II: Hell on Earth
+  - 284 | 307 | Wolfenstein 3D
+  - 902 | 245 | Sid Meier\u0027s Civilization
+  - 129 | 165 | Warcraft: Orcs \u0026 Humans
+  - 1272 | 139 | SimCity
+  - 2751 | 115 | Galaga
+  - 23 | 86 | System Shock
+  - 1956 | 81 | Alone in the Dark
+  - 2246 | 71 | Marble Madness
+  - 49 | 62 | Syndicate
+  - 2603 | 60 | Battle Chess
+  - 4603 | 52 | Lode Runner
+  - 248 | 47 | Populous
+  - 5384 | 41 | Eye of the Beholder
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 11630 | 34 | Stunts
+  - 1282 | 34 | The Legend of Kyrandia
+  - 2238 | 31 | King\u0027s Quest V: Absence Makes the Heart Go Yonder!
+  - 12908 | 28 | Ultima Underworld: The Stygian Abyss
+  [Games printed: 20]
+
+=== 274 | PC-FX | pc-fx | No Family ===
+  - 279 | 10 | Return to Zork
+  [Games printed: 1]
+
+=== 95 | PDP-1 | pdp1 | No Family ===
+  - 11301 | 9 | Spacewar!
+  [Games printed: 1]
+
+=== 96 | PDP-10 | pdp10 | No Family ===
+  - 1944 | 25 | Zork
+  - 25115 | 8 | Colossal Cave Adventure
+  - 9129 | 8 | Moonlander
+  [Games printed: 3]
+
+=== 108 | PDP-11 | pdp11 | No Family ===
+  - 1944 | 25 | Zork
+  - 2872 | 24 | Rogue
+  - 1945 | 16 | Zork II: The Wizard of Frobozz
+  - 1946 | 11 | Zork III: The Dungeon Master
+  - 11301 | 9 | Spacewar!
+  - 25115 | 8 | Colossal Cave Adventure
+  - 9129 | 8 | Moonlander
+  - 11396 | 6 | Galaxy Game
+  [Games printed: 8]
+
+=== 103 | PDP-7 | pdp-7--1 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 97 | PDP-8 | pdp-8--1 | No Family ===
+  - 11302 | 5 | Hamurabi
+  [Games printed: 1]
+
+=== 117 | Philips CD-i | philips-cdi | No Family ===
+  - 236 | 180 | Myst
+  - 4275 | 105 | Flashback: The Quest for Identity
+  - 323 | 32 | The 7th Guest
+  - 1873 | 29 | Defender of the Crown
+  - 5454 | 21 | Space Ace
+  - 2167 | 12 | Lost Eden
+  - 8533 | 11 | Zelda: The Wand of Gamelon
+  - 8532 | 11 | Link: The Faces of Evil
+  - 4254 | 11 | Mad Dog McCree
+  - 8534 | 9 | Zelda\u0027s Adventure
+  - 4259 | 9 | Rise of the Robots
+  - 9258 | 6 | Brain Dead 13
+  - 8535 | 6 | Hotel Mario
+  - 9259 | 5 | Creature Shock
+  - 5373 | 5 | Crime Patrol
+  [Games printed: 15]
+
+=== 110 | PLATO | plato--1 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 381 | Playdate | playdate | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 308 | Playdia | playdia | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 377 | Plug \u0026 Play | plug-and-play | No Family ===
+  - 1333 | 127 | Pong
+  - 213365 | 5 | PlayStation Classic
+  - 21855 | 1 | Castle of Magic
+  [Games printed: 3]
+
+=== 509 | Polymega | polymega | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 475 | R-Zone | r-zone | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 106 | SDS Sigma 7 | sdssigma7 | No Family ===
+  - 11485 | 4 | Star Trek
+  [Games printed: 1]
+
+=== 374 | Sharp MZ-2200 | sharp-mz-2200 | No Family ===
+  - 4609 | 38 | BurgerTime
+  - 5664 | 15 | Bump \u0027n\u0027 Jump
+  - 9681 | 12 | Thexder
+  - 4207 | 9 | The Tower of Druaga
+  - 4369 | 8 | Nobunaga\u0027s Ambition
+  [Games printed: 5]
+
+=== 77 | Sharp X1 | x1 | No Family ===
+  - 2751 | 115 | Galaga
+  - 6075 | 94 | 1942
+  - 4596 | 93 | Battle City
+  - 4603 | 52 | Lode Runner
+  - 4599 | 43 | Elevator Action
+  - 4609 | 38 | BurgerTime
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 4435 | 37 | Fatal Fury 2
+  - 74548 | 36 | Tennis
+  - 2710 | 35 | Mappy
+  - 5385 | 33 | Fatal Fury Special
+  - 9166 | 30 | Spy vs Spy
+  - 5539 | 29 | Archon
+  - 3399 | 28 | Golf
+  - 12346 | 26 | Xevious
+  - 4929 | 26 | Impossible Mission
+  - 8732 | 24 | Advanced Dungeons \u0026 Dragons: Pool of Radiance
+  - 6094 | 24 | Choplifter!
+  - 13447 | 23 | Bruce Lee
+  - 2867 | 22 | Ultima III: Exodus
+  [Games printed: 20]
+
+=== 121 | Sharp X68000 | sharp-x68000 | No Family ===
+  - 1655 | 143 | Final Fight
+  - 1272 | 139 | SimCity
+  - 2051 | 92 | OutRun
+  - 2246 | 71 | Marble Madness
+  - 6817 | 70 | Ghouls \u0027n Ghosts
+  - 12860 | 62 | Super Street Fighter II: The New Challengers
+  - 6840 | 61 | R-Type
+  - 2603 | 60 | Battle Chess
+  - 4446 | 55 | Columns
+  - 1476 | 48 | Gradius
+  - 6145 | 47 | Super Hang-On
+  - 248 | 47 | Populous
+  - 6969 | 45 | Strider
+  - 39496 | 38 | Street Fighter II: Champion Edition
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 5385 | 33 | Fatal Fury Special
+  - 1477 | 28 | Salamander
+  - 3798 | 26 | Dungeon Master
+  - 12236 | 23 | Xenon 2: Megablast
+  - 4478 | 23 | Alien Syndrome
+  [Games printed: 20]
+
+=== 406 | Sinclair QL | sinclair-ql | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 373 | Sinclair ZX81 | sinclair-zx81 | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 237 | Sol-20 | sol-20 | No Family ===
+  - 11485 | 4 | Star Trek
+  [Games printed: 1]
+
+=== 163 | SteamVR | steam-vr | No Family ===
+  - 109 | 1007 | L.A. Noire
+  - 3225 | 580 | No Man\u0027s Sky
+  - 9254 | 546 | Subnautica
+  - 7504 | 356 | The Forest
+  - 126098 | 210 | Half-Life: Alyx
+  - 132516 | 204 | Phasmophobia
+  - 2955 | 179 | Elite: Dangerous
+  - 83731 | 171 | Beat Saber
+  - 27310 | 139 | We Were Here
+  - 134706 | 128 | Star Wars: Squadrons
+  - 13226 | 112 | Keep Talking and Nobody Explodes
+  - 8351 | 102 | Tabletop Simulator
+  - 33615 | 90 | VRChat
+  - 25632 | 89 | SuperHot VR
+  - 10960 | 89 | Thumper
+  - 110411 | 83 | Dirt Rally 2.0
+  - 103221 | 83 | Tetris Effect
+  - 318395 | 74 | Animal Company
+  - 134602 | 60 | Bugsnax
+  - 8983 | 60 | Obduction
+  [Games printed: 20]
+
+=== 480 | Super A\u0027Can | super-acan | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 124 | SwanCrystal | swancrystal | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 44 | Tapwave Zodiac | zod | No Family ===
+  - 312 | 515 | Doom II: Hell on Earth
+  - 202939 | 31 | Altered Beast
+  - 29117 | 2 | Fish Tycoon
+  [Games printed: 3]
+
+=== 155 | Tatung Einstein | tatung-einstein | No Family ===
+  - 2951 | 35 | Elite
+  - 1944 | 25 | Zork
+  - 1945 | 16 | Zork II: The Wizard of Frobozz
+  - 10161 | 15 | Manic Miner
+  - 12143 | 14 | The Hitchhiker\u0027s Guide to the Galaxy
+  - 8170 | 14 | Jet Set Willy
+  - 1946 | 11 | Zork III: The Dungeon Master
+  - 10235 | 10 | Chuckie Egg
+  - 12620 | 7 | Planetfall
+  - 7565 | 6 | Starcross
+  [Games printed: 10]
+
+=== 479 | Terebikko / See \u0027n Say Video Phone | terebikko-slash-see-n-say-video-phone | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 129 | Texas Instruments TI-99 | ti-99 | No Family ===
+  - 7452 | 87 | Ms. Pac-Man
+  - 5691 | 40 | Pole Position
+  - 4609 | 38 | BurgerTime
+  - 12314 | 21 | Moon Patrol
+  - 12143 | 14 | The Hitchhiker\u0027s Guide to the Galaxy
+  - 5669 | 11 | Congo Bongo
+  - 13809 | 10 | Aztec Challenge
+  - 18228 | 9 | Jungle Hunt
+  - 2298 | 7 | Adventureland
+  - 18659 | 5 | Shamus
+  - 18521 | 5 | Pyramid of Doom
+  - 18517 | 5 | Voodoo Castle
+  - 18512 | 5 | Pirate Adventure
+  - 1950 | 5 | Wishbringer
+  - 1949 | 5 | Spellbreaker
+  [Games printed: 15]
+
+=== 156 | Thomson MO5 | thomson-mo5 | No Family ===
+  - 12261 | 9 | F-15 Strike Eagle
+  - 8825 | 8 | Silent Service
+  - 26340 | 5 | Yie Ar Kung-Fu 2: The Emperor Yie-Gah
+  - 18477 | 5 | Threshold
+  - 8526 | 5 | Beach-Head
+  [Games printed: 5]
+
+=== 481 | Tomy Tutor / Pyuta / Grandstand Tutor | tomy-tutor-slash-pyuta-slash-grandstand-tutor | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 126 | TRS-80 | trs-80 | No Family ===
+  - 2906 | 53 | Leisure Suit Larry in the Land of the Lounge Lizards
+  - 893 | 28 | King\u0027s Quest III: To Heir is Human
+  - 1944 | 25 | Zork
+  - 16973 | 18 | Lunar Lander
+  - 2753 | 18 | Zaxxon
+  - 11763 | 17 | Soko-Ban
+  - 1945 | 16 | Zork II: The Wizard of Frobozz
+  - 12143 | 14 | The Hitchhiker\u0027s Guide to the Galaxy
+  - 11854 | 13 | 3-D Tic-Tac-Toe
+  - 9681 | 12 | Thexder
+  - 7564 | 12 | Deadline
+  - 1946 | 11 | Zork III: The Dungeon Master
+  - 48233 | 9 | Super Pitfall
+  - 12620 | 7 | Planetfall
+  - 2298 | 7 | Adventureland
+  - 68778 | 6 | Dunjonquest: Temple of Apshai
+  - 7565 | 6 | Starcross
+  - 1947 | 6 | Enchanter
+  - 18521 | 5 | Pyramid of Doom
+  - 18517 | 5 | Voodoo Castle
+  [Games printed: 20]
+
+=== 151 | TRS-80 Color Computer | trs-80-color-computer | No Family ===
+  - 2906 | 53 | Leisure Suit Larry in the Land of the Lounge Lizards
+  - 251 | 29 | Where in the World Is Carmen Sandiego?
+  - 4618 | 26 | Pooyan
+  - 1944 | 25 | Zork
+  - 2872 | 24 | Rogue
+  - 2753 | 18 | Zaxxon
+  - 11763 | 17 | Soko-Ban
+  - 6125 | 17 | Pitfall II: The Lost Caverns
+  - 1945 | 16 | Zork II: The Wizard of Frobozz
+  - 12143 | 14 | The Hitchhiker\u0027s Guide to the Galaxy
+  - 9681 | 12 | Thexder
+  - 5671 | 12 | Dragonfire
+  - 5670 | 11 | Demon Attack
+  - 1946 | 11 | Zork III: The Dungeon Master
+  - 24660 | 10 | Pitstop II
+  - 12620 | 7 | Planetfall
+  - 2298 | 7 | Adventureland
+  - 1947 | 6 | Enchanter
+  - 18659 | 5 | Shamus
+  - 18521 | 5 | Pyramid of Doom
+  [Games printed: 20]
+
+=== 86 | TurboGrafx-16/PC Engine | turbografx16--1 | No Family ===
+  - 4446 | 55 | Columns
+  - 6899 | 48 | Shinobi
+  - 248 | 47 | Populous
+  - 39496 | 38 | Street Fighter II: Champion Edition
+  - 4405 | 32 | Rainbow Islands: The Story of Bubble Bobble 2
+  - 5451 | 29 | Snatcher
+  - 12190 | 28 | Operation Wolf
+  - 5164 | 28 | Turrican
+  - 6929 | 23 | Splatterhouse
+  - 6841 | 23 | Raiden
+  - 6794 | 21 | Forgotten Worlds
+  - 7794 | 19 | Bonk\u0027s Adventure
+  - 15535 | 18 | Galaga \u002788
+  - 12055 | 18 | Dragon Spirit
+  - 6822 | 18 | Pac-Land
+  - 4484 | 18 | Klax
+  - 3448 | 17 | Bomberman \u002794
+  - 4469 | 16 | Volfied
+  - 12765 | 15 | Shanghai
+  - 12522 | 15 | Jackie Chan\u0027s Action Kung Fu
+  [Games printed: 20]
+
+=== 150 | Turbografx-16/PC Engine CD | turbografx-16-slash-pc-engine-cd | No Family ===
+  - 5565 | 216 | Golden Axe
+  - 1139 | 103 | Castlevania: Rondo of Blood
+  - 191 | 94 | Loom
+  - 6823 | 46 | Buster Bros.
+  - 4514 | 38 | Art of Fighting
+  - 4435 | 37 | Fatal Fury 2
+  - 5385 | 33 | Fatal Fury Special
+  - 4405 | 32 | Rainbow Islands: The Story of Bubble Bobble 2
+  - 5434 | 25 | Shadow of the Beast
+  - 6841 | 23 | Raiden
+  - 6794 | 21 | Forgotten Worlds
+  - 70166 | 18 | Ys: Book I \u0026 II
+  - 4511 | 18 | Bonanza Bros.
+  - 4412 | 18 | Zero Wing
+  - 7733 | 16 | Might and Magic: Book One - The Secret of the Inner Sanctum
+  - 4481 | 15 | Wonder Boy III: Monster Lair
+  - 1060 | 15 | It Came from the Desert
+  - 3196 | 13 | Warsong
+  - 7735 | 12 | Might and Magic III: Isles of Terra
+  - 4262 | 12 | Princess Maker 2
+  [Games printed: 20]
+
+=== 504 | Uzebox | uzebox | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 439 | V.Smile | vsmile | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 138 | VC 4000 | vc-4000 | No Family ===
+  - 5667 | 16 | Circus Atari
+  [Games printed: 1]
+
+=== 70 | Vectrex | vectrex | No Family ===
+  - 5691 | 40 | Pole Position
+  - 1475 | 15 | Scramble
+  - 2388 | 7 | Armor Attack
+  [Games printed: 3]
+
+=== 472 | visionOS | visionos | No Family ===
+  - 103380 | 145 | Bloons TD 6
+  - 87983 | 38 | What the Golf?
+  - 127985 | 33 | LEGO Builder\u0027s Journey
+  - 12596 | 26 | Job Simulator: The 2050 Archives
+  - 105333 | 12 | Synth Riders
+  - 190877 | 7 | Gibbon: Beyond the Trees
+  - 144763 | 5 | Demeo
+  - 76878 | 4 | Vacation Simulator
+  [Games printed: 8]
+
+=== 415 | Watara/QuickShot Supervision | watara-slash-quickshot-supervision | No Family ===
+  (No games found)
+  [Games printed: 0]
+
+=== 82 | Web browser | browser | No Family ===
+  - 1163 | 247 | Tomb Raider: Underworld
+  - 1408 | 189 | Metal Slug 3
+  - 9604 | 180 | TagPro
+  - 18840 | 138 | Metal Slug X
+  - 5611 | 136 | RuneScape
+  - 6166 | 131 | Subway Surfers
+  - 9591 | 119 | AdVenture Capitalist
+  - 8339 | 119 | Minecraft: Story Mode
+  - 2065 | 119 | Plague Inc.
+  - 1684 | 109 | Fruit Ninja
+  - 8978 | 99 | Jetpack Joyride
+  - 18689 | 95 | Yume Nikki
+  - 196770 | 91 | Sunflower Land
+  - 6621 | 90 | Super Ghouls\u0027n Ghosts
+  - 1353 | 88 | flOw
+  - 3241 | 87 | Cookie Clicker
+  - 8621 | 86 | Samorost 2
+  - 11283 | 80 | Agar.io
+  - 15731 | 75 | Samorost
+  - 92589 | 71 | Club Penguin
+  [Games printed: 20]
+
+=== 161 | Windows Mixed Reality | windows-mixed-reality | No Family ===
+  - 132516 | 204 | Phasmophobia
+  - 83731 | 171 | Beat Saber
+  - 134706 | 128 | Star Wars: Squadrons
+  - 13226 | 112 | Keep Talking and Nobody Explodes
+  - 25632 | 89 | SuperHot VR
+  - 8983 | 60 | Obduction
+  - 37095 | 40 | Moss
+  - 12596 | 26 | Job Simulator: The 2050 Archives
+  - 33308 | 21 | The Lab
+  - 22844 | 20 | The Last Blade
+  - 25948 | 17 | I Expect You to Die
+  - 106992 | 16 | A Fisherman\u0027s Tale
+  - 105416 | 16 | The Walking Dead: Saints \u0026 Sinners
+  - 37031 | 14 | Doom VFR
+  - 20459 | 14 | Rick and Morty: Virtual Rick-ality
+  - 16912 | 14 | Love
+  - 115478 | 9 | Until You Fall
+  - 28044 | 9 | The Invisible Hours
+  - 34041 | 5 | Space Pirate Trainer
+  - 76878 | 4 | Vacation Simulator
+  [Games printed: 20]
+
+=== 405 | Windows Mobile | windows-mobile | No Family ===
+  - 673 | 975 | Doom
+  - 6185 | 196 | Syberia II
+  - 236 | 180 | Myst
+  - 3751 | 113 | Peggle
+  - 238 | 87 | Riven: The Sequel to Myst
+  - 3753 | 67 | Zuma
+  - 20509 | 46 | Zuma Deluxe
+  - 12908 | 28 | Ultima Underworld: The Stygian Abyss
+  - 8318 | 24 | Bejeweled
+  - 206503 | 8 | Broken Sword: The Shadow of the Templars
+  [Games printed: 10]
+
+=== 74 | Windows Phone | winphone | No Family ===
+  - 1879 | 968 | Terraria
+  - 1334 | 755 | Brothers: A Tale of Two Sons
+  - 1277 | 626 | Plants vs. Zombies
+  - 135400 | 464 | Minecraft
+  - 942 | 321 | World of Goo
+  - 2035 | 230 | Angry Birds
+  - 8900 | 212 | Monument Valley
+  - 236 | 180 | Myst
+  - 6166 | 131 | Subway Surfers
+  - 2065 | 119 | Plague Inc.
+  - 868 | 118 | Sid Meier\u0027s Pirates!
+  - 2904 | 111 | DuckTales: Remastered
+  - 1684 | 109 | Fruit Ninja
+  - 8978 | 99 | Jetpack Joyride
+  - 6073 | 96 | Hitman Go
+  - 5411 | 95 | Pitfall!
+  - 11592 | 93 | Lara Croft Go
+  - 4674 | 88 | Angry Birds Star Wars
+  - 9761 | 87 | Cut the Rope
+  - 5636 | 76 | Candy Crush Saga
+  [Games printed: 20]
+
+=== 57 | WonderSwan | wonderswan | No Family ===
+  - 4603 | 52 | Lode Runner
+  - 28391 | 36 | Bust-A-Move
+  - 23094 | 22 | Pocket Fighter
+  - 6559 | 8 | Riviera: The Promised Land
+  [Games printed: 4]
+
+=== 123 | WonderSwan Color | wonderswan-color | No Family ===
+  - 5565 | 216 | Golden Axe
+  - 121688 | 36 | Final Fantasy
+  - 1498 | 23 | Front Mission
+  - 6375 | 16 | Digimon: Battle Spirit 2
+  - 145817 | 13 | Final Fantasy II
+  - 1767 | 10 | Mega Man Battle Chip Challenge
+  - 11311 | 6 | Romancing SaGa
+  [Games printed: 7]
+
+=== 240 | Zeebo | zeebo | No Family ===
+  - 333 | 384 | Quake
+  - 286 | 318 | Quake II
+  - 3751 | 113 | Peggle
+  - 8322 | 42 | Zuma\u0027s Revenge!
+  - 11639 | 27 | Need for Speed: Carbon - Own the City
+  - 12834 | 25 | Caveman Ninja
+  - 18831 | 19 | Bad Dudes vs. Dragon Ninja
+  - 46820 | 13 | Street Hoop
+  - 15712 | 9 | Bejeweled Twist
+  - 46776 | 7 | Heavy Barrel
+  - 15469 | 6 | Spinmaster
+  - 7281 | 4 | Brain Challenge
+  - 38725 | 3 | Zenonia
+  [Games printed: 13]
+
+=== 26 | ZX Spectrum | zxs | No Family ===
+  - 5565 | 216 | Golden Axe
+  - 1655 | 143 | Final Fight
+  - 1272 | 139 | SimCity
+  - 2604 | 111 | Altered Beast
+  - 6807 | 100 | Ghosts \u0027n Goblins
+  - 11762 | 96 | Paperboy
+  - 6075 | 94 | 1942
+  - 7452 | 87 | Ms. Pac-Man
+  - 5668 | 54 | Commando
+  - 4603 | 52 | Lode Runner
+  - 18139 | 50 | Michael Jackson\u0027s Moonwalker
+  - 6899 | 48 | Shinobi
+  - 6145 | 47 | Super Hang-On
+  - 86386 | 46 | Teenage Mutant Ninja Turtles
+  - 6823 | 46 | Buster Bros.
+  - 6969 | 45 | Strider
+  - 3502 | 45 | Gauntlet
+  - 6076 | 43 | 1943: The Battle of Midway
+  - 4599 | 43 | Elevator Action
+  - 14288 | 41 | Batman
+  [Games printed: 20]
+
+
+############################################################
+## PlayStation  (Platforms: 10)
+############################################################
+
+=== 7 | PlayStation | ps | PlayStation (1) ===
+  - 375 | 1624 | Metal Gear Solid
+  - 427 | 1573 | Final Fantasy VII
+  - 421 | 877 | Final Fantasy IX
+  - 1128 | 790 | Castlevania: Symphony of the Night
+  - 1185 | 675 | Crash Bandicoot
+  - 125 | 574 | Diablo
+  - 880 | 563 | Resident Evil 2
+  - 480 | 552 | Silent Hill
+  - 425 | 506 | Final Fantasy VIII
+  - 1187 | 505 | Crash Bandicoot: Warped
+  - 1186 | 478 | Crash Bandicoot 2: Cortex Strikes Back
+  - 980 | 475 | Grand Theft Auto
+  - 912 | 461 | Tomb Raider
+  - 1192 | 433 | Crash Team Racing
+  - 966 | 429 | Resident Evil 3: Nemesis
+  - 424 | 428 | Resident Evil
+  - 913 | 403 | Tony Hawk\u0027s Pro Skater 2
+  - 130 | 377 | Warcraft II: Tides of Darkness
+  - 295 | 357 | Command \u0026 Conquer: Red Alert
+  - 1576 | 349 | Spyro the Dragon
+  [Games printed: 20]
+
+=== 8 | PlayStation 2 | ps2 | PlayStation (1) ===
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 733 | 2926 | Grand Theft Auto: Vice City
+  - 231 | 2738 | Half-Life
+  - 18 | 1697 | Max Payne
+  - 730 | 1542 | Grand Theft Auto III
+  - 39 | 1407 | Mafia
+  - 2207 | 1259 | Shadow of the Colossus
+  - 379 | 1201 | Metal Gear Solid 3: Snake Eater
+  - 481 | 1093 | Silent Hill 2
+  - 549 | 1022 | God of War
+  - 418 | 1014 | Final Fantasy X
+  - 551 | 1012 | God of War II
+  - 327 | 1001 | Age of Empires II: The Age of Kings
+  - 19 | 995 | Max Payne 2: The Fall of Max Payne
+  - 376 | 977 | Metal Gear Solid 2: Sons of Liberty
+  - 97 | 828 | Need for Speed: Underground 2
+  - 1221 | 806 | Kingdom Hearts II
+  - 96 | 800 | Need for Speed: Underground
+  - 836 | 737 | Prince of Persia: The Sands of Time
+  - 142 | 691 | Star Wars: Battlefront II
+  [Games printed: 20]
+
+=== 9 | PlayStation 3 | ps3 | PlayStation (1) ===
+  - 1020 | 5515 | Grand Theft Auto V
+  - 72 | 4205 | Portal 2
+  - 472 | 4073 | The Elder Scrolls V: Skyrim
+  - 71 | 3800 | Portal
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 1009 | 3256 | The Last of Us
+  - 233 | 3213 | Half-Life 2
+  - 127 | 3044 | Assassin\u0027s Creed II
+  - 74 | 2648 | Mass Effect 2
+  - 538 | 2581 | BioShock Infinite
+  - 501 | 2554 | Batman: Arkham City
+  - 500 | 2506 | Batman: Arkham Asylum
+  - 73 | 2423 | Mass Effect
+  - 434 | 2327 | Red Dead Redemption
+  - 1164 | 2280 | Tomb Raider
+  - 16 | 2257 | Fallout: New Vegas
+  - 529 | 2126 | Far Cry 3
+  - 565 | 2105 | Uncharted 2: Among Thieves
+  - 533 | 1819 | Dishonored
+  - 1011 | 1803 | Borderlands 2
+  [Games printed: 20]
+
+=== 48 | PlayStation 4 | ps4--1 | PlayStation (1) ===
+  - 1020 | 5515 | Grand Theft Auto V
+  - 1942 | 5054 | The Witcher 3: Wild Hunt
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 25076 | 3359 | Red Dead Redemption 2
+  - 19560 | 3219 | God of War
+  - 7331 | 2437 | Uncharted 4: A Thief\u0027s End
+  - 11156 | 2288 | Horizon Zero Dawn
+  - 14593 | 1980 | Hollow Knight
+  - 19565 | 1971 | Marvel\u0027s Spider-Man
+  - 119133 | 1939 | Elden Ring
+  - 7351 | 1826 | Doom
+  - 11133 | 1803 | Dark Souls III
+  - 1011 | 1803 | Borderlands 2
+  - 7599 | 1792 | Life is Strange
+  - 12517 | 1755 | Undertale
+  - 7334 | 1738 | Bloodborne
+  - 1970 | 1706 | Assassin\u0027s Creed IV Black Flag
+  - 18 | 1697 | Max Payne
+  - 1871 | 1684 | The Walking Dead
+  - 9630 | 1659 | Fallout 4
+  [Games printed: 20]
+
+=== 167 | PlayStation 5 | ps5 | PlayStation (1) ===
+  - 1942 | 5054 | The Witcher 3: Wild Hunt
+  - 25076 | 3359 | Red Dead Redemption 2
+  - 14593 | 1980 | Hollow Knight
+  - 119133 | 1939 | Elden Ring
+  - 9630 | 1659 | Fallout 4
+  - 375 | 1624 | Metal Gear Solid
+  - 26192 | 1549 | The Last of Us Part II
+  - 113112 | 1548 | Hades
+  - 1877 | 1434 | Cyberpunk 2077
+  - 19686 | 1297 | Resident Evil 2
+  - 119171 | 1283 | Baldur\u0027s Gate III
+  - 1384 | 1214 | Hotline Miami
+  - 11198 | 1155 | Rocket League
+  - 28540 | 1041 | Assassin\u0027s Creed Origins
+  - 7603 | 1034 | Hellblade: Senua\u0027s Sacrifice
+  - 19562 | 974 | Resident Evil 7: Biohazard
+  - 135243 | 956 | It Takes Two
+  - 74701 | 953 | Star Wars Jedi: Fallen Order
+  - 1905 | 948 | Fortnite
+  - 11233 | 944 | What Remains of Edith Finch
+  [Games printed: 20]
+
+=== 38 | PlayStation Portable | psp | PlayStation (1) ===
+  - 375 | 1624 | Metal Gear Solid
+  - 427 | 1573 | Final Fantasy VII
+  - 421 | 877 | Final Fantasy IX
+  - 1128 | 790 | Castlevania: Symphony of the Night
+  - 142 | 691 | Star Wars: Battlefront II
+  - 1185 | 675 | Crash Bandicoot
+  - 880 | 563 | Resident Evil 2
+  - 480 | 552 | Silent Hill
+  - 425 | 506 | Final Fantasy VIII
+  - 1187 | 505 | Crash Bandicoot: Warped
+  - 1186 | 478 | Crash Bandicoot 2: Cortex Strikes Back
+  - 912 | 461 | Tomb Raider
+  - 475 | 438 | Star Wars: The Force Unleashed
+  - 1192 | 433 | Crash Team Racing
+  - 966 | 429 | Resident Evil 3: Nemesis
+  - 295 | 357 | Command \u0026 Conquer: Red Alert
+  - 1576 | 349 | Spyro the Dragon
+  - 948 | 347 | Worms Armageddon
+  - 7842 | 342 | Danganronpa: Trigger Happy Havoc
+  - 1156 | 318 | Tomb Raider II
+  [Games printed: 20]
+
+=== 46 | PlayStation Vita | psvita | PlayStation (1) ===
+  - 1011 | 1803 | Borderlands 2
+  - 12517 | 1755 | Undertale
+  - 1871 | 1684 | The Walking Dead
+  - 17000 | 1634 | Stardew Valley
+  - 1331 | 1551 | Limbo
+  - 1384 | 1214 | Hotline Miami
+  - 2993 | 1156 | The Wolf Among Us
+  - 1879 | 968 | Terraria
+  - 3097 | 815 | The Walking Dead: Season Two
+  - 885 | 815 | Super Meat Boy
+  - 1983 | 739 | Bastion
+  - 2935 | 684 | Papers, Please
+  - 1185 | 675 | Crash Bandicoot
+  - 1277 | 626 | Plants vs. Zombies
+  - 2985 | 530 | Persona 4 Golden
+  - 7789 | 527 | The Binding of Isaac: Rebirth
+  - 7444 | 510 | Shovel Knight
+  - 1991 | 444 | Fez
+  - 2126 | 438 | Hotline Miami 2: Wrong Number
+  - 119 | 428 | Mortal Kombat
+  [Games printed: 20]
+
+=== 165 | PlayStation VR | psvr | PlayStation (1) ===
+  - 7323 | 1275 | Rise of the Tomb Raider
+  - 19562 | 974 | Resident Evil 7: Biohazard
+  - 3225 | 580 | No Man\u0027s Sky
+  - 2113 | 425 | Star Wars Battlefront
+  - 7498 | 262 | Tekken 7
+  - 134595 | 190 | Hitman 3
+  - 83731 | 171 | Beat Saber
+  - 11177 | 141 | Gang Beasts
+  - 134706 | 128 | Star Wars: Squadrons
+  - 13226 | 112 | Keep Talking and Nobody Explodes
+  - 23331 | 101 | Rise of the Tomb Raider: 20 Year Celebration
+  - 14363 | 101 | Gran Turismo Sport
+  - 14758 | 96 | Ace Combat 7: Skies Unknown
+  - 25632 | 89 | SuperHot VR
+  - 10960 | 89 | Thumper
+  - 103221 | 83 | Tetris Effect
+  - 11172 | 79 | TrackMania Turbo
+  - 7876 | 64 | Race the Sun
+  - 8983 | 60 | Obduction
+  - 75238 | 56 | Concrete Genie
+  [Games printed: 20]
+
+=== 390 | PlayStation VR2 | psvr2 | PlayStation (1) ===
+  - 3225 | 580 | No Man\u0027s Sky
+  - 132516 | 204 | Phasmophobia
+  - 83731 | 171 | Beat Saber
+  - 10960 | 89 | Thumper
+  - 101006 | 79 | Gran Turismo 7
+  - 135999 | 70 | Tetris Effect: Connected
+  - 37095 | 40 | Moss
+  - 143228 | 31 | Gorilla Tag
+  - 122565 | 31 | Humanity
+  - 12596 | 26 | Job Simulator: The 2050 Archives
+  - 19746 | 25 | Rez Infinite
+  - 115304 | 24 | Five Nights at Freddy\u0027s: Help Wanted
+  - 119341 | 23 | Pistol Whip
+  - 274791 | 21 | Pools
+  - 41047 | 20 | Gorn
+  - 317621 | 16 | The Midnight Walk
+  - 109907 | 16 | Red Matter
+  - 106992 | 16 | A Fisherman\u0027s Tale
+  - 105416 | 16 | The Walking Dead: Saints \u0026 Sinners
+  - 139399 | 15 | Ragnarock
+  [Games printed: 20]
+
+=== 441 | PocketStation | pocketstation | PlayStation (1) ===
+  - 41037 | 16 | Metal Gear Solid: Integral
+  [Games printed: 1]
+
+
+############################################################
+## Sega  (Platforms: 12)
+############################################################
+
+=== 507 | Advanced Pico Beena | advanced-pico-beena | Sega (3) ===
+  (No games found)
+  [Games printed: 0]
+
+=== 23 | Dreamcast | dc | Sega (3) ===
+  - 327 | 1001 | Age of Empires II: The Age of Kings
+  - 880 | 563 | Resident Evil 2
+  - 819 | 530 | Grand Theft Auto 2
+  - 966 | 429 | Resident Evil 3: Nemesis
+  - 913 | 403 | Tony Hawk\u0027s Pro Skater 2
+  - 355 | 403 | Quake III Arena
+  - 948 | 347 | Worms Armageddon
+  - 3603 | 288 | Spider-Man
+  - 272 | 271 | Unreal Tournament
+  - 1805 | 237 | Crazy Taxi
+  - 6692 | 234 | Tony Hawk\u0027s Pro Skater
+  - 7860 | 203 | Sonic Adventure
+  - 1622 | 200 | Mortal Kombat 4
+  - 154 | 196 | Star Wars: Episode I - Racer
+  - 7858 | 177 | Sonic Adventure 2
+  - 4122 | 173 | Legacy of Kain: Soul Reaver
+  - 3027 | 162 | Dino Crisis
+  - 1158 | 146 | Tomb Raider: The Last Revelation
+  - 6294 | 144 | Worms World Party
+  - 1217 | 142 | Shenmue
+  [Games printed: 20]
+
+=== 30 | Sega 32X | sega32 | Sega (3) ===
+  - 1619 | 319 | Mortal Kombat II
+  - 4271 | 48 | Primal Rage
+  - 452 | 46 | Blackthorne
+  - 6825 | 40 | Alien Trilogy
+  - 19734 | 37 | Virtua Fighter
+  - 12857 | 33 | Space Harrier
+  - 5410 | 27 | Pitfall: The Mayan Adventure
+  - 19762 | 25 | Knuckles\u0027 Chaotix
+  - 19712 | 22 | NBA Jam Tournament Edition
+  - 38844 | 18 | Disney\u0027s Pinocchio
+  - 4546 | 18 | WWF WrestleMania: The Arcade Game
+  - 259939 | 12 | Doom
+  - 4449 | 11 | Brutal: Paws of Fury
+  - 39822 | 9 | Star Wars Arcade
+  - 4454 | 9 | Spot Goes to Hollywood
+  - 19771 | 8 | WWF Raw
+  - 113346 | 7 | Sigil
+  - 73298 | 5 | ClayFighter 2: Judgment Clay
+  [Games printed: 18]
+
+=== 78 | Sega CD | sega-cd | Sega (3) ===
+  - 60 | 484 | The Secret of Monkey Island
+  - 5452 | 164 | Sonic CD
+  - 4275 | 105 | Flashback: The Quest for Identity
+  - 283 | 103 | Theme Park
+  - 5378 | 84 | Ecco the Dolphin
+  - 8995 | 82 | NBA Jam
+  - 85 | 64 | Dune
+  - 4260 | 56 | Samurai Shodown
+  - 4248 | 44 | Dragon\u0027s Lair
+  - 5384 | 41 | Eye of the Beholder
+  - 6825 | 40 | Alien Trilogy
+  - 924 | 40 | Wing Commander
+  - 5385 | 33 | Fatal Fury Special
+  - 5451 | 29 | Snatcher
+  - 5410 | 27 | Pitfall: The Mayan Adventure
+  - 5405 | 23 | NHL \u002794
+  - 5379 | 23 | Ecco: The Tides of Time
+  - 4516 | 23 | Chuck Rock
+  - 161 | 23 | Star Wars: Rebel Assault
+  - 5454 | 21 | Space Ace
+  [Games printed: 20]
+
+=== 482 | Sega CD 32X | sega-cd-32x | Sega (3) ===
+  (No games found)
+  [Games printed: 0]
+
+=== 35 | Sega Game Gear | gamegear | Sega (3) ===
+  - 2970 | 141 | Battletoads
+  - 7452 | 87 | Ms. Pac-Man
+  - 48939 | 40 | Super Star Wars: Return of the Jedi
+  - 112884 | 35 | Sonic the Hedgehog 2
+  - 2710 | 35 | Mappy
+  - 2827 | 34 | The Simpsons: Bart vs. The Space Mutants
+  - 5385 | 33 | Fatal Fury Special
+  - 2547 | 32 | Zool: Ninja of the Nth Dimension
+  - 43322 | 31 | Sonic the Hedgehog Chaos
+  - 2830 | 22 | The Simpsons: Bart vs. the World
+  - 19538 | 20 | Sonic Blast
+  - 12793 | 20 | Terminator 2: Judgment Day
+  - 8501 | 20 | Astérix and the Great Rescue
+  - 5357 | 20 | The Amazing Spider-Man vs. The Kingpin
+  - 45798 | 19 | Sonic Drift
+  - 15241 | 19 | Kick Off 2
+  - 12089 | 19 | Fantastic Dizzy
+  - 46358 | 18 | Sonic Drift 2
+  - 19556 | 18 | Sonic the Hedgehog: Triple Trouble
+  - 15535 | 18 | Galaga \u002788
+  [Games printed: 20]
+
+=== 64 | Sega Master System/Mark III | sms | Sega (3) ===
+  - 7452 | 87 | Ms. Pac-Man
+  - 26778 | 67 | Alex Kidd in Miracle World
+  - 106274 | 47 | Sonic the Hedgehog
+  - 248 | 47 | Populous
+  - 6969 | 45 | Strider
+  - 3502 | 45 | Gauntlet
+  - 1233 | 41 | Phantasy Star
+  - 9969 | 40 | Alien Storm
+  - 6054 | 39 | Ghostbusters
+  - 2878 | 38 | Ultima IV: Quest of the Avatar
+  - 892 | 37 | King\u0027s Quest: Quest for the Crown
+  - 112884 | 35 | Sonic the Hedgehog 2
+  - 2827 | 34 | The Simpsons: Bart vs. The Space Mutants
+  - 43322 | 31 | Sonic the Hedgehog Chaos
+  - 9166 | 30 | Spy vs Spy
+  - 1288 | 28 | Gun.Smoke
+  - 4929 | 26 | Impossible Mission
+  - 5434 | 25 | Shadow of the Beast
+  - 18277 | 24 | Wonder Boy III: The Dragon\u0027s Trap
+  - 13678 | 24 | Alex Kidd: The Lost Stars
+  [Games printed: 20]
+
+=== 29 | Sega Mega Drive/Genesis | genesis-slash-megadrive | Sega (3) ===
+  - 3192 | 606 | Sonic the Hedgehog
+  - 4438 | 594 | Sonic the Hedgehog 2
+  - 1619 | 319 | Mortal Kombat II
+  - 6797 | 280 | Sonic the Hedgehog 3
+  - 3166 | 234 | The Lion King
+  - 1620 | 221 | Mortal Kombat 3
+  - 3480 | 214 | Earthworm Jim
+  - 1652 | 206 | Streets of Rage
+  - 9331 | 197 | Worms
+  - 9475 | 191 | Sonic \u0026 Knuckles
+  - 1653 | 187 | Streets of Rage 2
+  - 8118 | 177 | Disney\u0027s Aladdin
+  - 1621 | 166 | Ultimate Mortal Kombat 3
+  - 11219 | 154 | Sonic the Hedgehog 3 \u0026 Knuckles
+  - 3071 | 128 | Comix Zone
+  - 3481 | 115 | Earthworm Jim 2
+  - 86 | 106 | Dune II: The Building of a Dynasty
+  - 4275 | 105 | Flashback: The Quest for Identity
+  - 1127 | 105 | Castlevania: Bloodlines
+  - 2162 | 103 | Zombies Ate My Neighbors
+  [Games printed: 20]
+
+=== 339 | Sega Pico | sega-pico | Sega (3) ===
+  (No games found)
+  [Games printed: 0]
+
+=== 32 | Sega Saturn | saturn | Sega (3) ===
+  - 912 | 461 | Tomb Raider
+  - 333 | 384 | Quake
+  - 130 | 377 | Warcraft II: Tides of Darkness
+  - 647 | 330 | Command \u0026 Conquer
+  - 1619 | 319 | Mortal Kombat II
+  - 1963 | 211 | Rayman
+  - 330 | 204 | SimCity 2000
+  - 9331 | 197 | Worms
+  - 236 | 180 | Myst
+  - 1621 | 166 | Ultimate Mortal Kombat 3
+  - 1744 | 142 | Mega Man X4
+  - 4121 | 119 | Mortal Kombat Trilogy
+  - 131 | 112 | Warcraft II: Beyond the Dark Portal
+  - 283 | 103 | Theme Park
+  - 1721 | 90 | Mega Man 8
+  - 238 | 87 | Riven: The Sequel to Myst
+  - 1447 | 81 | Suikoden
+  - 7901 | 76 | Croc: Legend of the Gobbos
+  - 2542 | 76 | Fighting Force
+  - 8122 | 75 | Castle of Illusion Starring Mickey Mouse
+  [Games printed: 20]
+
+=== 84 | SG-1000 | sg1000 | Sega (3) ===
+  - 4603 | 52 | Lode Runner
+  - 4607 | 49 | Road Fighter
+  - 6112 | 24 | H.E.R.O.
+  - 2753 | 18 | Zaxxon
+  - 11763 | 17 | Soko-Ban
+  - 6125 | 17 | Pitfall II: The Lost Caverns
+  - 6139 | 16 | Mega Force
+  - 13670 | 12 | Knightmare
+  - 6083 | 8 | Bank Panic
+  - 29132 | 7 | World Grand Prix
+  - 18620 | 7 | Rally-X
+  - 6104 | 6 | Exerion
+  - 39404 | 5 | Tank Battalion
+  - 26340 | 5 | Yie Ar Kung-Fu 2: The Emperor Yie-Gah
+  - 1630 | 5 | James Bond 007
+  [Games printed: 15]
+
+=== 440 | Visual Memory Unit / Visual Memory System | visual-memory-unit-slash-visual-memory-system | Sega (3) ===
+  (No games found)
+  [Games printed: 0]
+
+
+############################################################
+## Xbox  (Platforms: 4)
+############################################################
+
+=== 11 | Xbox | xbox | Xbox (2) ===
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 233 | 3213 | Half-Life 2
+  - 733 | 2926 | Grand Theft Auto: Vice City
+  - 18 | 1697 | Max Payne
+  - 730 | 1542 | Grand Theft Auto III
+  - 39 | 1407 | Mafia
+  - 116 | 1396 | Star Wars: Knights of the Old Republic
+  - 19 | 995 | Max Payne 2: The Fall of Max Payne
+  - 740 | 882 | Halo: Combat Evolved
+  - 97 | 828 | Need for Speed: Underground 2
+  - 56 | 819 | The Elder Scrolls III: Morrowind
+  - 96 | 800 | Need for Speed: Underground
+  - 118 | 792 | Star Wars: Knights of the Old Republic II - The Sith Lords
+  - 836 | 737 | Prince of Persia: The Sands of Time
+  - 142 | 691 | Star Wars: Battlefront II
+  - 986 | 658 | Halo 2
+  - 1048 | 533 | Hitman: Blood Money
+  - 837 | 512 | Prince of Persia: Warrior Within
+  - 2437 | 455 | Prince of Persia: The Two Thrones
+  - 281 | 448 | Return to Castle Wolfenstein
+  [Games printed: 20]
+
+=== 12 | Xbox 360 | xbox360 | Xbox (2) ===
+  - 1020 | 5515 | Grand Theft Auto V
+  - 72 | 4205 | Portal 2
+  - 472 | 4073 | The Elder Scrolls V: Skyrim
+  - 71 | 3800 | Portal
+  - 732 | 3750 | Grand Theft Auto: San Andreas
+  - 233 | 3213 | Half-Life 2
+  - 127 | 3044 | Assassin\u0027s Creed II
+  - 20 | 3021 | BioShock
+  - 74 | 2648 | Mass Effect 2
+  - 538 | 2581 | BioShock Infinite
+  - 501 | 2554 | Batman: Arkham City
+  - 500 | 2506 | Batman: Arkham Asylum
+  - 73 | 2423 | Mass Effect
+  - 434 | 2327 | Red Dead Redemption
+  - 1164 | 2280 | Tomb Raider
+  - 16 | 2257 | Fallout: New Vegas
+  - 529 | 2126 | Far Cry 3
+  - 533 | 1819 | Dishonored
+  - 1011 | 1803 | Borderlands 2
+  - 75 | 1802 | Mass Effect 3
+  [Games printed: 20]
+
+=== 49 | Xbox One | xboxone | Xbox (2) ===
+  - 1020 | 5515 | Grand Theft Auto V
+  - 1942 | 5054 | The Witcher 3: Wild Hunt
+  - 25076 | 3359 | Red Dead Redemption 2
+  - 14593 | 1980 | Hollow Knight
+  - 119133 | 1939 | Elden Ring
+  - 7351 | 1826 | Doom
+  - 11133 | 1803 | Dark Souls III
+  - 1011 | 1803 | Borderlands 2
+  - 7599 | 1792 | Life is Strange
+  - 12517 | 1755 | Undertale
+  - 1970 | 1706 | Assassin\u0027s Creed IV Black Flag
+  - 18 | 1697 | Max Payne
+  - 1871 | 1684 | The Walking Dead
+  - 9630 | 1659 | Fallout 4
+  - 17000 | 1634 | Stardew Valley
+  - 7342 | 1569 | Inside
+  - 1331 | 1551 | Limbo
+  - 113112 | 1548 | Hades
+  - 5503 | 1438 | Batman: Arkham Knight
+  - 1877 | 1434 | Cyberpunk 2077
+  [Games printed: 20]
+
+=== 169 | Xbox Series X|S | series-x-s | Xbox (2) ===
+  - 1942 | 5054 | The Witcher 3: Wild Hunt
+  - 14593 | 1980 | Hollow Knight
+  - 119133 | 1939 | Elden Ring
+  - 9630 | 1659 | Fallout 4
+  - 375 | 1624 | Metal Gear Solid
+  - 113112 | 1548 | Hades
+  - 1877 | 1434 | Cyberpunk 2077
+  - 19686 | 1297 | Resident Evil 2
+  - 119171 | 1283 | Baldur\u0027s Gate III
+  - 1384 | 1214 | Hotline Miami
+  - 11198 | 1155 | Rocket League
+  - 28540 | 1041 | Assassin\u0027s Creed Origins
+  - 7603 | 1034 | Hellblade: Senua\u0027s Sacrifice
+  - 19562 | 974 | Resident Evil 7: Biohazard
+  - 135243 | 956 | It Takes Two
+  - 74701 | 953 | Star Wars Jedi: Fallen Order
+  - 1905 | 948 | Fortnite
+  - 11233 | 944 | What Remains of Edith Finch
+  - 103054 | 914 | Assassin\u0027s Creed Odyssey
+  - 103329 | 873 | Control
+  [Games printed: 20]
+
+
