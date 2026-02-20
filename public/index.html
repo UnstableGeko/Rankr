@@ -9,44 +9,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Tapestry&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="public/styles.css"> 
+    <link rel="stylesheet" href="public/styles.css">
 </head>
 <body>
     <div class="container">
-        <nav>
+
+        <nav class="desktop-nav">
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Genres <span class="caret">▼</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Platforms <span class="caret">▼</span></a>
+                </li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+
             <a href="index.html" class="name-title">Rankr</a>
-            <div class="ham-menu">
-                <span></span>
-                <span></span>
-                <span></span>
+
+            <div class="nav-right">
+                <div class="search-bar">
+                    <i class="fa fa-search search-icon"></i>
+                    <input type="text" placeholder="Search games...">
+                </div>
             </div>
         </nav>
-        <div class="off-screen-menu">
-            <ul>
-                <li class="dropdown"><a href="#"> Genres <span class="caret">▼</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="browse.html?genre=action">Action</a></li>
-                        <li><a href="browse.html?genre=rpg">RPG</a></li>
-                        <li><a href="browse.html?genre=strategy">Strategy</a></li>
-                        <li><a href="browse.html?genre=sports">Sports</a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown"><a href="#">Platforms <span class="caret">▼</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="browse.html?group=sony">Sony</a></li>
-                        <li><a href="browse.html?group=microsoft">Microsoft</a></li>
-                        <li><a href="browse.html?group=nintendo">Nintendo</a></li>
-                        <li><a href="browse.html?group=pc">Pc</a></li>
-                        <li><a href="browse.html?group=vr">VR</a></li>
-                        <li><a href="browse.html?group=other">Other</a></li>
-                    </ul>
-                </li>
-                <li><a href="about.html">About Us</a></li>
-            </ul>
-        </div>
 
         <div class="main-content">
+            <h2 class="section-title">Top Rated Games</h2>
             <div class="game-grid" id="game-grid">
             </div>
         </div>
