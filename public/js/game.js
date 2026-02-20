@@ -53,6 +53,11 @@ function renderPlatformList(platforms) {
     });
 }
 
+// Clears all right panels - works on both ul and div elements
+function clearAllPanels() {
+    document.querySelectorAll('[data-for]').forEach(el => el.classList.remove('active'));
+}
+
 // Search filter for All Platforms panel
 const platformSearchInput = document.getElementById('platform-search-input');
 if (platformSearchInput) {
@@ -67,16 +72,17 @@ if (platformSearchInput) {
                     if (aStarts && !bStarts) return -1;
                     if (!aStarts && bStarts) return 1;
                     return 0;
-            })
-        : allPlatforms;
+                })
+            : allPlatforms;
         renderPlatformList(filtered);
     });
 
-    // Prevent the menu from closing when clicking the search input
     platformSearchInput.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
 }
 
 // Platform panel hover switching
+const platformsDetail = document.querySelector('.platforms-detail');
+
 document.querySelectorAll('.platform-item').forEach(item => {
     item.addEventListener('mouseenter', () => {
         const platform = item.dataset.platform;
@@ -84,15 +90,22 @@ document.querySelectorAll('.platform-item').forEach(item => {
         document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
         item.classList.add('active');
 
-        document.querySelectorAll('.platform-models').forEach(m => m.classList.remove('active'));
+        clearAllPanels();
 
-        if (!platform) return;
-        const models = document.querySelector(`.platform-models[data-for="${platform}"]`);
+        if (!platform) {
+            // No submenu - hide the right column entirely
+            if (platformsDetail) platformsDetail.style.display = 'none';
+            return;
+        }
+
+        // Show right column and matching panel
+        if (platformsDetail) platformsDetail.style.display = 'block';
+        const models = document.querySelector(`[data-for="${platform}"]`);
         if (models) models.classList.add('active');
     });
 });
 
-// Delay-based show/hide so mouse can travel from pill to menu without it closing
+// Delay-based show/hide
 const platformsDropdown = document.querySelector('.platforms-dropdown');
 const platformsMenu = document.querySelector('.platforms-menu');
 let hideTimeout = null;
@@ -106,9 +119,10 @@ function showMenu() {
 
     // Default to PlayStation
     document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
-    document.querySelectorAll('.platform-models').forEach(m => m.classList.remove('active'));
+    clearAllPanels();
+    if (platformsDetail) platformsDetail.style.display = 'block';
     const firstItem = document.querySelector('.platform-item[data-platform="playstation"]');
-    const firstModels = document.querySelector('.platform-models[data-for="playstation"]');
+    const firstModels = document.querySelector('[data-for="playstation"]');
     if (firstItem) firstItem.classList.add('active');
     if (firstModels) firstModels.classList.add('active');
 }
