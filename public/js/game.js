@@ -140,5 +140,32 @@ if (platformsDropdown && platformsMenu) {
     platformsMenu.addEventListener('mouseleave', scheduleHide);
 }
 
+const genresDropdown = document.querySelector('.genres-dropdown');
+const genresMenu = document.querySelector('.genres-menu');
+let genresHideTimeout = null;
+
+if (genresDropdown && genresMenu) {
+    genresDropdown.addEventListener('mouseenter', () => {
+        clearTimeout(genresHideTimeout);
+        const rect = genresDropdown.getBoundingClientRect();
+        genresMenu.style.top = (rect.bottom + 6) + 'px';
+        genresMenu.style.left = rect.left + 'px';
+        genresMenu.style.display = 'block';
+    });
+
+    genresDropdown.addEventListener('mouseleave', () => {
+        genresHideTimeout = setTimeout(() => {
+            genresMenu.style.display = 'none';
+        }, 100);
+    });
+
+    genresMenu.addEventListener('mouseenter', () => clearTimeout(genresHideTimeout));
+    genresMenu.addEventListener('mouseleave', () => {
+        genresHideTimeout = setTimeout(() => {
+            genresMenu.style.display = 'none';
+        }, 100);
+    });
+}
+
 window.addEventListener('DOMContentLoaded', loadMorePlatforms);
 window.addEventListener('DOMContentLoaded', fetchGameCovers);
