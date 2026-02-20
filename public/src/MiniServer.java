@@ -85,7 +85,7 @@ public class MiniServer {
                 conn.setDoOutput(true);
                 
                 // Send query
-                String body = "fields name, rating, rating_count, cover.image_id; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 24;";
+                String body = "fields name, rating, rating_count, cover.image_id; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
                 conn.getOutputStream().write(body.getBytes());
                 
                 // Read response

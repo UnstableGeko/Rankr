@@ -374,6 +374,7 @@ body {
     grid-template-columns: repeat(8, 1fr);
     gap: 1.5rem;
     padding: 1.5rem 2rem 2rem;
+    margin-right: 20%;
 }
 
 .game-card {
