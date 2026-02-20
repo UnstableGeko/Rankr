@@ -16,7 +16,6 @@ body {
     margin: 0 auto;
 }
 
-/* ── Header: logo stacked above nav ── */
 .site-header {
     display: flex;
     flex-direction: column;
@@ -34,7 +33,6 @@ body {
     line-height: 1;
 }
 
-/* ── Rounded pill nav bar ── */
 .desktop-nav {
     display: flex;
     align-items: center;
@@ -90,13 +88,11 @@ body {
     transform: rotate(180deg);
 }
 
-/* Right side */
 .desktop-nav .nav-right {
     display: flex;
     align-items: center;
 }
 
-/* Search bar */
 .search-bar {
     display: flex;
     align-items: center;
@@ -131,7 +127,6 @@ body {
     color: #666;
 }
 
-/* ── Platforms two-column panel ── */
 .platforms-dropdown {
     position: relative;
 }
@@ -151,7 +146,6 @@ body {
     box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-/* Left column */
 .platforms-list {
     list-style: none;
     padding: 0.4rem 0;
@@ -199,7 +193,6 @@ body {
     margin-left: 0.5rem;
 }
 
-/* Right column */
 .platforms-detail {
     flex: 1;
     padding: 0.4rem 0;
@@ -219,29 +212,95 @@ body {
     display: block;
 }
 
-.platform-models--scrollable.active {
+.platform-models--search {
+    display: none;
+    width: 220px;
+}
+
+.platform-models--search.active {
     display: block;
-    max-height: 260px;
+}
+
+.all-platforms-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    margin: 0.4rem 0.6rem;
+    background: #252525;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+}
+
+.all-platforms-search i {
+    color: #666;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.all-platforms-search input {
+    background: none;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.85rem;
+    width: 100%;
+}
+
+.all-platforms-search input::placeholder {
+    color: #555;
+}
+
+.all-platforms-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 220px;
     overflow-y: auto;
     scrollbar-width: auto;
     scrollbar-color: #555 #2a2a2a;
 }
 
-.platform-models--scrollable::-webkit-scrollbar {
-    width: 40px;
+.all-platforms-list::-webkit-scrollbar {
+    width: 10px;
 }
 
-.platform-models--scrollable::-webkit-scrollbar-track {
+.all-platforms-list::-webkit-scrollbar-track {
     background: #2a2a2a;
 }
 
-.platform-models--scrollable::-webkit-scrollbar-thumb {
+.all-platforms-list::-webkit-scrollbar-thumb {
     background: #555;
     border-radius: 4px;
 }
 
-.platform-models--scrollable::-webkit-scrollbar-thumb:hover {
+.all-platforms-list::-webkit-scrollbar-thumb:hover {
     background: #777;
+}
+
+.all-platforms-list li a {
+    display: block;
+    padding: 0.4rem 1rem;
+    color: #bbb;
+    text-decoration: none;
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.85rem;
+    transition: color 0.15s, background 0.15s;
+    white-space: nowrap;
+}
+
+.all-platforms-list li a:hover {
+    color: #fff;
+    background: #252525;
+}
+
+.all-platforms-list .no-results {
+    padding: 0.5rem 1rem;
+    color: #555;
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.85rem;
+    font-style: italic;
 }
 
 .platform-models li a {
@@ -260,7 +319,6 @@ body {
     background: #252525;
 }
 
-/* ── Section Title ── */
 .section-title {
     font-family: 'Rubik', sans-serif;
     font-size: 1.4rem;
@@ -270,7 +328,6 @@ body {
     letter-spacing: 0.02em;
 }
 
-/* ── Game Grid ── */
 .game-grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);

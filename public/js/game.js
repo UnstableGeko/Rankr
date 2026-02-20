@@ -20,35 +20,73 @@ async function fetchGameCovers() {
     }
 }
 
+// Store all platforms for filtering
+let allPlatforms = [];
+
 async function loadMorePlatforms() {
-    const flyout = document.querySelector('.platform-models[data-for="more"]');
-    if (!flyout) return;
+    const list = document.querySelector('.all-platforms-list');
+    if (!list) return;
 
     try {
         const response = await fetch('/api/platforms', { method: 'POST' });
-        const platforms = await response.json();
-
-        flyout.innerHTML = '';
-        platforms.forEach(p => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="#">${p.name}</a>`;
-            flyout.appendChild(li);
-        });
+        allPlatforms = await response.json();
+        renderPlatformList(allPlatforms);
     } catch (error) {
         console.error('Error fetching platforms:', error);
     }
+}
+
+function renderPlatformList(platforms) {
+    const list = document.querySelector('.all-platforms-list');
+    if (!list) return;
+
+    if (platforms.length === 0) {
+        list.innerHTML = '<li class="no-results">No platforms found</li>';
+        return;
+    }
+
+    list.innerHTML = '';
+    platforms.forEach(p => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#">${p.name}</a>`;
+        list.appendChild(li);
+    });
+}
+
+// Search filter for All Platforms panel
+const platformSearchInput = document.getElementById('platform-search-input');
+if (platformSearchInput) {
+    platformSearchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const filtered = query
+            ? allPlatforms
+                .filter(p => p.name.toLowerCase().includes(query))
+                .sort((a, b) => {
+                    const aStarts = a.name.toLowerCase().startsWith(query);
+                    const bStarts = b.name.toLowerCase().startsWith(query);
+                    if (aStarts && !bStarts) return -1;
+                    if (!aStarts && bStarts) return 1;
+                    return 0;
+            })
+        : allPlatforms;
+        renderPlatformList(filtered);
+    });
+
+    // Prevent the menu from closing when clicking the search input
+    platformSearchInput.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
 }
 
 // Platform panel hover switching
 document.querySelectorAll('.platform-item').forEach(item => {
     item.addEventListener('mouseenter', () => {
         const platform = item.dataset.platform;
-        if (!platform) return;
 
         document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
         item.classList.add('active');
 
         document.querySelectorAll('.platform-models').forEach(m => m.classList.remove('active'));
+
+        if (!platform) return;
         const models = document.querySelector(`.platform-models[data-for="${platform}"]`);
         if (models) models.classList.add('active');
     });
@@ -66,11 +104,11 @@ function showMenu() {
     platformsMenu.style.left = rect.left + 'px';
     platformsMenu.style.display = 'block';
 
-    // Default to Nintendo
+    // Default to PlayStation
     document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
     document.querySelectorAll('.platform-models').forEach(m => m.classList.remove('active'));
-    const firstItem = document.querySelector('.platform-item[data-platform="nintendo"]');
-    const firstModels = document.querySelector('.platform-models[data-for="nintendo"]');
+    const firstItem = document.querySelector('.platform-item[data-platform="playstation"]');
+    const firstModels = document.querySelector('.platform-models[data-for="playstation"]');
     if (firstItem) firstItem.classList.add('active');
     if (firstModels) firstModels.classList.add('active');
 }
@@ -78,7 +116,7 @@ function showMenu() {
 function scheduleHide() {
     hideTimeout = setTimeout(() => {
         platformsMenu.style.display = 'none';
-    }, 100); // 100ms grace period — enough to move mouse down into menu
+    }, 100);
 }
 
 if (platformsDropdown && platformsMenu) {
