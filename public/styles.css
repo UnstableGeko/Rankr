@@ -16,6 +16,7 @@ body {
     margin: 0 auto;
 }
 
+/* ── Header: logo stacked above nav ── */
 .site-header {
     display: flex;
     flex-direction: column;
@@ -33,6 +34,7 @@ body {
     line-height: 1;
 }
 
+/* ── Rounded pill nav bar ── */
 .desktop-nav {
     display: flex;
     align-items: center;
@@ -88,11 +90,13 @@ body {
     transform: rotate(180deg);
 }
 
+/* Right side */
 .desktop-nav .nav-right {
     display: flex;
     align-items: center;
 }
 
+/* Search bar */
 .search-bar {
     display: flex;
     align-items: center;
@@ -127,40 +131,37 @@ body {
     color: #666;
 }
 
+/* ── Platforms two-column panel ── */
 .platforms-dropdown {
     position: relative;
 }
 
 .platforms-menu {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    padding-top: 10px; 
+    position: fixed;
     z-index: 200;
 }
 
 .platforms-menu-inner {
+    display: flex;
+    align-items: flex-start;
     background: #1a1a1a;
     border: 1px solid #2a2a2a;
     border-radius: 12px;
-    padding: 0.4rem 0;
-    min-width: 180px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-.platforms-dropdown:hover .platforms-menu {
-    display: block;
-}
-
+/* Left column */
 .platforms-list {
     list-style: none;
-    padding: 0;
+    padding: 0.4rem 0;
     margin: 0;
+    min-width: 160px;
+    border-right: 1px solid #2a2a2a;
+    flex-shrink: 0;
 }
 
 .platform-item {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -173,34 +174,22 @@ body {
     white-space: nowrap;
 }
 
-.platform-item:hover {
+.platform-item:hover,
+.platform-item.active {
     color: #fff;
     background: #252525;
-}
-
-.platform-item--solo a {
-    color: #bbb;
-    text-decoration: none;
-    font-family: 'Rubik', sans-serif;
-    font-size: 0.88rem;
-    display: block;
-    width: 100%;
-    transition: color 0.15s;
-}
-
-.platform-item--solo:hover a {
-    color: #fff;
 }
 
 .platform-item--more {
     border-top: 1px solid #2a2a2a;
     margin-top: 0.3rem;
-    padding-top: 0.6rem;
+    padding-top: 0.7rem;
     color: #888;
     font-style: italic;
 }
 
-.platform-item--more:hover {
+.platform-item--more:hover,
+.platform-item--more.active {
     color: #ccc;
 }
 
@@ -210,26 +199,52 @@ body {
     margin-left: 0.5rem;
 }
 
-.platform-flyout {
-    display: none;
-    position: absolute;
-    top: -0.4rem;
-    left: 100%;
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
-    border-radius: 12px;
+/* Right column */
+.platforms-detail {
+    flex: 1;
     padding: 0.4rem 0;
     min-width: 180px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-    list-style: none;
-    z-index: 201;
+    border-radius: 0 12px 12px 0;
+    overflow: hidden;
 }
 
-.platform-item:hover > .platform-flyout {
+.platform-models {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.platform-models.active {
     display: block;
 }
 
-.platform-flyout li a {
+.platform-models--scrollable.active {
+    display: block;
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: auto;
+    scrollbar-color: #555 #2a2a2a;
+}
+
+.platform-models--scrollable::-webkit-scrollbar {
+    width: 40px;
+}
+
+.platform-models--scrollable::-webkit-scrollbar-track {
+    background: #2a2a2a;
+}
+
+.platform-models--scrollable::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+.platform-models--scrollable::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+.platform-models li a {
     display: block;
     padding: 0.45rem 1rem;
     color: #bbb;
@@ -240,31 +255,12 @@ body {
     white-space: nowrap;
 }
 
-.platform-flyout li a:hover {
+.platform-models li a:hover {
     color: #fff;
     background: #252525;
 }
 
-.platform-flyout--scrollable {
-    max-height: 260px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #333 transparent;
-}
-
-.platform-flyout--scrollable::-webkit-scrollbar {
-    width: 4px;
-}
-
-.platform-flyout--scrollable::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.platform-flyout--scrollable::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
-}
-
+/* ── Section Title ── */
 .section-title {
     font-family: 'Rubik', sans-serif;
     font-size: 1.4rem;
@@ -274,6 +270,7 @@ body {
     letter-spacing: 0.02em;
 }
 
+/* ── Game Grid ── */
 .game-grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
