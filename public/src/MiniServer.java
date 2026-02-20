@@ -85,7 +85,7 @@ public class MiniServer {
                 conn.setDoOutput(true);
                 
                 // Send query
-                String body = "fields name, rating, rating_count, cover.image_id; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 24;";
+                String body = "fields name, rating, rating_count, cover.image_id; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
                 conn.getOutputStream().write(body.getBytes());
                 
                 // Read response
@@ -110,6 +110,44 @@ public class MiniServer {
             }
         });
 
+        server.createContext("/api/platforms", exchange -> {
+            if (!exchange.getRequestMethod().equals("POST")) {
+                exchange.sendResponseHeaders(405, 0);
+                exchange.close();
+                return;
+            }
+
+            try {
+                URI uri = new URI("https://api.igdb.com/v4/platforms");
+                URL url = uri.toURL();
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Client-ID", configClientId);
+                conn.setRequestProperty("Authorization", "Bearer " + configAccessToken);
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+
+                String body = "fields name; sort name asc; limit 500;";
+                conn.getOutputStream().write(body.getBytes());
+
+                InputStream responseStream = conn.getInputStream();
+                byte[] responseData = responseStream.readAllBytes();
+
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+                exchange.sendResponseHeaders(200, responseData.length);
+                exchange.getResponseBody().write(responseData);
+                exchange.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                String error = "{\"error\": \"" + e.getMessage() + "\"}";
+                exchange.sendResponseHeaders(500, error.length());
+                exchange.getResponseBody().write(error.getBytes());
+                exchange.close();
+            }
+        });
         server.setExecutor(null);
         server.start();
         System.out.println("Server running at http://localhost:" + port);
