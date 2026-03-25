@@ -85,7 +85,7 @@ body {
 }
 
 .desktop-nav .nav-links li:hover .caret {
-    transform: rotate(180deg);
+    transform: rotate(60deg);
 }
 
 .desktop-nav .nav-right {
@@ -125,6 +125,37 @@ body {
 
 .search-bar input::placeholder {
     color: #666;
+}
+
+.search-list{
+    display: none;
+    position: fixed;
+    z-index: 200;
+    padding-top: 0;
+    list-style: none;
+    padding: 0.4rem 0;
+    margin: 0;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    min-width: 200px;
+}
+
+.search-list li a {
+    display: block;
+    padding: 0.45rem 1rem;
+    color: #bbb;
+    text-decoration: none;
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.88rem;
+    transition: color 0.15s, background 0.15s;
+    white-space: nowrap;
+}
+
+.search-list li a:hover {
+    color: #fff;
+    background: #252525;
 }
 
 .platforms-dropdown {
@@ -367,6 +398,7 @@ body {
     color: #fff;
     padding: 2rem 2rem 0;
     letter-spacing: 0.02em;
+    margin-left: 5%;
 }
 
 .game-grid {
@@ -374,6 +406,7 @@ body {
     grid-template-columns: repeat(8, 1fr);
     gap: 1.5rem;
     padding: 1.5rem 2rem 2rem;
+    margin-left: 5%;
     margin-right: 20%;
 }
 

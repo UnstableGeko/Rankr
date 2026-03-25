@@ -7,13 +7,26 @@ async function fetchGameCovers() {
         
         games.forEach(game => {
             if (game.cover) {
-                const gameCard = document.createElement('div');
-                gameCard.className = 'game-card';
                 const imageId = game.cover.image_id;
                 const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
-                gameCard.innerHTML = `<img src="${coverUrl}" alt="${game.name}">`;
-                gameGrid.appendChild(gameCard);
-            }
+
+                // make a clean slug to use in the URL
+                const slug = slugify(game.name);
+                
+                const link = document.createElement('a');
+                link.href = `game/${slug}`;
+                link.classList.add('game-link');
+                
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                
+                const img = document.createElement('img');
+                img.src = coverUrl;
+                img.alt = game.name;
+                
+                gameCard.appendChild(img);
+                link.appendChild(gameCard);
+                gameGrid.appendChild(link);            }
         });
     } catch (error) {
         console.error('Error fetching games:', error);
@@ -48,7 +61,7 @@ function renderPlatformList(platforms) {
     list.innerHTML = '';
     platforms.forEach(p => {
         const li = document.createElement('li');
-        li.innerHTML = `<a href="#">${p.name}</a>`;
+        li.innerHTML = `<a href="browse.html?platform=${p.name}">${p.name}</a>`;
         list.appendChild(li);
     });
 }
@@ -165,6 +178,12 @@ if (genresDropdown && genresMenu) {
             genresMenu.style.display = 'none';
         }, 100);
     });
+}
+function slugify(name) {
+    return name
+        .toLowerCase()
+        .replace(/\s+/g, "_")
+        .replace(/[^a-z0-9_]/g, "");
 }
 
 window.addEventListener('DOMContentLoaded', loadMorePlatforms);
