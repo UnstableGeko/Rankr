@@ -479,7 +479,6 @@ body {
 .team-member {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 3rem;
     border-radius: 24px;
     padding: 2rem;
@@ -510,7 +509,9 @@ body {
 }
 
 .member-info {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .member-info h3 {
@@ -534,15 +535,14 @@ body {
 .member-info p {
     font-family: 'Rubik', sans-serif;
     font-size: 1rem;
-    color: #ddd;
+    color: #9f9f9f;
     line-height: 1.8;
     max-width: 700px;
 }
 
 /* Mobile */
 @media (max-width: 900px) {
-    .team-member,
-    .team-member.reverse {
+    .team-member, .team-member.reverse {
         flex-direction: column;
         text-align: center;
     }
