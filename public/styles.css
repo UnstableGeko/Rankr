@@ -472,6 +472,8 @@ body {
     margin: 0 auto;
     width: 85%;
     max-width: 1200px;
+    background-color: #1e1e1e;
+    border-radius: 30px;
 }
 
 .team-member {
