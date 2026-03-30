@@ -486,6 +486,7 @@ body {
 
 .team-member.reverse {
     flex-direction: row-reverse;
+    text-align: right;
 }
 
 .member-image {
@@ -556,4 +557,150 @@ body {
     .member-info p {
         max-width: 100%;
     }
+}
+/*====Game Page====*/
+.game-page {
+    padding: 2rem;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.game-details {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.gamepage-left {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 30%;
+}
+
+.gamepage-center {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 45%;
+}
+
+.gamepage-center-2column {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.gamepage-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 20%;
+}
+
+.game-image {
+    flex: 0 0 300px;
+    max-width: 300px;
+    aspect-ratio: 3 / 4;
+    background: #2f2f2f;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #3a3a3a;
+}
+
+.game-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.game-title {
+    font-family: 'Rubik', sans-serif;
+    font-size: 2.5rem;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+}
+
+.game-description {
+    font-family: 'Rubik', sans-serif;
+    color: #ddd;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.genres, .platforms {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.game-genres, .game-platforms {
+    margin-top: 0.5rem;
+    margin-bottom: 0.6rem;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    display: inline-block;
+    background: #2f2f2f;
+    color: #bbb;
+    padding: 0.3rem 0.8rem;
+    border-radius: 30px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.85rem;
+    transition: background 0.15s, color 0.15s;
+    text-decoration: none;
+}
+
+.tag:hover {
+    background: #252525;
+    color: #fff;
+}
+
+.rate-button {
+    display: inline-block;
+    background: #ff00ff;
+    color: #000000;
+    padding: 0.3rem 0.8rem;
+    border-radius: 5px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.3rem;
+    transition: background 0.15s, color 0.15s;
+    text-decoration: none;
+    margin-bottom: 1rem;
+}
+
+.game-publisher, .game-developer {
+    font-family: 'Rubik', sans-serif;
+}
+
+h4.game-publisher, h4.game-developer {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #9f9f9f;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+p.game-publisher, p.game-developer {
+    color: #ffffff;
+    margin-top: 0.2rem;
+    margin-bottom: 0.8rem;
 }

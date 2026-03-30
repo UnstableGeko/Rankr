@@ -85,8 +85,7 @@ public class MiniServer {
                 conn.setDoOutput(true);
                 
                 // Send query
-                String body = "fields name, rating, rating_count, cover.image_id; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
-                conn.getOutputStream().write(body.getBytes());
+                String body = "fields " + "name, " + "summary, " + "rating, " + "rating_count, " + "cover.image_id, " + "genres.name, " + "genres.slug, " + "themes.name, " + "themes.slug, " + "platforms.name, " + "platforms.slug, " + "involved_companies.publisher, " + "involved_companies.developer, " + "involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";                conn.getOutputStream().write(body.getBytes());
                 
                 // Read response
                 InputStream responseStream = conn.getInputStream();
@@ -128,7 +127,7 @@ public class MiniServer {
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
 
-                String body = "fields name; sort name asc; limit 500;";
+                String body = "fields name, slug; sort name asc; limit 500;";
                 conn.getOutputStream().write(body.getBytes());
 
                 InputStream responseStream = conn.getInputStream();
