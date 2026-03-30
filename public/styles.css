@@ -601,8 +601,7 @@ body {
 }
 
 .game-image {
-    flex: 0 0 300px;
-    max-width: 300px;
+    width: 300px;
     aspect-ratio: 3 / 4;
     background: #2f2f2f;
     border-radius: 10px;
