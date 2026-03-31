@@ -1,6 +1,6 @@
 # Rankr
 
-Rankr is a game discovery, ranking, and review website created for **ENGR-1340: Introduction to Engineering Design** a class at Texas Tech University
+Rankr is a game discovery, ranking, and review website created for **ENGR-1340: Introduction to Engineering Design,** a course at Texas Tech University
 
 The goal of this project was to learn to design like engineers. We began by developing the idea for the site, then interviewed fellow students and several gamers we personally knew to better understand what users would want from a game-focused platform. The insight gathered from those interviews helped guide our design decisions and early planning process.
 
@@ -43,8 +43,6 @@ From there, we created a **paper wireframe** of the site, followed by a **Figma 
   - rating
 - Includes a **Rate This Game** button
 - Intended to display reviews near the bottom of the page
-
----
 
 ### Browse Page
 - Allows users to:
@@ -96,7 +94,7 @@ git clone https://github.com/UnstableGeko/Rankr.git
 
 ### 2. Set up API credentials
 
-In order to use this site for the time being, you will have to create an account with IGDB, this can be done easily by navigating to https://api-docs.igdb.com/#getting-started and following the account creation steps. After you complete this process, please take note of your Client ID and Client Secret (which henceforth we will refer to as YOUR-ACCESS-TOKEN).
+In order to use this site for the time being, you will have to create an account with IGDB, this can be done easily by navigating to https://api-docs.igdb.com/#getting-started and following the account creation steps. After you complete this process, please take note of your Client ID and generate an Access Token, as both of these are required to run the project locally.
 
 ### 3. Create a config.properties file
 
@@ -104,7 +102,7 @@ This file should be stored in the root folder of the Rankr project, Rankr/.
 Add your IGDB API credentials to this file like this:
 ```bash
 igdb.client.id=YOUR_CLIENT_ID
-idgp.access.token=YOUR_ACCESS_TOKEN
+idgb.access.token=YOUR_ACCESS_TOKEN
 ```
 
 ### 4. Open Command Prompt and navigate to the server folder
@@ -128,3 +126,25 @@ java MiniServer
 ### 7. Open the site
 
 After running the server, it will print a local link to the site. Ctrl + Left Click the link to open the site in your default browser.
+
+---
+
+## Project Structure
+
+```
+Rankr/
+├── public/
+│   ├── index.html
+│   ├── about.html
+│   ├── browse.html
+│   ├── game.html
+│   ├── styles.css
+│   ├── js/
+│   │   └── game.js
+│   └── src/
+│       ├── MiniServer.java
+│       └── MiniServer.class
+├── config.properties
+└── README.md
+```
+This structure may change as development continues.
