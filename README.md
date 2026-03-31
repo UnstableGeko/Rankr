@@ -4,7 +4,7 @@ Rankr is a game discovery, ranking, and review website created for **ENGR-1340: 
 
 The goal of this project was to learn to design like engineers. We began by developing the idea for the site, then interviewed fellow students and several gamers we personally knew to better understand what users would want from a game-focused platform. The insight gathered from those interviews helped guide our design decisions and early planning process.
 
-From there, we created a **paper wireframe** of the site, followed by a **Figma prototype**, before moving into full development. This project ultimately became Rankr: a space built for both casual and hardcore gamers to share their opinions, explore new titles, and discover what to play next.
+From there, we created a **paper wireframe** of the site, followed by a **Figma prototype**, before moving into full development. This project ultimately became Rankr: a game-focused website designed to help users explore titles, discover highly rated games, and eventually share their own opinions through reviews and ratings.
 
 ---
 
@@ -57,9 +57,9 @@ From there, we created a **paper wireframe** of the site, followed by a **Figma 
 
 ---
 
-## Planned Functionality
+## Future Development
 
-The following features are part of the intended finished solution and/or ongoing development:
+The following features are planned for future development as the project continues:
 
 - A rotating list of the **most recent reviews** on the home page
 - A fully functional **review system**
