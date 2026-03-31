@@ -561,8 +561,8 @@ body {
 /*====Game Page====*/
 .game-page {
     padding: 2rem;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .game-details {
@@ -577,14 +577,14 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    max-width: 30%;
+    max-width: 35%;
 }
 
 .gamepage-center {
     display: flex;
     flex-direction: column;
     flex: 1;
-    max-width: 45%;
+    max-width: 50%;
 }
 
 .gamepage-center-2column {
@@ -679,10 +679,11 @@ body {
     padding: 0.3rem 0.8rem;
     border-radius: 5px;
     font-family: 'Rubik', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.55rem;
     transition: background 0.15s, color 0.15s;
     text-decoration: none;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .game-publisher, .game-developer {
