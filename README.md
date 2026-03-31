@@ -86,7 +86,6 @@ The following features are part of the intended finished solution and/or ongoing
 
 The following tools are required to run Rankr locally:
 
-### Required
 - **Java Development Kit (JDK)**
     neccesary to compile and run the server
 - **A modern web browser**
