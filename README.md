@@ -1,6 +1,6 @@
 # Rankr
 
-Rankr is a game discovery, ranking, and review website created for **ENGR-1340: Introduction to Engineering Design,** a course at Texas Tech University
+Rankr is a game discovery, ranking, and review website created for **ENGR-1340: Introduction to Engineering Design**, a course at Texas Tech University
 
 The goal of this project was to learn to design like engineers. We began by developing the idea for the site, then interviewed fellow students and several gamers we personally knew to better understand what users would want from a game-focused platform. The insight gathered from those interviews helped guide our design decisions and early planning process.
 
@@ -82,6 +82,22 @@ The following features are part of the intended finished solution and/or ongoing
 
 ---
 
+## Dependencies
+
+The following tools are required to run Rankr locally:
+
+### Required
+- **Java Development Kit (JDK)**
+    neccesary to compile and run the server
+- **A modern web browser**
+    like Chrome, Edge, or Firefox
+- **An IGDB API account/credentials**
+    needed to access the api to populate game data
+- **Git** *(optional but recommended)*
+    needed for cloning or version control
+
+---
+
 ## How to Run Locally
 
 Until GitHub Pages deployment is fully set up, Rankr can be run locally using the included Java server.
@@ -102,7 +118,7 @@ This file should be stored in the root folder of the Rankr project, Rankr/.
 Add your IGDB API credentials to this file like this:
 ```bash
 igdb.client.id=YOUR_CLIENT_ID
-idgb.access.token=YOUR_ACCESS_TOKEN
+igdb.access.token=YOUR_ACCESS_TOKEN
 ```
 
 ### 4. Open Command Prompt and navigate to the server folder
