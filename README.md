@@ -1,82 +1,95 @@
 # Rankr
 
-Welcome to the GitHub template repository for the **courses (CS3361, CS3365)**! This template serves as a starting point for your first assignment of creating and deploying your portfolio. Follow the instructions below to download, customize, and push your work to your own GitHub repository.
+Rankr is a game discovery, ranking, and review website created for **ENGR-1340: Introduction to Engineering Design** a class at Texas Tech University
+
+The goal of this project was to learn to design like engineers. We began by developing the idea for the site, then interviewed fellow students and several gamers we personally knew to better understand what users would want from a game-focused platform. The insight gathered from those interviews helped guide our design decisions and early planning process.
+
+From there, we created a **paper wireframe** of the site, followed by a **Figma prototype**, before moving into full development. This project ultimately became Rankr: a space built for both casual and hardcore gamers to share their opinions, explore new titles, and discover what to play next.
 
 ---
 
-## 📂 Repository Structure
-The template includes the following structure:
+## Table of Contents
 
-```
-📦create_website
- ┣ 📂files/         # Add your CV PDF inside this folder
- ┣ 📂images/        # Add your image inside this folder
- ┣ projects.html    # Update this file to add your own project details
- ┣ index.html       # Update this file for the main page of your portfolio
- ┣ 📜README.md      # Project instructions and information
- ┗ 📜LICENSE        # Licensing information
-```
+- [Features](#features)
+- [Planned Functionality](#planned-functionality)
+- [Tech Stack](#tech-stack)
+- [How to Run Locally](#how-to-run-locally)
+- [IGDB API Setup](#igdb-api-setup)
+- [Project Structure](#project-structure)
+- [Screenshots](#screenshots)
+- [Team](#team)
+- [Future Improvements](#future-improvements)
 
 ---
 
-## Setup
+## Features
 
-### 1. **Clone or Download This Repository**  
-Clone the repository to your local machine:
+### Home Page
+- Displays a list of **top-rated games** near the top of the page
+- Includes a rotating section intended to show the **most recent reviews**
+
+### About Page
+- Provides background information about the Rankr project
+- Introduces the team behind the site
+
+### Game Page
+- Displays key information about an individual game, including:
+  - title
+  - cover image
+  - description
+  - genres/themes
+  - platforms
+  - publisher/developer
+  - rating
+- Includes a **Rate This Game** button
+- Intended to display reviews near the bottom of the page
+
+---
+
+### Browse Page
+- Allows users to:
+  - search by **game title**
+  - browse by **platform**
+  - browse by **genre**
+- Clicking a platform or genre leads to a browse page filtered by that category
+
+### API Integration
+- Uses the **IGDB API** to retrieve game data
+- A lightweight **Java backend** is used to populate the site with game information
+
+---
+
+## Planned Functionality
+
+The following features are part of the intended finished solution and/or ongoing development:
+
+- A rotating list of the **most recent reviews** on the home page
+- A fully functional **review system**
+- **User accounts** for personalized ratings and reviews
+- Expanded **search and browse filtering**
+- More polished and complete **browse page functionality**
+- Potential support for user session features (such as cookies)
+
+---
+
+## Tech Stack
+
+- **HTML**
+- **CSS**
+- **JavaScript**
+- **Java**
+- **IGDB API**
+- **Git / GitHub**
+- **GitHub Pages** *(planned deployment)*
+
+---
+
+## How to Run Locally
+
+Until GitHub Pages deployment is fully set up, Rankr can be run locally using the included Java server.
+
+### 1. Clone the repository
+
 ```bash
 git clone https://github.com/UnstableGeko/Rankr.git
 ```
-Alternatively, download it as a ZIP file and extract it.
-
----
-
-### 2. **Open rankr in your browser**  
-Make the following changes:
-- Replace placeholder information (e.g., `Your Name`, `Project Title`) with your details.
-- Add your project code and any required files in the respective folders.
-
----
-
-### 3. **Create Your GitHub Repository**  
-1. Log in to your GitHub account.  
-2. Create a new repository (**public** unless otherwise specified).  
-3. Copy the repository URL for use in the next step.
-
----
-
-### 4. **Push Your Changes to Your Repository**  
-Run the following commands to upload your project to your new repository:
-
-```bash
-# Initialize a new Git repository
-git init
-
-# Stage all changes
-git add .
-
-# Commit your changes
-git commit -m "Initial commit"
-
-# Set the main branch
-git branch -M main
-
-# Add the remote repository
-git remote add origin <your-repo-url>
-
-# Push changes to GitHub
-git push -u origin main
-```
-
----
-
-## 📝 Submission Instructions  
-Once you have pushed your work to GitHub, submit the repository link as per the instructions provided in the course.
-
----
-
-### ⚖️ License  
-This project template is licensed under the [MIT License](LICENSE).
-
----
-
-Celebrate and enjoy your coding experience! 🚀
