@@ -93,3 +93,38 @@ Until GitHub Pages deployment is fully set up, Rankr can be run locally using th
 ```bash
 git clone https://github.com/UnstableGeko/Rankr.git
 ```
+
+### 2. Set up API credentials
+
+In order to use this site for the time being, you will have to create an account with IGDB, this can be done easily by navigating to https://api-docs.igdb.com/#getting-started and following the account creation steps. After you complete this process, please take note of your Client ID and Client Secret (which henceforth we will refer to as YOUR-ACCESS-TOKEN).
+
+### 3. Create a config.properties file
+
+This file should be stored in the root folder of the Rankr project, Rankr/.
+Add your IGDB API credentials to this file like this:
+```bash
+igdb.client.id=YOUR_CLIENT_ID
+idgp.access.token=YOUR_ACCESS_TOKEN
+```
+
+### 4. Open Command Prompt and navigate to the server folder
+
+```bash
+cd Rankr/public/src
+```
+
+### 5. Compile the Java server
+
+```bash
+javac MiniServer.java
+```
+
+### 6. Run the server
+
+```bash
+java MiniServer
+```
+
+### 7. Open the site
+
+After running the server, it will print a local link to the site. Ctrl + Left Click the link to open the site in your default browser.
