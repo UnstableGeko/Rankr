@@ -3,10 +3,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #282828;
     color: #ffffff;
     line-height: 1.6;
@@ -400,7 +400,7 @@ body {
     letter-spacing: 0.02em;
 }
 
-/*======*/
+/*===Home Page===*/
 
 .game-grid {
     display: grid;
@@ -408,7 +408,7 @@ body {
     gap: 1.5rem;
     padding: 1.5rem 2rem 2rem;
     margin-left: 5%;
-    margin-right: 20%;
+    margin-right: 25%;
 }
 
 .game-card {
@@ -576,15 +576,13 @@ body {
 .gamepage-left {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    max-width: 35%;
+    flex: 7;
 }
 
 .gamepage-center {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    max-width: 50%;
+    flex: 10;
 }
 
 .gamepage-center-2column {
@@ -596,12 +594,12 @@ body {
 .gamepage-right {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    max-width: 20%;
+    flex: 4;
 }
 
 .game-image {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     aspect-ratio: 3 / 4;
     background: #2f2f2f;
     border-radius: 10px;
@@ -636,6 +634,7 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
+    gap: 0.25rem;
 }
 
 .game-genres, .game-platforms {
@@ -676,7 +675,7 @@ body {
     display: inline-block;
     background: #ff00ff;
     color: #000000;
-    padding: 0.3rem 0.8rem;
+    padding: 0.75rem 1rem;
     border-radius: 5px;
     font-family: 'Rubik', sans-serif;
     font-size: 1.55rem;
@@ -703,4 +702,50 @@ p.game-publisher, p.game-developer {
     color: #ffffff;
     margin-top: 0.2rem;
     margin-bottom: 0.8rem;
+}
+@media (max-width: 900px) {
+    .game-details {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gamepage-left,{
+        align-content: center;
+        width: 100%;
+        max-width: 100%;
+     }
+     
+    .gamepage-center,
+    .gamepage-right {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .gamepage-center-2column {
+        flex-direction: column;
+    }
+
+    .game-image {
+        width: 220px;
+    }
+
+    .game-title {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .game-description {
+        text-align: center;
+    }
+
+    h4.game-publisher,
+    h4.game-developer,
+    p.game-publisher,
+    p.game-developer {
+        text-align: center;
+    }
+
+    .rate-button {
+        align-self: center;
+    }
 }
