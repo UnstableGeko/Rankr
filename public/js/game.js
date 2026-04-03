@@ -14,7 +14,7 @@ async function fetchGameCovers() {
                 const slug = slugify(game.name);
                 
                 const link = document.createElement('a');
-                link.href = `game.html?id=${game.id}`;                // /${slug}
+                link.href = `/games/${slug}`;             // /${slug}
                 link.classList.add('game-link');
                 
                 const gameCard = document.createElement('div');
@@ -192,10 +192,9 @@ async function populateGamePage() {
     const titleEl = document.querySelector('.game-title');
     if (!titleEl) return;
 
-    const params = new URLSearchParams(window.location.search);
-    const gameId = params.get('id');
+    const slug = window.location.pathname.split('/').pop();
 
-    if (!gameId) {
+    if (!slug) {
         console.error('No game id found in URL');
         titleEl.textContent = 'Game not found';
         titleEl.classList.remove('skeleton');
@@ -206,9 +205,9 @@ async function populateGamePage() {
         const response = await fetch('/api/games', { method: 'POST' });
         const games = await response.json();
 
-        const game = games.find(g => String(g.id) === String(gameId));
+        const game = games.find(g => slugify(g.name) === slug);
         if (!game) {
-            console.error('Game not found for id:', gameId);
+            console.error('Game not found for slug:', slug);
             titleEl.textContent = 'Game not found';
             titleEl.classList.remove('skeleton');
             return;

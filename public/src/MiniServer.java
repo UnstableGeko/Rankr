@@ -24,6 +24,36 @@ public class MiniServer {
         final String configAccessToken = config.getProperty("igdb.access.token");
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+
+        // Serve game pages at /games/(slug)
+        server.createContext("/games/", exchange -> {
+            String path = exchange.getRequestURI().getPath();
+            
+            String slug = path.substring("/games/".length());
+            
+            if (slug.isEmpty()) {
+                exchange.sendResponseHeaders(302, 0);
+                exchange.getResponseHeaders().set("Location", "/");
+                exchange.close();
+                return;
+            }
+
+            Path file = root.resolve("game.html").normalize();
+
+            if (!Files.exists(file)) {
+                String msg = "404 Not Found";
+                exchange.sendResponseHeaders(404, msg.length());
+                exchange.getResponseBody().write(msg.getBytes());
+                exchange.close();
+                return;
+            }
+
+            exchange.getResponseHeaders().set("Content-Type", "text/html; charset=utf-8");
+            byte[] data = Files.readAllBytes(file);
+            exchange.sendResponseHeaders(200, data.length);
+            exchange.getResponseBody().write(data);
+            exchange.close();
+        });
         
         // Serve static files (HTML, CSS, JS, images)
         server.createContext("/", exchange -> {
@@ -85,7 +115,8 @@ public class MiniServer {
                 conn.setDoOutput(true);
                 
                 // Send query
-                String body = "fields " + "name, " + "summary, " + "rating, " + "rating_count, " + "cover.image_id, " + "genres.name, " + "genres.slug, " + "themes.name, " + "themes.slug, " + "platforms.name, " + "platforms.slug, " + "involved_companies.publisher, " + "involved_companies.developer, " + "involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";                conn.getOutputStream().write(body.getBytes());
+                String body = "fields " + "name, " + "summary, " + "rating, " + "rating_count, " + "cover.image_id, " + "genres.name, " + "genres.slug, " + "themes.name, " + "themes.slug, " + "platforms.name, " + "platforms.slug, " + "involved_companies.publisher, " + "involved_companies.developer, " + "involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
+                conn.getOutputStream().write(body.getBytes());
                 
                 // Read response
                 InputStream responseStream = conn.getInputStream();
@@ -101,7 +132,7 @@ public class MiniServer {
                 exchange.close();
                 
             } catch (Exception e) {
-                e.printStackTrace();  // Helpful for debugging
+                e.printStackTrace();
                 String error = "{\"error\": \"" + e.getMessage() + "\"}";
                 exchange.sendResponseHeaders(500, error.length());
                 exchange.getResponseBody().write(error.getBytes());
@@ -147,6 +178,7 @@ public class MiniServer {
                 exchange.close();
             }
         });
+
         server.setExecutor(null);
         server.start();
         System.out.println("Server running at http://localhost:" + port);
