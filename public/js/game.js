@@ -179,12 +179,14 @@ if (genresDropdown && genresMenu) {
         }, 100);
     });
 }
+
 function slugify(name) {
     return name
         .toLowerCase()
         .replace(/\s+/g, "_")
         .replace(/[^a-z0-9_]/g, "");
 }
+
 async function populateGamePage() {
     // Only run on the single game page
     const titleEl = document.querySelector('.game-title');
@@ -196,6 +198,7 @@ async function populateGamePage() {
     if (!gameId) {
         console.error('No game id found in URL');
         titleEl.textContent = 'Game not found';
+        titleEl.classList.remove('skeleton');
         return;
     }
 
@@ -207,6 +210,7 @@ async function populateGamePage() {
         if (!game) {
             console.error('Game not found for id:', gameId);
             titleEl.textContent = 'Game not found';
+            titleEl.classList.remove('skeleton');
             return;
         }
 
@@ -225,17 +229,21 @@ async function populateGamePage() {
         const reviewCountEl = document.getElementById('review-count');
 
         titleEl.textContent = game.name || 'Unknown Title';
+        titleEl.classList.remove('skeleton');
 
         if (descriptionEl) {
             descriptionEl.textContent = game.summary || 'No description available.';
+            descriptionEl.classList.remove('skeleton');
         }
 
         if (coverImg) {
             if (game.cover && game.cover.image_id) {
                 coverImg.src = `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`;
                 coverImg.alt = game.name || 'Game cover image';
+                coverImg.onload = () => coverImg.classList.remove('skeleton');
             } else {
                 coverImg.alt = 'No cover available';
+                coverImg.classList.remove('skeleton');
             }
         }
 
@@ -295,10 +303,8 @@ async function populateGamePage() {
                 game.publishers ||
                 game.involved_companies?.filter(c => c.publisher).map(c => c.company)
             );
-
-            publisherListEl.textContent = publishers.length
-                ? publishers.join(', ')
-                : 'Unknown';
+            publisherListEl.textContent = publishers.length ? publishers.join(', ') : 'Unknown';
+            publisherListEl.classList.remove('skeleton');
         }
 
         if (developerListEl) {
@@ -306,10 +312,8 @@ async function populateGamePage() {
                 game.developers ||
                 game.involved_companies?.filter(c => c.developer).map(c => c.company)
             );
-
-            developerListEl.textContent = developers.length
-                ? developers.join(', ')
-                : 'Unknown';
+            developerListEl.textContent = developers.length ? developers.join(', ') : 'Unknown';
+            developerListEl.classList.remove('skeleton');
         }
 
         // ---------- Rating ----------
@@ -320,7 +324,6 @@ async function populateGamePage() {
                 null;
 
             if (ratingValue !== null) {
-                // If IGDB-style rating is out of 100, convert to 5
                 const normalizedRating = ratingValue > 5
                     ? (ratingValue / 20).toFixed(1)
                     : ratingValue.toFixed(1);
@@ -346,8 +349,10 @@ async function populateGamePage() {
     } catch (error) {
         console.error('Error populating game page:', error);
         titleEl.textContent = 'Error loading game';
+        titleEl.classList.remove('skeleton');
     }
 }
+
 function extractNames(items) {
     if (!items) return [];
 
