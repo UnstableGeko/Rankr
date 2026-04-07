@@ -19,16 +19,13 @@ public class MiniServer {
             System.exit(1);
         }
         
-        // Store credentials for use in the endpoint
         final String configClientId = config.getProperty("igdb.client.id");
         final String configAccessToken = config.getProperty("igdb.access.token");
 
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
-        // Serve game pages at /games/(slug)
         server.createContext("/games/", exchange -> {
             String path = exchange.getRequestURI().getPath();
-            
             String slug = path.substring("/games/".length());
             
             if (slug.isEmpty()) {
@@ -55,7 +52,6 @@ public class MiniServer {
             exchange.close();
         });
         
-        // Serve static files (HTML, CSS, JS, images)
         server.createContext("/", exchange -> {
             String path = exchange.getRequestURI().getPath();
             
@@ -63,7 +59,20 @@ public class MiniServer {
                 return;
             }
 
-            if (path.equals("/")) path = "/index.html";
+            if (path.equals("/")) {
+                exchange.getResponseHeaders().set("Location", "/home");
+                exchange.sendResponseHeaders(302, -1);
+                exchange.close();
+                return;
+            }
+
+            if (path.equals("/home")) {
+                path = "/index.html";
+            }
+
+            if (path.equals("/about")) {
+                path = "/about.html";
+            }
 
             Path file = root.resolve(path.substring(1)).normalize();
 
@@ -83,7 +92,6 @@ public class MiniServer {
             exchange.close();
         });
 
-        // IGDB API Proxy - all games (for home page)
         server.createContext("/api/games", exchange -> {
             if (!exchange.getRequestMethod().equals("POST")) {
                 exchange.sendResponseHeaders(405, 0);
@@ -113,7 +121,7 @@ public class MiniServer {
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
                 
-                String body = "fields " + "name, " + "summary, " + "rating, " + "rating_count, " + "cover.image_id, " + "genres.name, " + "genres.slug, " + "themes.name, " + "themes.slug, " + "platforms.name, " + "platforms.slug, " + "involved_companies.publisher, " + "involved_companies.developer, " + "involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
+                String body = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; where cover != null & rating != null & rating_count > 500; sort rating desc; limit 40;";
                 conn.getOutputStream().write(body.getBytes());
                 
                 InputStream responseStream = conn.getInputStream();
@@ -134,7 +142,6 @@ public class MiniServer {
             }
         });
 
-        // Single game lookup by slug (for game page)
         server.createContext("/api/game-single", exchange -> {
             if (!exchange.getRequestMethod().equals("POST")) {
                 exchange.sendResponseHeaders(405, 0);
@@ -145,6 +152,7 @@ public class MiniServer {
             try {
                 String query = exchange.getRequestURI().getQuery();
                 String slug = "";
+                
                 if (query != null) {
                     for (String param : query.split("&")) {
                         if (param.startsWith("slug=")) {
@@ -171,7 +179,107 @@ public class MiniServer {
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
 
-                String body = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
+                String body = "fields name, slug, summary, rating, rating_count, total_rating, total_rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; where slug = \"" + slug + "\"; limit 1;";
+                conn.getOutputStream().write(body.getBytes());
+
+                InputStream responseStream = conn.getInputStream();
+                byte[] responseData = responseStream.readAllBytes();
+
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+                exchange.sendResponseHeaders(200, responseData.length);
+                exchange.getResponseBody().write(responseData);
+                exchange.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                String error = "{\"error\": \"" + e.getMessage() + "\"}";
+                exchange.sendResponseHeaders(500, error.length());
+                exchange.getResponseBody().write(error.getBytes());
+                exchange.close();
+            }
+        });
+
+        server.createContext("/api/browse", exchange -> {
+            if (!exchange.getRequestMethod().equals("POST")) {
+                exchange.sendResponseHeaders(405, 0);
+                exchange.close();
+                return;
+            }
+
+            try {
+                InputStream requestBody = exchange.getRequestBody();
+                String bodyStr = new String(requestBody.readAllBytes());
+                
+                System.out.println("=== BROWSE REQUEST ===");
+                System.out.println("Request Body: " + bodyStr);
+                
+                String filterType = null;
+                String filterValue = null;
+                
+                int ftIndex = bodyStr.indexOf("\"filterType\"");
+                if (ftIndex != -1) {
+                    int colonIndex = bodyStr.indexOf(":", ftIndex);
+                    int openQuoteIndex = bodyStr.indexOf("\"", colonIndex);
+                    int closeQuoteIndex = bodyStr.indexOf("\"", openQuoteIndex + 1);
+                    filterType = bodyStr.substring(openQuoteIndex + 1, closeQuoteIndex);
+                }
+                
+                if (bodyStr.contains("\"filterValue\"")) {
+                    int valStart = bodyStr.indexOf("\"filterValue\":") + 14;
+                    
+                    // Check if the value is a string (has quotes) or a number (no quotes)
+                    String afterColon = bodyStr.substring(valStart).trim();
+                    
+                    if (afterColon.startsWith("\"")) {
+                        // It's a string value - find the closing quote
+                        int openQuote = bodyStr.indexOf("\"", valStart);
+                        int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
+                        filterValue = bodyStr.substring(openQuote + 1, closeQuote);
+                    } else {
+                        // It's a number - find the comma or closing brace
+                        int valEnd = bodyStr.indexOf(",", valStart);
+                        if (valEnd == -1) valEnd = bodyStr.indexOf("}", valStart);
+                        if (valStart > 13 && valEnd > valStart) {
+                            filterValue = bodyStr.substring(valStart, valEnd).trim();
+                            if (filterValue.equals("null")) filterValue = null;
+                        }
+                    }
+                }
+
+                System.out.println("Parsed filterType: " + filterType);
+                System.out.println("Parsed filterValue: " + filterValue);
+
+                URI uri = new URI("https://api.igdb.com/v4/games");
+                URL url = uri.toURL();
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Client-ID", configClientId);
+                conn.setRequestProperty("Authorization", "Bearer " + configAccessToken);
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+
+                String whereClause = "where cover != null & rating != null & rating_count > 20";
+                
+                if (filterType != null && filterValue != null) {
+                    if (filterType.equals("genre")) {
+                        whereClause += " & genres = [" + filterValue + "]";
+                    } else if (filterType.equals("platform")) {
+                        String cleanValue = filterValue.replaceAll("\"", "");
+                        whereClause += " & platforms.slug = \"" + cleanValue + "\"";
+                    }
+                }
+
+                String body = "fields name, slug, cover.image_id, rating, rating_count; " + 
+                                whereClause + "; " +
+                                "sort rating desc; " +
+                                "limit 40;";
+                
+                System.out.println("Where Clause: " + whereClause);
+                System.out.println("Full IGDB Query: " + body);
+                System.out.println("===================");
+                
                 conn.getOutputStream().write(body.getBytes());
 
                 InputStream responseStream = conn.getInputStream();
