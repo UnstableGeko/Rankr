@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>"..."</title>
+    <title>Browse Games - Rankr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.ico">
@@ -15,7 +15,7 @@
     <div class="container">
 
         <header class="site-header">
-            <a href="index.html" class="name-title">Rankr</a>
+            <a href="/home" class="name-title">Rankr</a>
 
             <nav class="desktop-nav">
                 <ul class="nav-links">
@@ -142,12 +142,14 @@
             </nav>
         </header>
 
-        <div class="main-content about-page">
-            <h2 class="section-title about-title">Top games matching "..."</h2>
-
+        <div class="main-content">
+            <h2 class="section-title" id="browse-title" style="margin-left: 5%;">Loading...</h2>
+            <div class="game-grid" id="game-grid">
+                <!-- Games will be populated by browse.js -->
+            </div>
         </div>
     </div>
 
-    <script src="/js/game.js"></script>
+    <script src="/js/browse.js"></script>
 </body>
 </html>
