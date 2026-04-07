@@ -83,7 +83,7 @@ public class MiniServer {
             exchange.close();
         });
 
-        // IGDB API Proxy
+        // IGDB API Proxy - all games (for home page)
         server.createContext("/api/games", exchange -> {
             if (!exchange.getRequestMethod().equals("POST")) {
                 exchange.sendResponseHeaders(405, 0);
@@ -103,7 +103,6 @@ public class MiniServer {
                     return;
                 }
                 
-                // Create connection to IGDB
                 URI uri = new URI("https://api.igdb.com/v4/games");
                 URL url = uri.toURL();
 
@@ -114,23 +113,76 @@ public class MiniServer {
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
                 
-                // Send query
                 String body = "fields " + "name, " + "summary, " + "rating, " + "rating_count, " + "cover.image_id, " + "genres.name, " + "genres.slug, " + "themes.name, " + "themes.slug, " + "platforms.name, " + "platforms.slug, " + "involved_companies.publisher, " + "involved_companies.developer, " + "involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
                 conn.getOutputStream().write(body.getBytes());
                 
-                // Read response
                 InputStream responseStream = conn.getInputStream();
                 byte[] responseData = responseStream.readAllBytes();
                 
-                // Add CORS headers
                 exchange.getResponseHeaders().set("Content-Type", "application/json");
                 exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-                
-                // Send to frontend
                 exchange.sendResponseHeaders(200, responseData.length);
                 exchange.getResponseBody().write(responseData);
                 exchange.close();
                 
+            } catch (Exception e) {
+                e.printStackTrace();
+                String error = "{\"error\": \"" + e.getMessage() + "\"}";
+                exchange.sendResponseHeaders(500, error.length());
+                exchange.getResponseBody().write(error.getBytes());
+                exchange.close();
+            }
+        });
+
+        // Single game lookup by slug (for game page)
+        server.createContext("/api/game-single", exchange -> {
+            if (!exchange.getRequestMethod().equals("POST")) {
+                exchange.sendResponseHeaders(405, 0);
+                exchange.close();
+                return;
+            }
+
+            try {
+                String query = exchange.getRequestURI().getQuery();
+                String slug = "";
+                if (query != null) {
+                    for (String param : query.split("&")) {
+                        if (param.startsWith("slug=")) {
+                            slug = URLDecoder.decode(param.substring(5), "UTF-8");
+                        }
+                    }
+                }
+
+                if (slug.isEmpty()) {
+                    String error = "{\"error\": \"Missing slug parameter\"}";
+                    exchange.sendResponseHeaders(400, error.length());
+                    exchange.getResponseBody().write(error.getBytes());
+                    exchange.close();
+                    return;
+                }
+
+                URI uri = new URI("https://api.igdb.com/v4/games");
+                URL url = uri.toURL();
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Client-ID", configClientId);
+                conn.setRequestProperty("Authorization", "Bearer " + configAccessToken);
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+
+                String body = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
+                conn.getOutputStream().write(body.getBytes());
+
+                InputStream responseStream = conn.getInputStream();
+                byte[] responseData = responseStream.readAllBytes();
+
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+                exchange.sendResponseHeaders(200, responseData.length);
+                exchange.getResponseBody().write(responseData);
+                exchange.close();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 String error = "{\"error\": \"" + e.getMessage() + "\"}";

@@ -10,11 +10,10 @@ async function fetchGameCovers() {
                 const imageId = game.cover.image_id;
                 const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
 
-                // make a clean slug to use in the URL
-                const slug = slugify(game.name);
+                const slug = game.slug || slugify(game.name);
                 
                 const link = document.createElement('a');
-                link.href = `/games/${slug}`;             // /${slug}
+                link.href = `/games/${slug}`;
                 link.classList.add('game-link');
                 
                 const gameCard = document.createElement('div');
@@ -26,7 +25,8 @@ async function fetchGameCovers() {
                 
                 gameCard.appendChild(img);
                 link.appendChild(gameCard);
-                gameGrid.appendChild(link);            }
+                gameGrid.appendChild(link);
+            }
         });
     } catch (error) {
         console.error('Error fetching games:', error);
@@ -106,12 +106,10 @@ document.querySelectorAll('.platform-item').forEach(item => {
         clearAllPanels();
 
         if (!platform) {
-            // No submenu - hide the right column entirely
             if (platformsDetail) platformsDetail.style.display = 'none';
             return;
         }
 
-        // Show right column and matching panel
         if (platformsDetail) platformsDetail.style.display = 'block';
         const models = document.querySelector(`[data-for="${platform}"]`);
         if (models) models.classList.add('active');
@@ -130,7 +128,6 @@ function showMenu() {
     platformsMenu.style.left = rect.left + 'px';
     platformsMenu.style.display = 'block';
 
-    // Default to PlayStation
     document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
     clearAllPanels();
     if (platformsDetail) platformsDetail.style.display = 'block';
@@ -188,24 +185,22 @@ function slugify(name) {
 }
 
 async function populateGamePage() {
-    // Only run on the single game page
     const titleEl = document.querySelector('.game-title');
     if (!titleEl) return;
 
     const slug = window.location.pathname.split('/').pop();
 
     if (!slug) {
-        console.error('No game id found in URL');
         titleEl.textContent = 'Game not found';
         titleEl.classList.remove('skeleton');
         return;
     }
 
     try {
-        const response = await fetch('/api/games', { method: 'POST' });
+        const response = await fetch(`/api/game-single?slug=${slug}`, { method: 'POST' });
         const games = await response.json();
+        const game = games[0];
 
-        const game = games.find(g => slugify(g.name) === slug);
         if (!game) {
             console.error('Game not found for slug:', slug);
             titleEl.textContent = 'Game not found';
@@ -213,11 +208,8 @@ async function populateGamePage() {
             return;
         }
 
-        console.log('Loaded game keys:', Object.keys(game));
-        console.log('Loaded game JSON:', JSON.stringify(game, null, 2));
         console.log('Loaded game:', game);
 
-        // ---------- Basic fields ----------
         const descriptionEl = document.querySelector('.game-description');
         const coverImg = document.querySelector('.game-image img');
         const genreTagsEl = document.getElementById('genre-tags');
@@ -249,28 +241,23 @@ async function populateGamePage() {
         // ---------- Genres ----------
         if (genreTagsEl) {
             genreTagsEl.innerHTML = '';
-
             const combinedTags = [
-            ...(Array.isArray(game.genres) ? game.genres : []),
-            ...(Array.isArray(game.themes) ? game.themes : [])
+                ...(Array.isArray(game.genres) ? game.genres : []),
+                ...(Array.isArray(game.themes) ? game.themes : [])
             ];
 
             if (combinedTags.length === 0) {
                 genreTagsEl.innerHTML = '<span class="tag">Unknown</span>';
-            } 
-            else {
+            } else {
                 const seen = new Set();
-
                 combinedTags.forEach(tag => {
                     if (!tag || !tag.name) return;
-
                     const key = tag.name.toLowerCase();
                     if (seen.has(key)) return;
                     seen.add(key);
-            
                     const link = document.createElement('a');
                     link.className = 'tag';
-                    link.href = `browse.html?genre=${tag.slug || slugifyQuery(tag.name)}`;
+                    link.href = `/browse.html?genre=${tag.slug || slugifyQuery(tag.name)}`;
                     link.textContent = tag.name;
                     genreTagsEl.appendChild(link);
                 });
@@ -280,16 +267,14 @@ async function populateGamePage() {
         // ---------- Platforms ----------
         if (platformTagsEl) {
             platformTagsEl.innerHTML = '';
-
             const platforms = extractNames(game.platforms);
-
             if (platforms.length === 0) {
                 platformTagsEl.innerHTML = '<span class="tag">Unknown</span>';
             } else {
                 platforms.forEach(name => {
                     const link = document.createElement('a');
                     link.className = 'tag';
-                    link.href = `browse.html?platform=${encodeURIComponent(name)}`;
+                    link.href = `/browse.html?platform=${encodeURIComponent(name)}`;
                     link.textContent = name;
                     platformTagsEl.appendChild(link);
                 });
@@ -326,7 +311,6 @@ async function populateGamePage() {
                 const normalizedRating = ratingValue > 5
                     ? (ratingValue / 20).toFixed(1)
                     : ratingValue.toFixed(1);
-
                 starRatingEl.textContent = `${normalizedRating}/5`;
             } else {
                 starRatingEl.textContent = 'No rating yet';
@@ -339,10 +323,7 @@ async function populateGamePage() {
                 game.rating_count ??
                 game.reviews_count ??
                 null;
-
-            reviewCountEl.textContent = ratingCount !== null
-                ? `${ratingCount} ratings`
-                : '';
+            reviewCountEl.textContent = ratingCount !== null ? `${ratingCount} ratings` : '';
         }
 
     } catch (error) {
@@ -354,7 +335,6 @@ async function populateGamePage() {
 
 function extractNames(items) {
     if (!items) return [];
-
     return items
         .map(item => {
             if (typeof item === 'string') return item;
@@ -370,7 +350,6 @@ function slugifyQuery(name) {
         .replace(/\s+/g, '-')
         .replace(/[^a-z0-9-]/g, '');
 }
-
 
 window.addEventListener('DOMContentLoaded', loadMorePlatforms);
 window.addEventListener('DOMContentLoaded', fetchGameCovers);
