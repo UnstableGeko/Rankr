@@ -128,7 +128,8 @@ public class MiniServer {
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
                 
-                String body = "fields " + "name, " + "summary, " + "rating, " + "rating_count, " + "cover.image_id, " + "genres.name, " + "genres.slug, " + "themes.name, " + "themes.slug, " + "platforms.name, " + "platforms.slug, " + "involved_companies.publisher, " + "involved_companies.developer, " + "involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
+                // FIXED: This endpoint gets ALL top games, not a specific slug
+                String body = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; where cover != null & rating != null & rating_count > 500; sort rating desc; limit 40;";
                 conn.getOutputStream().write(body.getBytes());
                 
                 InputStream responseStream = conn.getInputStream();
@@ -159,7 +160,8 @@ public class MiniServer {
 
             try {
                 String query = exchange.getRequestURI().getQuery();
-                String slug = "";
+                String slug = ""; // FIXED: Declare slug variable
+                
                 if (query != null) {
                     for (String param : query.split("&")) {
                         if (param.startsWith("slug=")) {
@@ -186,7 +188,8 @@ public class MiniServer {
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
 
-                String body = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; " + "where cover != null & rating != null & rating_count > 500; " + "sort rating desc; " + "limit 40;";
+                // FIXED: Use slug to get specific game
+                String body = "fields name, slug, summary, rating, rating_count, total_rating, total_rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; where slug = \"" + slug + "\"; limit 1;";
                 conn.getOutputStream().write(body.getBytes());
 
                 InputStream responseStream = conn.getInputStream();
