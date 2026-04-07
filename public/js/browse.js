@@ -62,10 +62,18 @@ async function fetchFilteredGames() {
     } else if (platformSlug) {
         filterType = 'platform';
         filterValue = platformSlug;
-        displayName = platformSlug
-            .split('-')
-            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-            .join(' ') + ' Games';
+        
+        // Get the name from URL parameter if available
+        const platformName = params.get('name');
+        if (platformName) {
+            displayName = platformName + ' Games';
+        } else {
+            // Fallback to formatting the slug
+            displayName = platformSlug
+                .split('-')
+                .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+                .join(' ') + ' Games';
+        }
     }
 
     if (titleEl) {
@@ -82,7 +90,23 @@ async function fetchFilteredGames() {
             })
         });
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const games = await response.json();
+        
+        // Check if the response is an error object
+        if (games.error) {
+            throw new Error(games.error);
+        }
+        
+        // Check if games is actually an array
+        if (!Array.isArray(games)) {
+            console.error('Expected array but got:', games);
+            gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">Error: Invalid response from server.</p>';
+            return;
+        }
         
         if (games.length === 0) {
             gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">No games found for this filter.</p>';
@@ -113,7 +137,7 @@ async function fetchFilteredGames() {
         });
     } catch (error) {
         console.error('Error fetching games:', error);
-        gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%;">Error loading games.</p>';
+        gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">Error loading games. Check console for details.</p>';
     }
 }
 
@@ -238,7 +262,7 @@ function renderPlatformList(platforms) {
     list.innerHTML = '';
     platforms.forEach(p => {
         const li = document.createElement('li');
-        li.innerHTML = `<a href="browse.html?platform=${p.slug}">${p.name}</a>`;
+        li.innerHTML = `<a href="browse.html?platform=${p.slug}&name=${encodeURIComponent(p.name)}">${p.name}</a>`;
         list.appendChild(li);
     });
 }

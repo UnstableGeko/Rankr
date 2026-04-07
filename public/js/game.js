@@ -61,7 +61,7 @@ function renderPlatformList(platforms) {
     list.innerHTML = '';
     platforms.forEach(p => {
         const li = document.createElement('li');
-        li.innerHTML = `<a href="browse.html?platform=${p.name}">${p.name}</a>`;
+        li.innerHTML = `<a href="/browse.html?platform=${p.slug}&name=${encodeURIComponent(p.name)}">${p.name}</a>`;
         list.appendChild(li);
     });
 }
@@ -267,14 +267,17 @@ async function populateGamePage() {
         // ---------- Platforms ----------
         if (platformTagsEl) {
             platformTagsEl.innerHTML = '';
-            const platforms = extractNames(game.platforms);
+            const platforms = game.platforms || [];
             if (platforms.length === 0) {
                 platformTagsEl.innerHTML = '<span class="tag">Unknown</span>';
             } else {
-                platforms.forEach(name => {
+                platforms.forEach(platform => {
                     const link = document.createElement('a');
                     link.className = 'tag';
-                    link.href = `/browse.html?platform=${encodeURIComponent(name)}`;
+                    // Use the platform slug and name from the API
+                    const slug = platform.slug || slugifyQuery(platform.name);
+                    const name = platform.name;
+                    link.href = `/browse.html?platform=${slug}&name=${encodeURIComponent(name)}`;
                     link.textContent = name;
                     platformTagsEl.appendChild(link);
                 });

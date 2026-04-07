@@ -227,11 +227,23 @@ public class MiniServer {
                 
                 if (bodyStr.contains("\"filterValue\"")) {
                     int valStart = bodyStr.indexOf("\"filterValue\":") + 14;
-                    int valEnd = bodyStr.indexOf(",", valStart);
-                    if (valEnd == -1) valEnd = bodyStr.indexOf("}", valStart);
-                    if (valStart > 13 && valEnd > valStart) {
-                        filterValue = bodyStr.substring(valStart, valEnd).trim();
-                        if (filterValue.equals("null")) filterValue = null;
+                    
+                    // Check if the value is a string (has quotes) or a number (no quotes)
+                    String afterColon = bodyStr.substring(valStart).trim();
+                    
+                    if (afterColon.startsWith("\"")) {
+                        // It's a string value - find the closing quote
+                        int openQuote = bodyStr.indexOf("\"", valStart);
+                        int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
+                        filterValue = bodyStr.substring(openQuote + 1, closeQuote);
+                    } else {
+                        // It's a number - find the comma or closing brace
+                        int valEnd = bodyStr.indexOf(",", valStart);
+                        if (valEnd == -1) valEnd = bodyStr.indexOf("}", valStart);
+                        if (valStart > 13 && valEnd > valStart) {
+                            filterValue = bodyStr.substring(valStart, valEnd).trim();
+                            if (filterValue.equals("null")) filterValue = null;
+                        }
                     }
                 }
 
@@ -248,20 +260,21 @@ public class MiniServer {
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
 
-                String whereClause = "where cover != null & rating != null & rating_count > 100";
+                String whereClause = "where cover != null & rating != null & rating_count > 20";
                 
                 if (filterType != null && filterValue != null) {
                     if (filterType.equals("genre")) {
                         whereClause += " & genres = [" + filterValue + "]";
                     } else if (filterType.equals("platform")) {
-                        whereClause += " & platforms.slug = \"" + filterValue + "\"";
+                        String cleanValue = filterValue.replaceAll("\"", "");
+                        whereClause += " & platforms.slug = \"" + cleanValue + "\"";
                     }
                 }
 
-                String body = "fields name, slug, cover.image_id; " + 
-                              whereClause + "; " +
-                              "sort rating desc; " +
-                              "limit 40;";
+                String body = "fields name, slug, cover.image_id, rating, rating_count; " + 
+                                whereClause + "; " +
+                                "sort rating desc; " +
+                                "limit 40;";
                 
                 System.out.println("Where Clause: " + whereClause);
                 System.out.println("Full IGDB Query: " + body);
