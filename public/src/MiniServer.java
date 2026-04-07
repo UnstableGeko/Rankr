@@ -63,7 +63,22 @@ public class MiniServer {
                 return;
             }
 
-            if (path.equals("/")) path = "/index.html";
+            if (path.equals("/")) {
+                exchange.getResponseHeaders().set("Location", "/home");
+                exchange.sendResponseHeaders(302, -1);
+                exchange.close();
+                return;
+            }
+
+            // Map /home to index.html
+            if (path.equals("/home")) {
+                path = "/index.html";
+            }
+
+            // Map /about to about.html
+            if (path.equals("/about")) {
+                path = "/about.html";
+            }
 
             Path file = root.resolve(path.substring(1)).normalize();
 
