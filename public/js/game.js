@@ -354,6 +354,89 @@ function slugifyQuery(name) {
         .replace(/[^a-z0-9-]/g, '');
 }
 
+// Live search autocomplete
+const searchInput = document.querySelector('.search-bar input');
+const searchDropdown = document.createElement('div');
+searchDropdown.className = 'search-dropdown';
+searchDropdown.style.display = 'none';
+
+if (searchInput) {
+    searchInput.parentElement.appendChild(searchDropdown);
+    
+    let searchTimeout;
+    
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        
+        clearTimeout(searchTimeout);
+        
+        if (query.length < 2) {
+            searchDropdown.style.display = 'none';
+            return;
+        }
+        
+        searchTimeout = setTimeout(async () => {
+            try {
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
+                    method: 'POST'
+                });
+                const games = await response.json();
+                
+                if (!Array.isArray(games) || games.length === 0) {
+                    searchDropdown.style.display = 'none';
+                    return;
+                }
+                
+                searchDropdown.innerHTML = '';
+                games.slice(0, 5).forEach(game => {
+                    const item = document.createElement('a');
+                    item.className = 'search-dropdown-item';
+                    item.href = `/games/${game.slug}`;
+                    
+                    const coverUrl = game.cover 
+                        ? `https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg`
+                        : '';
+                    
+                    item.innerHTML = `
+                        ${coverUrl ? `<img src="${coverUrl}" alt="${game.name}">` : ''}
+                        <span>${game.name}</span>
+                    `;
+                    
+                    searchDropdown.appendChild(item);
+                });
+                
+                // Add "See all results" link
+                const seeAll = document.createElement('a');
+                seeAll.className = 'search-dropdown-see-all';
+                seeAll.href = `/search.html?q=${encodeURIComponent(query)}`;
+                seeAll.textContent = `See all results for "${query}"`;
+                searchDropdown.appendChild(seeAll);
+                
+                searchDropdown.style.display = 'block';
+            } catch (error) {
+                console.error('Autocomplete error:', error);
+            }
+        }, 300);
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+            searchDropdown.style.display = 'none';
+        }
+    });
+    
+    // Handle Enter key
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+    });
+}
+
 window.addEventListener('DOMContentLoaded', loadMorePlatforms);
 window.addEventListener('DOMContentLoaded', fetchGameCovers);
 window.addEventListener('DOMContentLoaded', populateGamePage);

@@ -338,7 +338,67 @@ public class MiniServer {
                 exchange.close();
             }
         });
+        server.createContext("/api/search", exchange -> {
+            if (!exchange.getRequestMethod().equals("POST")) {
+                exchange.sendResponseHeaders(405, 0);
+                exchange.close();
+                return;
+            }
 
+            try {
+                String query = exchange.getRequestURI().getQuery();
+                String searchQuery = "";
+                
+                if (query != null) {
+                    for (String param : query.split("&")) {
+                        if (param.startsWith("q=")) {
+                            searchQuery = URLDecoder.decode(param.substring(2), "UTF-8");
+                        }
+                    }
+                }
+
+                if (searchQuery.isEmpty()) {
+                    String error = "{\"error\": \"Missing search query\"}";
+                    exchange.sendResponseHeaders(400, error.length());
+                    exchange.getResponseBody().write(error.getBytes());
+                    exchange.close();
+                    return;
+                }
+
+                URI uri = new URI("https://api.igdb.com/v4/games");
+                URL url = uri.toURL();
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Client-ID", configClientId);
+                conn.setRequestProperty("Authorization", "Bearer " + configAccessToken);
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+
+                String body = "search \"" + searchQuery + "\"; " +
+                            "fields name, slug, cover.image_id, summary, rating, rating_count; " +
+                            "where cover != null; " +
+                            "limit 20;";
+                
+                conn.getOutputStream().write(body.getBytes());
+
+                InputStream responseStream = conn.getInputStream();
+                byte[] responseData = responseStream.readAllBytes();
+
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+                exchange.sendResponseHeaders(200, responseData.length);
+                exchange.getResponseBody().write(responseData);
+                exchange.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                String error = "{\"error\": \"" + e.getMessage() + "\"}";
+                exchange.sendResponseHeaders(500, error.length());
+                exchange.getResponseBody().write(error.getBytes());
+                exchange.close();
+            }
+        });
         server.setExecutor(null);
         server.start();
         System.out.println("Server running at http://localhost:" + port);
