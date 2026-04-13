@@ -303,22 +303,56 @@ async function populateGamePage() {
             developerListEl.classList.remove('skeleton');
         }
 
-        // ---------- Rating ----------
-        if (starRatingEl) {
-            const ratingValue =
-                typeof game.total_rating === 'number' ? game.total_rating :
-                typeof game.rating === 'number' ? game.rating :
-                null;
+// ---------- Rating ----------
+if (starRatingEl) {
+    const ratingValue =
+        typeof game.total_rating === 'number' ? game.total_rating :
+        typeof game.rating === 'number' ? game.rating :
+        null;
 
-            if (ratingValue !== null) {
-                const normalizedRating = ratingValue > 5
-                    ? (ratingValue / 20).toFixed(1)
-                    : ratingValue.toFixed(1);
-                starRatingEl.textContent = `${normalizedRating}/5`;
-            } else {
-                starRatingEl.textContent = 'No rating yet';
-            }
+    if (ratingValue !== null) {
+        // Normalize to 0-5 scale
+        const normalizedRating = ratingValue > 5
+            ? (ratingValue / 20)
+            : ratingValue;
+        
+        // Create star HTML
+        const fullStars = Math.floor(normalizedRating);
+        const hasHalfStar = (normalizedRating % 1) >= 0.5;
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        
+        let starsHTML = '';
+        
+        // Full stars
+        for (let i = 0; i < fullStars; i++) {
+            starsHTML += '<i class="fa-solid fa-star"></i>';
         }
+        
+        // Half star
+        if (hasHalfStar) {
+            starsHTML += '<i class="fa-solid fa-star-half-alt"></i>';
+        }
+        
+        // Empty stars
+        for (let i = 0; i < emptyStars; i++) {
+            starsHTML += '<i class="fa-regular fa-star"></i>';
+        }
+        
+        starRatingEl.innerHTML = starsHTML;
+        
+        // Update rating number text
+        const ratingNumberEl = document.getElementById('rating-number');
+        if (ratingNumberEl) {
+            ratingNumberEl.textContent = normalizedRating.toFixed(1) + '/5';
+        }
+    } else {
+        starRatingEl.innerHTML = '<span style="color: #666;">No rating yet</span>';
+        const ratingNumberEl = document.getElementById('rating-number');
+        if (ratingNumberEl) {
+            ratingNumberEl.textContent = 'N/A';
+        }
+    }
+}
 
         if (reviewCountEl) {
             const ratingCount =
@@ -326,7 +360,12 @@ async function populateGamePage() {
                 game.rating_count ??
                 game.reviews_count ??
                 null;
-            reviewCountEl.textContent = ratingCount !== null ? `${ratingCount} ratings` : '';
+            
+            if (ratingCount !== null) {
+                reviewCountEl.textContent = `(${ratingCount.toLocaleString()} ratings)`;
+            } else {
+                reviewCountEl.textContent = '(0 ratings)';
+            }
         }
 
     } catch (error) {
