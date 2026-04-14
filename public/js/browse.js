@@ -33,7 +33,12 @@ const DISPLAY_NAMES = {
     'turn-based-strategy-tbs': 'Turn-based Strategy (TBS)'
 };
 
-async function fetchFilteredGames() {
+// Pagination state
+let currentPage = 1;
+const gamesPerPage = 40;
+let totalPages = 1;
+
+async function fetchFilteredGames(sortBy = 'rating', page = 1) {
     const gameGrid = document.getElementById('game-grid');
     const titleEl = document.getElementById('browse-title');
     
@@ -63,12 +68,10 @@ async function fetchFilteredGames() {
         filterType = 'platform';
         filterValue = platformSlug;
         
-        // Get the name from URL parameter if available
         const platformName = params.get('name');
         if (platformName) {
             displayName = platformName + ' Games';
         } else {
-            // Fallback to formatting the slug
             displayName = platformSlug
                 .split('-')
                 .map(w => w.charAt(0).toUpperCase() + w.slice(1))
@@ -80,13 +83,18 @@ async function fetchFilteredGames() {
         titleEl.textContent = displayName;
     }
 
+    gameGrid.innerHTML = ''; // Clear existing games
+
     try {
         const response = await fetch("/api/browse", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 filterType: filterType,
-                filterValue: filterValue
+                filterValue: filterValue,
+                sortBy: sortBy,
+                page: page,
+                limit: gamesPerPage
             })
         });
 
@@ -94,14 +102,18 @@ async function fetchFilteredGames() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const games = await response.json();
+        const data = await response.json();
+        const games = data.games || data; // Support both formats
         
-        // Check if the response is an error object
-        if (games.error) {
-            throw new Error(games.error);
+        // Update total pages if provided
+        if (data.totalPages) {
+            totalPages = data.totalPages;
         }
         
-        // Check if games is actually an array
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        
         if (!Array.isArray(games)) {
             console.error('Expected array but got:', games);
             gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">Error: Invalid response from server.</p>';
@@ -113,8 +125,16 @@ async function fetchFilteredGames() {
             return;
         }
 
+        const seenGames = new Set();
+
         games.forEach(game => {
-            if (game.cover) {
+            if (game.cover && game.slug) {
+                // Skip duplicates
+                if (seenGames.has(game.slug)) {
+                    return;
+                }
+                seenGames.add(game.slug);
+                
                 const imageId = game.cover.image_id;
                 const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
                 const slug = game.slug || slugify(game.name);
@@ -130,11 +150,19 @@ async function fetchFilteredGames() {
                 img.src = coverUrl;
                 img.alt = game.name;
                 
+                const nameOverlay = document.createElement('div');
+                nameOverlay.className = 'game-name-overlay';
+                nameOverlay.textContent = game.name;
+                
                 gameCard.appendChild(img);
+                gameCard.appendChild(nameOverlay);
                 link.appendChild(gameCard);
                 gameGrid.appendChild(link);
             }
         });
+        
+        updatePagination(); // Update pagination UI
+        
     } catch (error) {
         console.error('Error fetching games:', error);
         gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">Error loading games. Check console for details.</p>';
@@ -288,5 +316,130 @@ if (platformSearchInput) {
     platformSearchInput.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
 }
 
-window.addEventListener('DOMContentLoaded', fetchFilteredGames);
-window.addEventListener('DOMContentLoaded', loadMorePlatforms);
+// Sort dropdown menu functionality
+const sortDropdown = document.querySelector('.sort-dropdown');
+const sortMenu = document.querySelector('.sort-menu');
+const sortTrigger = document.querySelector('.sort-trigger');
+const currentSort = document.getElementById('current-sort');
+let sortHideTimeout = null;
+
+if (sortDropdown && sortMenu && sortTrigger) {
+    sortTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+    });
+    
+    sortDropdown.addEventListener('mouseenter', () => {
+        clearTimeout(sortHideTimeout);
+        const rect = sortTrigger.getBoundingClientRect();
+        sortMenu.style.top = (rect.bottom + 6) + 'px';
+        sortMenu.style.left = rect.left + 'px';
+        sortMenu.style.display = 'block';
+    });
+
+    sortDropdown.addEventListener('mouseleave', () => {
+        sortHideTimeout = setTimeout(() => {
+            sortMenu.style.display = 'none';
+        }, 100);
+    });
+
+    sortMenu.addEventListener('mouseenter', () => clearTimeout(sortHideTimeout));
+    sortMenu.addEventListener('mouseleave', () => {
+        sortHideTimeout = setTimeout(() => {
+            sortMenu.style.display = 'none';
+        }, 100);
+    });
+
+    // Handle sort selection
+    document.querySelectorAll('.sort-list a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sortValue = link.getAttribute('data-sort');
+            currentSort.textContent = link.textContent;
+            sortMenu.style.display = 'none';
+            
+            currentPage = 1; // Reset to page 1 when sorting
+            fetchFilteredGames(sortValue, currentPage);
+        });
+    });
+}
+function updatePagination() {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageNumbers = document.getElementById('page-numbers');
+    
+    if (!prevBtn || !nextBtn || !pageNumbers) return;
+    
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    
+    pageNumbers.innerHTML = '';
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+    
+    if (endPage - startPage < maxPagesToShow - 1) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = 'page-number';
+        pageBtn.textContent = i;
+        if (i === currentPage) {
+            pageBtn.classList.add('active');
+        }
+        pageBtn.addEventListener('click', () => {
+            currentPage = i;
+            const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+            const sortValue = getSortValue(currentSortText);
+            fetchFilteredGames(sortValue, currentPage);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        pageNumbers.appendChild(pageBtn);
+    }
+}
+
+function getSortValue(text) {
+    const sortMap = {
+        'Highest Rated': 'rating',
+        'Most Popular': 'rating_count',
+        'Newest First': 'release_date',
+        'Trending': 'trending'
+    };
+    return sortMap[text] || 'rating';
+}
+
+// Add pagination button listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+                const sortValue = getSortValue(currentSortText);
+                fetchFilteredGames(sortValue, currentPage);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+                const sortValue = getSortValue(currentSortText);
+                fetchFilteredGames(sortValue, currentPage);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    fetchFilteredGames();
+    loadMorePlatforms();
+});

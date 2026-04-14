@@ -93,54 +93,128 @@ public class MiniServer {
         });
 
         server.createContext("/api/games", exchange -> {
-            if (!exchange.getRequestMethod().equals("POST")) {
-                exchange.sendResponseHeaders(405, 0);
-                exchange.close();
-                return;
-            }
+        if (!exchange.getRequestMethod().equals("POST")) {
+            exchange.sendResponseHeaders(405, 0);
+            exchange.close();
+            return;
+        }
 
-            try {
-                String clientId = configClientId;
-                String accessToken = configAccessToken;
-                
-                if (clientId == null || accessToken == null) {
-                    String error = "{\"error\": \"Missing IGDB credentials in config.properties\"}";
-                    exchange.sendResponseHeaders(500, error.length());
-                    exchange.getResponseBody().write(error.getBytes());
-                    exchange.close();
-                    return;
-                }
-                
-                URI uri = new URI("https://api.igdb.com/v4/games");
-                URL url = uri.toURL();
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Client-ID", clientId);
-                conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-                conn.setRequestProperty("Accept", "application/json");
-                conn.setDoOutput(true);
-                
-                String body = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; where cover != null & rating != null & rating_count > 500; sort rating desc; limit 40;";
-                conn.getOutputStream().write(body.getBytes());
-                
-                InputStream responseStream = conn.getInputStream();
-                byte[] responseData = responseStream.readAllBytes();
-                
-                exchange.getResponseHeaders().set("Content-Type", "application/json");
-                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-                exchange.sendResponseHeaders(200, responseData.length);
-                exchange.getResponseBody().write(responseData);
-                exchange.close();
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-                String error = "{\"error\": \"" + e.getMessage() + "\"}";
+        try {
+            String clientId = configClientId;
+            String accessToken = configAccessToken;
+            
+            if (clientId == null || accessToken == null) {
+                String error = "{\"error\": \"Missing IGDB credentials in config.properties\"}";
                 exchange.sendResponseHeaders(500, error.length());
                 exchange.getResponseBody().write(error.getBytes());
                 exchange.close();
+                return;
             }
-        });
+            
+            // Read request body
+            InputStream requestBody = exchange.getRequestBody();
+            String bodyStr = new String(requestBody.readAllBytes());
+            
+            // Parse sortBy parameter
+            String sortBy = "rating"; // default
+            if (bodyStr.contains("\"sortBy\"")) {
+                int sortStart = bodyStr.indexOf("\"sortBy\":") + 9;
+                String afterColon = bodyStr.substring(sortStart).trim();
+                
+                if (afterColon.startsWith("\"")) {
+                    int openQuote = bodyStr.indexOf("\"", sortStart);
+                    int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
+                    sortBy = bodyStr.substring(openQuote + 1, closeQuote);
+                }
+            }
+
+            // Parse page and limit parameters
+            int page = 1;
+            int limit = 40;
+
+            if (bodyStr.contains("\"page\"")) {
+                int pageStart = bodyStr.indexOf("\"page\":") + 7;
+                String afterColon = bodyStr.substring(pageStart).trim();
+                int commaOrBrace = Math.min(
+                    afterColon.indexOf(",") == -1 ? Integer.MAX_VALUE : afterColon.indexOf(","),
+                    afterColon.indexOf("}") == -1 ? Integer.MAX_VALUE : afterColon.indexOf("}")
+                );
+                String pageStr = afterColon.substring(0, commaOrBrace).trim();
+                page = Integer.parseInt(pageStr);
+            }
+
+            if (bodyStr.contains("\"limit\"")) {
+                int limitStart = bodyStr.indexOf("\"limit\":") + 8;
+                String afterColon = bodyStr.substring(limitStart).trim();
+                int commaOrBrace = Math.min(
+                    afterColon.indexOf(",") == -1 ? Integer.MAX_VALUE : afterColon.indexOf(","),
+                    afterColon.indexOf("}") == -1 ? Integer.MAX_VALUE : afterColon.indexOf("}")
+                );
+                String limitStr = afterColon.substring(0, commaOrBrace).trim();
+                limit = Integer.parseInt(limitStr);
+            }
+
+            int offset = (page - 1) * limit;
+            
+            // Build sort clause
+            String sortClause;
+            switch (sortBy) {
+                case "rating_count":
+                    sortClause = "sort rating_count desc";
+                    break;
+                case "release_date":
+                    sortClause = "sort first_release_date desc";
+                    break;
+                case "trending":
+                    sortClause = "sort rating_count desc";
+                    break;
+                default: // "rating"
+                    sortClause = "sort rating desc";
+                    break;
+            }
+            
+            String fields = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name";
+            if (sortBy.equals("release_date")) {
+                fields += ", first_release_date";
+            }
+            
+            String igdbQuery = fields + "; where cover != null & rating != null & rating_count > 500; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
+            
+            URI uri = new URI("https://api.igdb.com/v4/games");
+            URL url = uri.toURL();
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Client-ID", clientId);
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
+            
+            conn.getOutputStream().write(igdbQuery.getBytes());
+            
+            InputStream responseStream = conn.getInputStream();
+byte[] gamesData = responseStream.readAllBytes();
+
+        // Wrap response with totalPages
+        String gamesJson = new String(gamesData);
+        int totalPages = 10; // Hardcoded for now
+        String wrappedResponse = "{\"games\":" + gamesJson + ",\"totalPages\":" + totalPages + "}";
+        byte[] responseData = wrappedResponse.getBytes();
+
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.sendResponseHeaders(200, responseData.length);
+        exchange.getResponseBody().write(responseData);
+        exchange.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            String error = "{\"error\": \"" + e.getMessage() + "\"}";
+            exchange.sendResponseHeaders(500, error.length());
+            exchange.getResponseBody().write(error.getBytes());
+            exchange.close();
+        }
+    });
 
         server.createContext("/api/game-single", exchange -> {
             if (!exchange.getRequestMethod().equals("POST")) {
@@ -262,6 +336,46 @@ public class MiniServer {
 
                 String whereClause = "where cover != null & rating != null & rating_count > 20";
                 
+                // Parse sortBy parameter
+                String sortBy = "rating"; // default
+                if (bodyStr.contains("\"sortBy\"")) {
+                    int sortStart = bodyStr.indexOf("\"sortBy\":") + 9;
+                    String afterColon = bodyStr.substring(sortStart).trim();
+                    
+                    if (afterColon.startsWith("\"")) {
+                        int openQuote = bodyStr.indexOf("\"", sortStart);
+                        int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
+                        sortBy = bodyStr.substring(openQuote + 1, closeQuote);
+                    }
+                }
+
+                // Parse page and limit parameters
+                int page = 1;
+                int limit = 40;
+
+                if (bodyStr.contains("\"page\"")) {
+                    int pageStart = bodyStr.indexOf("\"page\":") + 7;
+                    String afterColon = bodyStr.substring(pageStart).trim();
+                    int commaOrBrace = Math.min(
+                        afterColon.indexOf(",") == -1 ? Integer.MAX_VALUE : afterColon.indexOf(","),
+                        afterColon.indexOf("}") == -1 ? Integer.MAX_VALUE : afterColon.indexOf("}")
+                    );
+                    String pageStr = afterColon.substring(0, commaOrBrace).trim();
+                    page = Integer.parseInt(pageStr);
+                }
+
+                if (bodyStr.contains("\"limit\"")) {
+                    int limitStart = bodyStr.indexOf("\"limit\":") + 8;
+                    String afterColon = bodyStr.substring(limitStart).trim();
+                    int commaOrBrace = Math.min(
+                        afterColon.indexOf(",") == -1 ? Integer.MAX_VALUE : afterColon.indexOf(","),
+                        afterColon.indexOf("}") == -1 ? Integer.MAX_VALUE : afterColon.indexOf("}")
+                    );
+                    String limitStr = afterColon.substring(0, commaOrBrace).trim();
+                    limit = Integer.parseInt(limitStr);
+                }
+
+                int offset = (page - 1) * limit;
                 if (filterType != null && filterValue != null) {
                     if (filterType.equals("genre")) {
                         whereClause += " & genres = [" + filterValue + "]";
@@ -270,26 +384,54 @@ public class MiniServer {
                         whereClause += " & platforms.slug = \"" + cleanValue + "\"";
                     }
                 }
+            // Build sort clause
+            String sortClause;
+            switch (sortBy) {
+                case "rating_count":
+                    sortClause = "sort rating_count desc";
+                    break;
+                case "release_date":
+                    sortClause = "sort first_release_date desc";
+                    break;
+                case "trending":
+                    sortClause = "sort rating_count desc";
+                    break;
+                default: // "rating"
+                    sortClause = "sort rating desc";
+                    break;
+            }
 
-                String body = "fields name, slug, cover.image_id, rating, rating_count; " + 
-                                whereClause + "; " +
-                                "sort rating desc; " +
-                                "limit 40;";
+            String fields = "fields name, slug, cover.image_id, rating, rating_count";
+            if (sortBy.equals("release_date")) {
+                fields += ", first_release_date";
+            }
+
+            String igdbQuery = fields + "; " + whereClause + "; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
+
+            System.out.println("=== FINAL IGDB QUERY ===");
+            System.out.println(igdbQuery);
+            System.out.println("========================");
                 
-                System.out.println("Where Clause: " + whereClause);
-                System.out.println("Full IGDB Query: " + body);
-                System.out.println("===================");
+            System.out.println("Where Clause: " + whereClause);
+            System.out.println("Full IGDB Query: " + igdbQuery);
+            System.out.println("===================");
                 
-                conn.getOutputStream().write(body.getBytes());
+            conn.getOutputStream().write(igdbQuery.getBytes());
 
-                InputStream responseStream = conn.getInputStream();
-                byte[] responseData = responseStream.readAllBytes();
+            InputStream responseStream = conn.getInputStream();
+            byte[] gamesData = responseStream.readAllBytes();
 
-                exchange.getResponseHeaders().set("Content-Type", "application/json");
-                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-                exchange.sendResponseHeaders(200, responseData.length);
-                exchange.getResponseBody().write(responseData);
-                exchange.close();
+            // Wrap response with totalPages
+            String gamesJson = new String(gamesData);
+            int totalPages = 10; // Hardcoded for now
+            String wrappedResponse = "{\"games\":" + gamesJson + ",\"totalPages\":" + totalPages + "}";
+            byte[] responseData = wrappedResponse.getBytes();
+
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+            exchange.sendResponseHeaders(200, responseData.length);
+            exchange.getResponseBody().write(responseData);
+            exchange.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -338,7 +480,67 @@ public class MiniServer {
                 exchange.close();
             }
         });
+        server.createContext("/api/search", exchange -> {
+            if (!exchange.getRequestMethod().equals("POST")) {
+                exchange.sendResponseHeaders(405, 0);
+                exchange.close();
+                return;
+            }
 
+            try {
+                String query = exchange.getRequestURI().getQuery();
+                String searchQuery = "";
+                
+                if (query != null) {
+                    for (String param : query.split("&")) {
+                        if (param.startsWith("q=")) {
+                            searchQuery = URLDecoder.decode(param.substring(2), "UTF-8");
+                        }
+                    }
+                }
+
+                if (searchQuery.isEmpty()) {
+                    String error = "{\"error\": \"Missing search query\"}";
+                    exchange.sendResponseHeaders(400, error.length());
+                    exchange.getResponseBody().write(error.getBytes());
+                    exchange.close();
+                    return;
+                }
+
+                URI uri = new URI("https://api.igdb.com/v4/games");
+                URL url = uri.toURL();
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Client-ID", configClientId);
+                conn.setRequestProperty("Authorization", "Bearer " + configAccessToken);
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+
+                String body = "search \"" + searchQuery + "\"; " +
+                            "fields name, slug, cover.image_id, summary, rating, rating_count; " +
+                            "where cover != null; " +
+                            "limit 20;";
+                
+                conn.getOutputStream().write(body.getBytes());
+
+                InputStream responseStream = conn.getInputStream();
+                byte[] responseData = responseStream.readAllBytes();
+
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+                exchange.sendResponseHeaders(200, responseData.length);
+                exchange.getResponseBody().write(responseData);
+                exchange.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                String error = "{\"error\": \"" + e.getMessage() + "\"}";
+                exchange.sendResponseHeaders(500, error.length());
+                exchange.getResponseBody().write(error.getBytes());
+                exchange.close();
+            }
+        });
         server.setExecutor(null);
         server.start();
         System.out.println("Server running at http://localhost:" + port);

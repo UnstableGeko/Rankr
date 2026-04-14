@@ -1,15 +1,43 @@
-async function fetchGameCovers() {
+// Pagination state
+let currentPage = 1;
+const gamesPerPage = 40;
+let totalPages = 1;
+
+async function fetchGameCovers(sortBy = 'rating', page = 1) {
     const gameGrid = document.getElementById('game-grid');
     if (!gameGrid) return;
+    
+    gameGrid.innerHTML = ''; // Clear existing games
+    
     try {
-        const response = await fetch("/api/games", { method: 'POST' });
-        const games = await response.json();
+        const response = await fetch("/api/games", { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                sortBy: sortBy,
+                page: page,
+                limit: gamesPerPage
+            })
+        });
+        const data = await response.json();
+        const games = data.games || data;
         
+        if (data.totalPages) {
+            totalPages = data.totalPages;
+        }
+        
+        const seenGames = new Set();
+
         games.forEach(game => {
-            if (game.cover) {
+            if (game.cover && game.slug) {
+                // Skip duplicates
+                if (seenGames.has(game.slug)) {
+                    return;
+                }
+                seenGames.add(game.slug);
+                
                 const imageId = game.cover.image_id;
                 const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
-
                 const slug = game.slug || slugify(game.name);
                 
                 const link = document.createElement('a');
@@ -23,16 +51,71 @@ async function fetchGameCovers() {
                 img.src = coverUrl;
                 img.alt = game.name;
                 
+                const nameOverlay = document.createElement('div');
+                nameOverlay.className = 'game-name-overlay';
+                nameOverlay.textContent = game.name;
+                
                 gameCard.appendChild(img);
+                gameCard.appendChild(nameOverlay);
                 link.appendChild(gameCard);
                 gameGrid.appendChild(link);
             }
         });
+        
+        updatePagination();
+        
     } catch (error) {
         console.error('Error fetching games:', error);
     }
 }
 
+function updatePagination() {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageNumbers = document.getElementById('page-numbers');
+    
+    if (!prevBtn || !nextBtn || !pageNumbers) return;
+    
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    
+    pageNumbers.innerHTML = '';
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+    
+    if (endPage - startPage < maxPagesToShow - 1) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = 'page-number';
+        pageBtn.textContent = i;
+        if (i === currentPage) {
+            pageBtn.classList.add('active');
+        }
+        pageBtn.addEventListener('click', () => {
+            currentPage = i;
+            const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+            const sortValue = getSortValue(currentSortText);
+            fetchGameCovers(sortValue, currentPage);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        pageNumbers.appendChild(pageBtn);
+    }
+}
+
+function getSortValue(text) {
+    const sortMap = {
+        'Highest Rated': 'rating',
+        'Most Popular': 'rating_count',
+        'Newest First': 'release_date',
+        'Newest': 'release_date',
+        'Trending': 'trending'
+    };
+    return sortMap[text] || 'rating';
+}
 // Store all platforms for filtering
 let allPlatforms = [];
 
@@ -303,22 +386,56 @@ async function populateGamePage() {
             developerListEl.classList.remove('skeleton');
         }
 
-        // ---------- Rating ----------
-        if (starRatingEl) {
-            const ratingValue =
-                typeof game.total_rating === 'number' ? game.total_rating :
-                typeof game.rating === 'number' ? game.rating :
-                null;
+// ---------- Rating ----------
+if (starRatingEl) {
+    const ratingValue =
+        typeof game.total_rating === 'number' ? game.total_rating :
+        typeof game.rating === 'number' ? game.rating :
+        null;
 
-            if (ratingValue !== null) {
-                const normalizedRating = ratingValue > 5
-                    ? (ratingValue / 20).toFixed(1)
-                    : ratingValue.toFixed(1);
-                starRatingEl.textContent = `${normalizedRating}/5`;
-            } else {
-                starRatingEl.textContent = 'No rating yet';
-            }
+    if (ratingValue !== null) {
+        // Normalize to 0-5 scale
+        const normalizedRating = ratingValue > 5
+            ? (ratingValue / 20)
+            : ratingValue;
+        
+        // Create star HTML
+        const fullStars = Math.floor(normalizedRating);
+        const hasHalfStar = (normalizedRating % 1) >= 0.5;
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        
+        let starsHTML = '';
+        
+        // Full stars
+        for (let i = 0; i < fullStars; i++) {
+            starsHTML += '<i class="fa-solid fa-star"></i>';
         }
+        
+        // Half star
+        if (hasHalfStar) {
+            starsHTML += '<i class="fa-solid fa-star-half-alt"></i>';
+        }
+        
+        // Empty stars
+        for (let i = 0; i < emptyStars; i++) {
+            starsHTML += '<i class="fa-regular fa-star"></i>';
+        }
+        
+        starRatingEl.innerHTML = starsHTML;
+        
+        // Update rating number text
+        const ratingNumberEl = document.getElementById('rating-number');
+        if (ratingNumberEl) {
+            ratingNumberEl.textContent = normalizedRating.toFixed(1) + '/5';
+        }
+    } else {
+        starRatingEl.innerHTML = '<span style="color: #666;">No rating yet</span>';
+        const ratingNumberEl = document.getElementById('rating-number');
+        if (ratingNumberEl) {
+            ratingNumberEl.textContent = 'N/A';
+        }
+    }
+}
 
         if (reviewCountEl) {
             const ratingCount =
@@ -326,7 +443,12 @@ async function populateGamePage() {
                 game.rating_count ??
                 game.reviews_count ??
                 null;
-            reviewCountEl.textContent = ratingCount !== null ? `${ratingCount} ratings` : '';
+            
+            if (ratingCount !== null) {
+                reviewCountEl.textContent = `(${ratingCount.toLocaleString()} ratings)`;
+            } else {
+                reviewCountEl.textContent = '(0 ratings)';
+            }
         }
 
     } catch (error) {
@@ -354,6 +476,175 @@ function slugifyQuery(name) {
         .replace(/[^a-z0-9-]/g, '');
 }
 
-window.addEventListener('DOMContentLoaded', loadMorePlatforms);
-window.addEventListener('DOMContentLoaded', fetchGameCovers);
-window.addEventListener('DOMContentLoaded', populateGamePage);
+// Live search autocomplete
+const searchInput = document.querySelector('.search-bar input');
+const searchDropdown = document.createElement('div');
+searchDropdown.className = 'search-dropdown';
+searchDropdown.style.display = 'none';
+
+if (searchInput) {
+    searchInput.parentElement.appendChild(searchDropdown);
+    
+    let searchTimeout;
+    
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        
+        clearTimeout(searchTimeout);
+        
+        if (query.length < 2) {
+            searchDropdown.style.display = 'none';
+            return;
+        }
+        
+        searchTimeout = setTimeout(async () => {
+            try {
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
+                    method: 'POST'
+                });
+                const games = await response.json();
+                
+                if (!Array.isArray(games) || games.length === 0) {
+                    searchDropdown.style.display = 'none';
+                    return;
+                }
+                
+                searchDropdown.innerHTML = '';
+                games.slice(0, 5).forEach(game => {
+                    const item = document.createElement('a');
+                    item.className = 'search-dropdown-item';
+                    item.href = `/games/${game.slug}`;
+                    
+                    const coverUrl = game.cover 
+                        ? `https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg`
+                        : '';
+                    
+                    item.innerHTML = `
+                        ${coverUrl ? `<img src="${coverUrl}" alt="${game.name}">` : ''}
+                        <span>${game.name}</span>
+                    `;
+                    
+                    searchDropdown.appendChild(item);
+                });
+                
+                // Add "See all results" link
+                const seeAll = document.createElement('a');
+                seeAll.className = 'search-dropdown-see-all';
+                seeAll.href = `/search.html?q=${encodeURIComponent(query)}`;
+                seeAll.textContent = `See all results for "${query}"`;
+                searchDropdown.appendChild(seeAll);
+                
+                searchDropdown.style.display = 'block';
+            } catch (error) {
+                console.error('Autocomplete error:', error);
+            }
+        }, 300);
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+            searchDropdown.style.display = 'none';
+        }
+    });
+    
+    // Handle Enter key
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+    });
+}
+
+// Sort dropdown menu functionality for home page
+const sortDropdown = document.querySelector('.sort-dropdown');
+const sortMenu = document.querySelector('.sort-menu');
+const sortTrigger = document.querySelector('.sort-trigger');
+const currentSort = document.getElementById('current-sort');
+let sortHideTimeout = null;
+
+if (sortDropdown && sortMenu && sortTrigger) {
+    sortTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+    });
+    
+    sortDropdown.addEventListener('mouseenter', () => {
+        clearTimeout(sortHideTimeout);
+        const rect = sortTrigger.getBoundingClientRect();
+        sortMenu.style.top = (rect.bottom + 6) + 'px';
+        sortMenu.style.left = rect.left + 'px';
+        sortMenu.style.display = 'block';
+    });
+
+    sortDropdown.addEventListener('mouseleave', () => {
+        sortHideTimeout = setTimeout(() => {
+            sortMenu.style.display = 'none';
+        }, 100);
+    });
+
+    sortMenu.addEventListener('mouseenter', () => clearTimeout(sortHideTimeout));
+    sortMenu.addEventListener('mouseleave', () => {
+        sortHideTimeout = setTimeout(() => {
+            sortMenu.style.display = 'none';
+        }, 100);
+    });
+
+}
+
+    // Handle sort selection
+    document.querySelectorAll('.sort-list a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sortValue = link.getAttribute('data-sort');
+            const sortText = link.textContent;
+            
+            currentSort.textContent = sortText;
+            
+            const pageTitle = document.querySelector('.section-title');
+            if (pageTitle) {
+                pageTitle.textContent = sortText + ' Games';
+            }
+            
+            sortMenu.style.display = 'none';
+            
+            currentPage = 1; // Reset to page 1 when sorting
+            fetchGameCovers(sortValue, currentPage);
+        });
+    });
+
+// DOMContentLoaded - Initialize everything
+window.addEventListener('DOMContentLoaded', () => {
+    loadMorePlatforms();
+    fetchGameCovers();
+    populateGamePage();
+    
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+                const sortValue = getSortValue(currentSortText);
+                fetchGameCovers(sortValue, currentPage);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+                const sortValue = getSortValue(currentSortText);
+                fetchGameCovers(sortValue, currentPage);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+});

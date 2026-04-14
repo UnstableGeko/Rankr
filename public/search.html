@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Browse Games - Rankr</title>
+    <title>Search Results - Rankr</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/favicon.ico">
+    <link rel="icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Tapestry&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <div class="container">
-
         <header class="site-header">
-            <a href="/home" class="name-title">Rankr</a>
+                        <a href="/home" class="name-title">Rankr</a>
 
             <nav class="desktop-nav">
                 <ul class="nav-links">
@@ -142,36 +141,14 @@
             </nav>
         </header>
 
-   <div class="main-content">
-        <div class="browse-header">
-            <div class="header-left">
-                <div class="dropdown sort-dropdown">
-                    <a href="#" class="sort-trigger">
-                        <span id="current-sort">Highest Rated</span> <span class="caret">▼</span>
-                    </a>
-                    <div class="sort-menu">
-                        <ul class="sort-list">
-                            <li><a href="#" data-sort="rating">Highest Rated</a></li>
-                            <li><a href="#" data-sort="rating_count">Most Popular</a></li>
-                            <li><a href="#" data-sort="trending">Trending</a></li>
-                            <li><a href="#" data-sort="release_date">Newest</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <h2 id="browse-title">Loading...</h2>
+        <div class="main-content">
+            <h2 id="search-title">Search Results for ""</h2>
+            <div id="search-results" class="search-results-list">
+                <!-- Results will be populated here -->
             </div>
         </div>
-        <div class="game-grid" id="game-grid">
-            <!-- Games will be populated by browse.js -->
-        </div>
-        <div class="pagination" id="pagination">
-            <button class="pagination-btn" id="prev-btn">← Previous</button>
-            <div class="pagination-numbers" id="page-numbers"></div>
-            <button class="pagination-btn" id="next-btn">Next →</button>
-        </div>
     </div>
-</div>
-
-    <script src="/js/browse.js"></script>
+     <script src="/js/game.js"></script>
+    <script src="/js/search.js"></script>
 </body>
 </html>
