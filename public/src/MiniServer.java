@@ -127,6 +127,34 @@ public class MiniServer {
                     sortBy = bodyStr.substring(openQuote + 1, closeQuote);
                 }
             }
+
+            // Parse page and limit parameters
+            int page = 1;
+            int limit = 40;
+
+            if (bodyStr.contains("\"page\"")) {
+                int pageStart = bodyStr.indexOf("\"page\":") + 7;
+                String afterColon = bodyStr.substring(pageStart).trim();
+                int commaOrBrace = Math.min(
+                    afterColon.indexOf(",") == -1 ? Integer.MAX_VALUE : afterColon.indexOf(","),
+                    afterColon.indexOf("}") == -1 ? Integer.MAX_VALUE : afterColon.indexOf("}")
+                );
+                String pageStr = afterColon.substring(0, commaOrBrace).trim();
+                page = Integer.parseInt(pageStr);
+            }
+
+            if (bodyStr.contains("\"limit\"")) {
+                int limitStart = bodyStr.indexOf("\"limit\":") + 8;
+                String afterColon = bodyStr.substring(limitStart).trim();
+                int commaOrBrace = Math.min(
+                    afterColon.indexOf(",") == -1 ? Integer.MAX_VALUE : afterColon.indexOf(","),
+                    afterColon.indexOf("}") == -1 ? Integer.MAX_VALUE : afterColon.indexOf("}")
+                );
+                String limitStr = afterColon.substring(0, commaOrBrace).trim();
+                limit = Integer.parseInt(limitStr);
+            }
+
+            int offset = (page - 1) * limit;
             
             // Build sort clause
             String sortClause;
@@ -150,7 +178,7 @@ public class MiniServer {
                 fields += ", first_release_date";
             }
             
-            String igdbQuery = fields + "; where cover != null & rating != null & rating_count > 500; " + sortClause + "; limit 40;";
+            String igdbQuery = fields + "; where cover != null & rating != null & rating_count > 500; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
             
             URI uri = new URI("https://api.igdb.com/v4/games");
             URL url = uri.toURL();
@@ -165,13 +193,19 @@ public class MiniServer {
             conn.getOutputStream().write(igdbQuery.getBytes());
             
             InputStream responseStream = conn.getInputStream();
-            byte[] responseData = responseStream.readAllBytes();
-            
-            exchange.getResponseHeaders().set("Content-Type", "application/json");
-            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-            exchange.sendResponseHeaders(200, responseData.length);
-            exchange.getResponseBody().write(responseData);
-            exchange.close();
+byte[] gamesData = responseStream.readAllBytes();
+
+        // Wrap response with totalPages
+        String gamesJson = new String(gamesData);
+        int totalPages = 10; // Hardcoded for now
+        String wrappedResponse = "{\"games\":" + gamesJson + ",\"totalPages\":" + totalPages + "}";
+        byte[] responseData = wrappedResponse.getBytes();
+
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        exchange.sendResponseHeaders(200, responseData.length);
+        exchange.getResponseBody().write(responseData);
+        exchange.close();
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -302,6 +336,18 @@ public class MiniServer {
 
                 String whereClause = "where cover != null & rating != null & rating_count > 20";
                 
+                // Parse sortBy parameter
+                String sortBy = "rating"; // default
+                if (bodyStr.contains("\"sortBy\"")) {
+                    int sortStart = bodyStr.indexOf("\"sortBy\":") + 9;
+                    String afterColon = bodyStr.substring(sortStart).trim();
+                    
+                    if (afterColon.startsWith("\"")) {
+                        int openQuote = bodyStr.indexOf("\"", sortStart);
+                        int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
+                        sortBy = bodyStr.substring(openQuote + 1, closeQuote);
+                    }
+                }
                 if (filterType != null && filterValue != null) {
                     if (filterType.equals("genre")) {
                         whereClause += " & genres = [" + filterValue + "]";
@@ -310,20 +356,6 @@ public class MiniServer {
                         whereClause += " & platforms.slug = \"" + cleanValue + "\"";
                     }
                 }
-
-                // Parse sortBy parameter
-String sortBy = "rating"; // default
-if (bodyStr.contains("\"sortBy\"")) {
-    int sortStart = bodyStr.indexOf("\"sortBy\":") + 9;
-    String afterColon = bodyStr.substring(sortStart).trim();
-    
-    if (afterColon.startsWith("\"")) {
-        int openQuote = bodyStr.indexOf("\"", sortStart);
-        int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
-        sortBy = bodyStr.substring(openQuote + 1, closeQuote);
-    }
-}
-
             // Build sort clause
             String sortClause;
             switch (sortBy) {

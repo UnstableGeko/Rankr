@@ -33,7 +33,12 @@ const DISPLAY_NAMES = {
     'turn-based-strategy-tbs': 'Turn-based Strategy (TBS)'
 };
 
-async function fetchFilteredGames(sortBy = 'rating') {
+// Pagination state
+let currentPage = 1;
+const gamesPerPage = 40;
+let totalPages = 1;
+
+async function fetchFilteredGames(sortBy = 'rating', page = 1) {
     const gameGrid = document.getElementById('game-grid');
     const titleEl = document.getElementById('browse-title');
     
@@ -78,7 +83,7 @@ async function fetchFilteredGames(sortBy = 'rating') {
         titleEl.textContent = displayName;
     }
 
-    gameGrid.innerHTML = '';
+    gameGrid.innerHTML = ''; // Clear existing games
 
     try {
         const response = await fetch("/api/browse", {
@@ -87,7 +92,9 @@ async function fetchFilteredGames(sortBy = 'rating') {
             body: JSON.stringify({
                 filterType: filterType,
                 filterValue: filterValue,
-                sortBy: sortBy
+                sortBy: sortBy,
+                page: page,
+                limit: gamesPerPage
             })
         });
 
@@ -95,10 +102,16 @@ async function fetchFilteredGames(sortBy = 'rating') {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const games = await response.json();
+        const data = await response.json();
+        const games = data.games || data; // Support both formats
         
-        if (games.error) {
-            throw new Error(games.error);
+        // Update total pages if provided
+        if (data.totalPages) {
+            totalPages = data.totalPages;
+        }
+        
+        if (data.error) {
+            throw new Error(data.error);
         }
         
         if (!Array.isArray(games)) {
@@ -129,11 +142,20 @@ async function fetchFilteredGames(sortBy = 'rating') {
                 img.src = coverUrl;
                 img.alt = game.name;
                 
+                // Add game name overlay
+                const nameOverlay = document.createElement('div');
+                nameOverlay.className = 'game-name-overlay';
+                nameOverlay.textContent = game.name;
+                
                 gameCard.appendChild(img);
+                gameCard.appendChild(nameOverlay);
                 link.appendChild(gameCard);
                 gameGrid.appendChild(link);
             }
         });
+        
+        updatePagination(); // Update pagination UI
+        
     } catch (error) {
         console.error('Error fetching games:', error);
         gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">Error loading games. Check console for details.</p>';
@@ -328,11 +350,87 @@ if (sortDropdown && sortMenu && sortTrigger) {
             currentSort.textContent = link.textContent;
             sortMenu.style.display = 'none';
             
-            // Trigger re-fetch with new sort
-            fetchFilteredGames(sortValue);
+            currentPage = 1; // Reset to page 1 when sorting
+            fetchFilteredGames(sortValue, currentPage);
         });
     });
 }
+function updatePagination() {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageNumbers = document.getElementById('page-numbers');
+    
+    if (!prevBtn || !nextBtn || !pageNumbers) return;
+    
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    
+    pageNumbers.innerHTML = '';
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+    
+    if (endPage - startPage < maxPagesToShow - 1) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = 'page-number';
+        pageBtn.textContent = i;
+        if (i === currentPage) {
+            pageBtn.classList.add('active');
+        }
+        pageBtn.addEventListener('click', () => {
+            currentPage = i;
+            const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+            const sortValue = getSortValue(currentSortText);
+            fetchFilteredGames(sortValue, currentPage);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        pageNumbers.appendChild(pageBtn);
+    }
+}
+
+function getSortValue(text) {
+    const sortMap = {
+        'Highest Rated': 'rating',
+        'Most Popular': 'rating_count',
+        'Newest First': 'release_date',
+        'Trending': 'trending'
+    };
+    return sortMap[text] || 'rating';
+}
+
+// Add pagination button listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+                const sortValue = getSortValue(currentSortText);
+                fetchFilteredGames(sortValue, currentPage);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+                const sortValue = getSortValue(currentSortText);
+                fetchFilteredGames(sortValue, currentPage);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+});
 
 window.addEventListener('DOMContentLoaded', () => {
     fetchFilteredGames();

@@ -1028,6 +1028,68 @@ p.game-publisher, p.game-developer {
     opacity: 1;
 }
 
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.pagination-btn {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: #2a2a2a;
+    color: #fff;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.pagination-numbers {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.page-number {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    min-width: 40px;
+    text-align: center;
+}
+
+.page-number:hover {
+    background: #2a2a2a;
+    color: #fff;
+}
+
+.page-number.active {
+    background: #4a9eff;
+    color: #fff;
+    border-color: #4a9eff;
+}
+
 .skeleton {
     background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
     background-size: 200% 100%;

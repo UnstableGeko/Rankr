@@ -1,4 +1,9 @@
-async function fetchGameCovers(sortBy = 'rating') {
+// Pagination state
+let currentPage = 1;
+const gamesPerPage = 40;
+let totalPages = 1;
+
+async function fetchGameCovers(sortBy = 'rating', page = 1) {
     const gameGrid = document.getElementById('game-grid');
     if (!gameGrid) return;
     
@@ -8,15 +13,23 @@ async function fetchGameCovers(sortBy = 'rating') {
         const response = await fetch("/api/games", { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ sortBy: sortBy })
+            body: JSON.stringify({ 
+                sortBy: sortBy,
+                page: page,
+                limit: gamesPerPage
+            })
         });
-        const games = await response.json();
+        const data = await response.json();
+        const games = data.games || data;
+        
+        if (data.totalPages) {
+            totalPages = data.totalPages;
+        }
         
         games.forEach(game => {
             if (game.cover) {
                 const imageId = game.cover.image_id;
                 const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
-
                 const slug = game.slug || slugify(game.name);
                 
                 const link = document.createElement('a');
@@ -40,11 +53,61 @@ async function fetchGameCovers(sortBy = 'rating') {
                 gameGrid.appendChild(link);
             }
         });
+        
+        updatePagination();
+        
     } catch (error) {
         console.error('Error fetching games:', error);
     }
 }
 
+function updatePagination() {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageNumbers = document.getElementById('page-numbers');
+    
+    if (!prevBtn || !nextBtn || !pageNumbers) return;
+    
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    
+    pageNumbers.innerHTML = '';
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+    
+    if (endPage - startPage < maxPagesToShow - 1) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = 'page-number';
+        pageBtn.textContent = i;
+        if (i === currentPage) {
+            pageBtn.classList.add('active');
+        }
+        pageBtn.addEventListener('click', () => {
+            currentPage = i;
+            const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+            const sortValue = getSortValue(currentSortText);
+            fetchGameCovers(sortValue, currentPage);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        pageNumbers.appendChild(pageBtn);
+    }
+}
+
+function getSortValue(text) {
+    const sortMap = {
+        'Highest Rated': 'rating',
+        'Most Popular': 'rating_count',
+        'Newest First': 'release_date',
+        'Newest': 'release_date',
+        'Trending': 'trending'
+    };
+    return sortMap[text] || 'rating';
+}
 // Store all platforms for filtering
 let allPlatforms = [];
 
@@ -521,30 +584,59 @@ if (sortDropdown && sortMenu && sortTrigger) {
         }, 100);
     });
 
-    // Handle sort selection
-document.querySelectorAll('.sort-list a').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const sortValue = link.getAttribute('data-sort');
-        const sortText = link.textContent;
-        
-        // Update dropdown text
-        currentSort.textContent = sortText;
-        
-        // Update page title
-        const pageTitle = document.querySelector('.section-title');
-        if (pageTitle) {
-            pageTitle.textContent = sortText + ' Games';
-        }
-        
-        sortMenu.style.display = 'none';
-        
-        // Trigger re-fetch with new sort
-        fetchGameCovers(sortValue);
-    });
-});
 }
 
-window.addEventListener('DOMContentLoaded', loadMorePlatforms);
-window.addEventListener('DOMContentLoaded', fetchGameCovers);
-window.addEventListener('DOMContentLoaded', populateGamePage);
+    // Handle sort selection
+    document.querySelectorAll('.sort-list a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sortValue = link.getAttribute('data-sort');
+            const sortText = link.textContent;
+            
+            currentSort.textContent = sortText;
+            
+            const pageTitle = document.querySelector('.section-title');
+            if (pageTitle) {
+                pageTitle.textContent = sortText + ' Games';
+            }
+            
+            sortMenu.style.display = 'none';
+            
+            currentPage = 1; // Reset to page 1 when sorting
+            fetchGameCovers(sortValue, currentPage);
+        });
+    });
+
+// DOMContentLoaded - Initialize everything
+window.addEventListener('DOMContentLoaded', () => {
+    loadMorePlatforms();
+    fetchGameCovers();
+    populateGamePage();
+    
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+                const sortValue = getSortValue(currentSortText);
+                fetchGameCovers(sortValue, currentPage);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+                const sortValue = getSortValue(currentSortText);
+                fetchGameCovers(sortValue, currentPage);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+});
