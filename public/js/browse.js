@@ -125,8 +125,16 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
             return;
         }
 
+        const seenGames = new Set();
+
         games.forEach(game => {
-            if (game.cover) {
+            if (game.cover && game.slug) {
+                // Skip duplicates
+                if (seenGames.has(game.slug)) {
+                    return;
+                }
+                seenGames.add(game.slug);
+                
                 const imageId = game.cover.image_id;
                 const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
                 const slug = game.slug || slugify(game.name);
@@ -142,7 +150,6 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
                 img.src = coverUrl;
                 img.alt = game.name;
                 
-                // Add game name overlay
                 const nameOverlay = document.createElement('div');
                 nameOverlay.className = 'game-name-overlay';
                 nameOverlay.textContent = game.name;

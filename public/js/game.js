@@ -26,8 +26,16 @@ async function fetchGameCovers(sortBy = 'rating', page = 1) {
             totalPages = data.totalPages;
         }
         
+        const seenGames = new Set();
+
         games.forEach(game => {
-            if (game.cover) {
+            if (game.cover && game.slug) {
+                // Skip duplicates
+                if (seenGames.has(game.slug)) {
+                    return;
+                }
+                seenGames.add(game.slug);
+                
                 const imageId = game.cover.image_id;
                 const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
                 const slug = game.slug || slugify(game.name);
