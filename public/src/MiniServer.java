@@ -93,54 +93,94 @@ public class MiniServer {
         });
 
         server.createContext("/api/games", exchange -> {
-            if (!exchange.getRequestMethod().equals("POST")) {
-                exchange.sendResponseHeaders(405, 0);
-                exchange.close();
-                return;
-            }
+        if (!exchange.getRequestMethod().equals("POST")) {
+            exchange.sendResponseHeaders(405, 0);
+            exchange.close();
+            return;
+        }
 
-            try {
-                String clientId = configClientId;
-                String accessToken = configAccessToken;
-                
-                if (clientId == null || accessToken == null) {
-                    String error = "{\"error\": \"Missing IGDB credentials in config.properties\"}";
-                    exchange.sendResponseHeaders(500, error.length());
-                    exchange.getResponseBody().write(error.getBytes());
-                    exchange.close();
-                    return;
-                }
-                
-                URI uri = new URI("https://api.igdb.com/v4/games");
-                URL url = uri.toURL();
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Client-ID", clientId);
-                conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-                conn.setRequestProperty("Accept", "application/json");
-                conn.setDoOutput(true);
-                
-                String body = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name; where cover != null & rating != null & rating_count > 500; sort rating desc; limit 40;";
-                conn.getOutputStream().write(body.getBytes());
-                
-                InputStream responseStream = conn.getInputStream();
-                byte[] responseData = responseStream.readAllBytes();
-                
-                exchange.getResponseHeaders().set("Content-Type", "application/json");
-                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-                exchange.sendResponseHeaders(200, responseData.length);
-                exchange.getResponseBody().write(responseData);
-                exchange.close();
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-                String error = "{\"error\": \"" + e.getMessage() + "\"}";
+        try {
+            String clientId = configClientId;
+            String accessToken = configAccessToken;
+            
+            if (clientId == null || accessToken == null) {
+                String error = "{\"error\": \"Missing IGDB credentials in config.properties\"}";
                 exchange.sendResponseHeaders(500, error.length());
                 exchange.getResponseBody().write(error.getBytes());
                 exchange.close();
+                return;
             }
-        });
+            
+            // Read request body
+            InputStream requestBody = exchange.getRequestBody();
+            String bodyStr = new String(requestBody.readAllBytes());
+            
+            // Parse sortBy parameter
+            String sortBy = "rating"; // default
+            if (bodyStr.contains("\"sortBy\"")) {
+                int sortStart = bodyStr.indexOf("\"sortBy\":") + 9;
+                String afterColon = bodyStr.substring(sortStart).trim();
+                
+                if (afterColon.startsWith("\"")) {
+                    int openQuote = bodyStr.indexOf("\"", sortStart);
+                    int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
+                    sortBy = bodyStr.substring(openQuote + 1, closeQuote);
+                }
+            }
+            
+            // Build sort clause
+            String sortClause;
+            switch (sortBy) {
+                case "rating_count":
+                    sortClause = "sort rating_count desc";
+                    break;
+                case "release_date":
+                    sortClause = "sort first_release_date desc";
+                    break;
+                case "trending":
+                    sortClause = "sort rating_count desc";
+                    break;
+                default: // "rating"
+                    sortClause = "sort rating desc";
+                    break;
+            }
+            
+            String fields = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name";
+            if (sortBy.equals("release_date")) {
+                fields += ", first_release_date";
+            }
+            
+            String igdbQuery = fields + "; where cover != null & rating != null & rating_count > 500; " + sortClause + "; limit 40;";
+            
+            URI uri = new URI("https://api.igdb.com/v4/games");
+            URL url = uri.toURL();
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Client-ID", clientId);
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
+            
+            conn.getOutputStream().write(igdbQuery.getBytes());
+            
+            InputStream responseStream = conn.getInputStream();
+            byte[] responseData = responseStream.readAllBytes();
+            
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+            exchange.sendResponseHeaders(200, responseData.length);
+            exchange.getResponseBody().write(responseData);
+            exchange.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            String error = "{\"error\": \"" + e.getMessage() + "\"}";
+            exchange.sendResponseHeaders(500, error.length());
+            exchange.getResponseBody().write(error.getBytes());
+            exchange.close();
+        }
+    });
 
         server.createContext("/api/game-single", exchange -> {
             if (!exchange.getRequestMethod().equals("POST")) {
@@ -271,25 +311,64 @@ public class MiniServer {
                     }
                 }
 
-                String body = "fields name, slug, cover.image_id, rating, rating_count; " + 
-                                whereClause + "; " +
-                                "sort rating desc; " +
-                                "limit 40;";
-                
-                System.out.println("Where Clause: " + whereClause);
-                System.out.println("Full IGDB Query: " + body);
-                System.out.println("===================");
-                
-                conn.getOutputStream().write(body.getBytes());
+                // Parse sortBy parameter
+String sortBy = "rating"; // default
+if (bodyStr.contains("\"sortBy\"")) {
+    int sortStart = bodyStr.indexOf("\"sortBy\":") + 9;
+    String afterColon = bodyStr.substring(sortStart).trim();
+    
+    if (afterColon.startsWith("\"")) {
+        int openQuote = bodyStr.indexOf("\"", sortStart);
+        int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
+        sortBy = bodyStr.substring(openQuote + 1, closeQuote);
+    }
+}
 
-                InputStream responseStream = conn.getInputStream();
-                byte[] responseData = responseStream.readAllBytes();
+            // Build sort clause
+            String sortClause;
+            switch (sortBy) {
+                case "rating_count":
+                    sortClause = "sort rating_count desc";
+                    break;
+                case "release_date":
+                    sortClause = "sort first_release_date desc";
+                    break;
+                case "trending":
+                    sortClause = "sort rating_count desc";
+                    break;
+                default: // "rating"
+                    sortClause = "sort rating desc";
+                    break;
+            }
 
-                exchange.getResponseHeaders().set("Content-Type", "application/json");
-                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-                exchange.sendResponseHeaders(200, responseData.length);
-                exchange.getResponseBody().write(responseData);
-                exchange.close();
+            String fields = "fields name, slug, cover.image_id, rating, rating_count";
+            if (sortBy.equals("release_date")) {
+                fields += ", first_release_date";
+            }
+
+            String igdbQuery = fields + "; " + 
+                        whereClause + "; " +
+                        sortClause + "; " +
+                        "limit 40;";
+
+            System.out.println("=== FINAL IGDB QUERY ===");
+            System.out.println(igdbQuery);
+            System.out.println("========================");
+                
+            System.out.println("Where Clause: " + whereClause);
+            System.out.println("Full IGDB Query: " + igdbQuery);
+            System.out.println("===================");
+                
+            conn.getOutputStream().write(igdbQuery.getBytes());
+
+            InputStream responseStream = conn.getInputStream();
+            byte[] responseData = responseStream.readAllBytes();
+
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+            exchange.sendResponseHeaders(200, responseData.length);
+            exchange.getResponseBody().write(responseData);
+            exchange.close();
 
             } catch (Exception e) {
                 e.printStackTrace();

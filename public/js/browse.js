@@ -33,7 +33,7 @@ const DISPLAY_NAMES = {
     'turn-based-strategy-tbs': 'Turn-based Strategy (TBS)'
 };
 
-async function fetchFilteredGames() {
+async function fetchFilteredGames(sortBy = 'rating') {
     const gameGrid = document.getElementById('game-grid');
     const titleEl = document.getElementById('browse-title');
     
@@ -63,12 +63,10 @@ async function fetchFilteredGames() {
         filterType = 'platform';
         filterValue = platformSlug;
         
-        // Get the name from URL parameter if available
         const platformName = params.get('name');
         if (platformName) {
             displayName = platformName + ' Games';
         } else {
-            // Fallback to formatting the slug
             displayName = platformSlug
                 .split('-')
                 .map(w => w.charAt(0).toUpperCase() + w.slice(1))
@@ -80,13 +78,16 @@ async function fetchFilteredGames() {
         titleEl.textContent = displayName;
     }
 
+    gameGrid.innerHTML = '';
+
     try {
         const response = await fetch("/api/browse", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 filterType: filterType,
-                filterValue: filterValue
+                filterValue: filterValue,
+                sortBy: sortBy
             })
         });
 
@@ -96,12 +97,10 @@ async function fetchFilteredGames() {
 
         const games = await response.json();
         
-        // Check if the response is an error object
         if (games.error) {
             throw new Error(games.error);
         }
         
-        // Check if games is actually an array
         if (!Array.isArray(games)) {
             console.error('Expected array but got:', games);
             gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">Error: Invalid response from server.</p>';
@@ -288,5 +287,54 @@ if (platformSearchInput) {
     platformSearchInput.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
 }
 
-window.addEventListener('DOMContentLoaded', fetchFilteredGames);
-window.addEventListener('DOMContentLoaded', loadMorePlatforms);
+// Sort dropdown menu functionality
+const sortDropdown = document.querySelector('.sort-dropdown');
+const sortMenu = document.querySelector('.sort-menu');
+const sortTrigger = document.querySelector('.sort-trigger');
+const currentSort = document.getElementById('current-sort');
+let sortHideTimeout = null;
+
+if (sortDropdown && sortMenu && sortTrigger) {
+    sortTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+    });
+    
+    sortDropdown.addEventListener('mouseenter', () => {
+        clearTimeout(sortHideTimeout);
+        const rect = sortTrigger.getBoundingClientRect();
+        sortMenu.style.top = (rect.bottom + 6) + 'px';
+        sortMenu.style.left = rect.left + 'px';
+        sortMenu.style.display = 'block';
+    });
+
+    sortDropdown.addEventListener('mouseleave', () => {
+        sortHideTimeout = setTimeout(() => {
+            sortMenu.style.display = 'none';
+        }, 100);
+    });
+
+    sortMenu.addEventListener('mouseenter', () => clearTimeout(sortHideTimeout));
+    sortMenu.addEventListener('mouseleave', () => {
+        sortHideTimeout = setTimeout(() => {
+            sortMenu.style.display = 'none';
+        }, 100);
+    });
+
+    // Handle sort selection
+    document.querySelectorAll('.sort-list a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sortValue = link.getAttribute('data-sort');
+            currentSort.textContent = link.textContent;
+            sortMenu.style.display = 'none';
+            
+            // Trigger re-fetch with new sort
+            fetchFilteredGames(sortValue);
+        });
+    });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    fetchFilteredGames();
+    loadMorePlatforms();
+});

@@ -1,8 +1,15 @@
-async function fetchGameCovers() {
+async function fetchGameCovers(sortBy = 'rating') {
     const gameGrid = document.getElementById('game-grid');
     if (!gameGrid) return;
+    
+    gameGrid.innerHTML = ''; // Clear existing games
+    
     try {
-        const response = await fetch("/api/games", { method: 'POST' });
+        const response = await fetch("/api/games", { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sortBy: sortBy })
+        });
         const games = await response.json();
         
         games.forEach(game => {
@@ -474,6 +481,63 @@ if (searchInput) {
             }
         }
     });
+}
+
+// Sort dropdown menu functionality for home page
+const sortDropdown = document.querySelector('.sort-dropdown');
+const sortMenu = document.querySelector('.sort-menu');
+const sortTrigger = document.querySelector('.sort-trigger');
+const currentSort = document.getElementById('current-sort');
+let sortHideTimeout = null;
+
+if (sortDropdown && sortMenu && sortTrigger) {
+    sortTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+    });
+    
+    sortDropdown.addEventListener('mouseenter', () => {
+        clearTimeout(sortHideTimeout);
+        const rect = sortTrigger.getBoundingClientRect();
+        sortMenu.style.top = (rect.bottom + 6) + 'px';
+        sortMenu.style.left = rect.left + 'px';
+        sortMenu.style.display = 'block';
+    });
+
+    sortDropdown.addEventListener('mouseleave', () => {
+        sortHideTimeout = setTimeout(() => {
+            sortMenu.style.display = 'none';
+        }, 100);
+    });
+
+    sortMenu.addEventListener('mouseenter', () => clearTimeout(sortHideTimeout));
+    sortMenu.addEventListener('mouseleave', () => {
+        sortHideTimeout = setTimeout(() => {
+            sortMenu.style.display = 'none';
+        }, 100);
+    });
+
+    // Handle sort selection
+document.querySelectorAll('.sort-list a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const sortValue = link.getAttribute('data-sort');
+        const sortText = link.textContent;
+        
+        // Update dropdown text
+        currentSort.textContent = sortText;
+        
+        // Update page title
+        const pageTitle = document.querySelector('.section-title');
+        if (pageTitle) {
+            pageTitle.textContent = sortText + ' Games';
+        }
+        
+        sortMenu.style.display = 'none';
+        
+        // Trigger re-fetch with new sort
+        fetchGameCovers(sortValue);
+    });
+});
 }
 
 window.addEventListener('DOMContentLoaded', loadMorePlatforms);

@@ -139,10 +139,27 @@
         </header>
 
         <div class="main-content">
-            <h2 class="section-title" style="margin-left: 5%;">Top Rated Games</h2>
-            <div class="game-grid" id="game-grid">
+        <div class="browse-header">
+            <div class="header-left">
+                <div class="dropdown sort-dropdown">
+                    <a href="#" class="sort-trigger">
+                        <span id="current-sort">Highest Rated</span> <span class="caret">▼</span>
+                    </a>
+                    <div class="sort-menu">
+                        <ul class="sort-list">
+                            <li><a href="#" data-sort="rating">Highest Rated</a></li>
+                            <li><a href="#" data-sort="rating_count">Most Popular</a></li>
+                            <li><a href="#" data-sort="trending">Trending</a></li>
+                            <li><a href="#" data-sort="release_date">Newest</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <h2 class="section-title">Top Rated Games</h2>
             </div>
         </div>
+        <div class="game-grid" id="game-grid">
+        </div>
+    </div>
     </div>
     <script src="/js/game.js"></script>
 </body>
