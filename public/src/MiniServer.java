@@ -348,6 +348,34 @@ byte[] gamesData = responseStream.readAllBytes();
                         sortBy = bodyStr.substring(openQuote + 1, closeQuote);
                     }
                 }
+
+                // Parse page and limit parameters
+                int page = 1;
+                int limit = 40;
+
+                if (bodyStr.contains("\"page\"")) {
+                    int pageStart = bodyStr.indexOf("\"page\":") + 7;
+                    String afterColon = bodyStr.substring(pageStart).trim();
+                    int commaOrBrace = Math.min(
+                        afterColon.indexOf(",") == -1 ? Integer.MAX_VALUE : afterColon.indexOf(","),
+                        afterColon.indexOf("}") == -1 ? Integer.MAX_VALUE : afterColon.indexOf("}")
+                    );
+                    String pageStr = afterColon.substring(0, commaOrBrace).trim();
+                    page = Integer.parseInt(pageStr);
+                }
+
+                if (bodyStr.contains("\"limit\"")) {
+                    int limitStart = bodyStr.indexOf("\"limit\":") + 8;
+                    String afterColon = bodyStr.substring(limitStart).trim();
+                    int commaOrBrace = Math.min(
+                        afterColon.indexOf(",") == -1 ? Integer.MAX_VALUE : afterColon.indexOf(","),
+                        afterColon.indexOf("}") == -1 ? Integer.MAX_VALUE : afterColon.indexOf("}")
+                    );
+                    String limitStr = afterColon.substring(0, commaOrBrace).trim();
+                    limit = Integer.parseInt(limitStr);
+                }
+
+                int offset = (page - 1) * limit;
                 if (filterType != null && filterValue != null) {
                     if (filterType.equals("genre")) {
                         whereClause += " & genres = [" + filterValue + "]";
@@ -378,10 +406,7 @@ byte[] gamesData = responseStream.readAllBytes();
                 fields += ", first_release_date";
             }
 
-            String igdbQuery = fields + "; " + 
-                        whereClause + "; " +
-                        sortClause + "; " +
-                        "limit 40;";
+            String igdbQuery = fields + "; " + whereClause + "; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
 
             System.out.println("=== FINAL IGDB QUERY ===");
             System.out.println(igdbQuery);
@@ -394,7 +419,13 @@ byte[] gamesData = responseStream.readAllBytes();
             conn.getOutputStream().write(igdbQuery.getBytes());
 
             InputStream responseStream = conn.getInputStream();
-            byte[] responseData = responseStream.readAllBytes();
+            byte[] gamesData = responseStream.readAllBytes();
+
+            // Wrap response with totalPages
+            String gamesJson = new String(gamesData);
+            int totalPages = 10; // Hardcoded for now
+            String wrappedResponse = "{\"games\":" + gamesJson + ",\"totalPages\":" + totalPages + "}";
+            byte[] responseData = wrappedResponse.getBytes();
 
             exchange.getResponseHeaders().set("Content-Type", "application/json");
             exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
