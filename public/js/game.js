@@ -30,7 +30,12 @@ async function fetchGameCovers(sortBy = 'rating') {
                 img.src = coverUrl;
                 img.alt = game.name;
                 
+                const nameOverlay = document.createElement('div');
+                nameOverlay.className = 'game-name-overlay';
+                nameOverlay.textContent = game.name;
+                
                 gameCard.appendChild(img);
+                gameCard.appendChild(nameOverlay);
                 link.appendChild(gameCard);
                 gameGrid.appendChild(link);
             }
