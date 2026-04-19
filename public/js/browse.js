@@ -439,6 +439,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Wire up standalone sort button in section-actions (browse page)
+const sectionSortBtn = document.querySelector('.section-actions .sort-trigger');
+if (sectionSortBtn && sortMenu) {
+    sectionSortBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const rect = sectionSortBtn.getBoundingClientRect();
+        sortMenu.style.top = (rect.bottom + 6) + 'px';
+        sortMenu.style.left = rect.left + 'px';
+        sortMenu.style.display = sortMenu.style.display === 'block' ? 'none' : 'block';
+    });
+    document.addEventListener('click', (e) => {
+        if (!sectionSortBtn.contains(e.target) && !sortMenu.contains(e.target)) {
+            sortMenu.style.display = 'none';
+        }
+    });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     fetchFilteredGames();
     loadMorePlatforms();
