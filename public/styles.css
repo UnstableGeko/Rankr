@@ -25,13 +25,16 @@ body {
 }
 
 .name-title {
-    font-family: 'Tapestry', serif;
-    font-size: 3rem;
-    color: #ffffff;
+    display: inline-block;
     text-decoration: none;
-    letter-spacing: 0.04em;
     margin-bottom: 0.75rem;
     line-height: 1;
+}
+
+.name-title svg {
+    height: 3rem;
+    width: auto;
+    display: block;
 }
 .desktop-nav {
     display: flex;

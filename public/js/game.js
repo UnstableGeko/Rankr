@@ -28,40 +28,56 @@ async function fetchGameCovers(sortBy = 'rating', page = 1) {
         
         const seenGames = new Set();
 
+        // Populate hero collage with top 5 covers on page 1
+        const hcEls = document.querySelectorAll('.hero-collage .hc');
+        if (hcEls.length && page === 1) {
+            const topCovers = games.filter(g => g.cover).slice(0, 5);
+            hcEls.forEach((hc, i) => {
+                if (topCovers[i]) {
+                    const img = document.createElement('img');
+                    img.src = `https://images.igdb.com/igdb/image/upload/t_cover_big/${topCovers[i].cover.image_id}.jpg`;
+                    img.alt = topCovers[i].name;
+                    hc.innerHTML = '';
+                    hc.appendChild(img);
+                }
+            });
+        }
+
         games.forEach(game => {
             if (game.cover && game.slug) {
-                // Skip duplicates
-                if (seenGames.has(game.slug)) {
-                    return;
-                }
+                if (seenGames.has(game.slug)) return;
                 seenGames.add(game.slug);
-                
-                const imageId = game.cover.image_id;
-                const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
+
+                const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`;
                 const slug = game.slug || slugify(game.name);
-                
+
                 const link = document.createElement('a');
                 link.href = `/games/${slug}`;
                 link.classList.add('game-link');
-                
+
                 const gameCard = document.createElement('div');
                 gameCard.className = 'game-card';
-                
+
                 const img = document.createElement('img');
                 img.src = coverUrl;
                 img.alt = game.name;
-                
+
                 const nameOverlay = document.createElement('div');
                 nameOverlay.className = 'game-name-overlay';
                 nameOverlay.textContent = game.name;
-                
+
+                const viewBtn = document.createElement('button');
+                viewBtn.className = 'card-view-btn';
+                viewBtn.textContent = 'View';
+
                 gameCard.appendChild(img);
                 gameCard.appendChild(nameOverlay);
+                gameCard.appendChild(viewBtn);
                 link.appendChild(gameCard);
                 gameGrid.appendChild(link);
             }
         });
-        
+
         updatePagination();
         
     } catch (error) {
@@ -605,7 +621,9 @@ if (sortDropdown && sortMenu && sortTrigger) {
             
             const pageTitle = document.querySelector('.section-title');
             if (pageTitle) {
-                pageTitle.textContent = sortText + ' Games';
+                const words = sortText.split(' ');
+                const last = words.pop();
+                pageTitle.innerHTML = `${words.join(' ')} <em>${last}</em> Games`;
             }
             
             sortMenu.style.display = 'none';

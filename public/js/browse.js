@@ -153,9 +153,14 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
                 const nameOverlay = document.createElement('div');
                 nameOverlay.className = 'game-name-overlay';
                 nameOverlay.textContent = game.name;
-                
+
+                const viewBtn = document.createElement('button');
+                viewBtn.className = 'card-view-btn';
+                viewBtn.textContent = 'View';
+
                 gameCard.appendChild(img);
                 gameCard.appendChild(nameOverlay);
+                gameCard.appendChild(viewBtn);
                 link.appendChild(gameCard);
                 gameGrid.appendChild(link);
             }
@@ -438,6 +443,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Wire up standalone sort button in section-actions (browse page)
+const sectionSortBtn = document.querySelector('.section-actions .sort-trigger');
+if (sectionSortBtn && sortMenu) {
+    sectionSortBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const rect = sectionSortBtn.getBoundingClientRect();
+        sortMenu.style.top = (rect.bottom + 6) + 'px';
+        sortMenu.style.left = rect.left + 'px';
+        sortMenu.style.display = sortMenu.style.display === 'block' ? 'none' : 'block';
+    });
+    document.addEventListener('click', (e) => {
+        if (!sectionSortBtn.contains(e.target) && !sortMenu.contains(e.target)) {
+            sortMenu.style.display = 'none';
+        }
+    });
+}
 
 window.addEventListener('DOMContentLoaded', () => {
     fetchFilteredGames();

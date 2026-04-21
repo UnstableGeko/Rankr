@@ -1,177 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Browse Games - Rankr</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Tapestry&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rankr — Browse</title>
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bricolage+Grotesque:ital,opsz,wght@1,12..96,700..800&family=JetBrains+Mono:wght@400;500;600&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/pages.css" />
 </head>
 <body>
-    <div class="container">
 
-        <header class="site-header">
-            <a href="/home" class="name-title">Rankr</a>
-
-            <nav class="desktop-nav">
-                <ul class="nav-links">
-                    <li class="dropdown genres-dropdown">
-                        <a href="">Genres <span class="caret">▼</span></a>
-                        <div class="genres-menu">
-                            <ul class="genres-list">
-                                <li><a href="browse.html?genre=adventure">Adventure</a></li>
-                                <li><a href="browse.html?genre=arcade">Arcade</a></li>
-                                <li><a href="browse.html?genre=card-board-game">Card &amp; Board Game</a></li>
-                                <li><a href="browse.html?genre=fighting">Fighting</a></li>
-                                <li><a href="browse.html?genre=hack-slash">Hack and slash/Beat 'em up</a></li>
-                                <li><a href="browse.html?genre=indie">Indie</a></li>
-                                <li><a href="browse.html?genre=music">Music</a></li>
-                                <li><a href="browse.html?genre=platform">Platform</a></li>
-                                <li><a href="browse.html?genre=point-and-click">Point-and-click</a></li>
-                                <li><a href="browse.html?genre=puzzle">Puzzle</a></li>
-                                <li><a href="browse.html?genre=quiz-trivia">Quiz/Trivia</a></li>
-                                <li><a href="browse.html?genre=racing">Racing</a></li>
-                                <li><a href="browse.html?genre=real-time-strategy-rts">Real Time Strategy (RTS)</a></li>
-                                <li><a href="browse.html?genre=role-playing-rpg">Role-playing (RPG)</a></li>
-                                <li><a href="browse.html?genre=shooter">Shooter</a></li>
-                                <li><a href="browse.html?genre=simulator">Simulator</a></li>
-                                <li><a href="browse.html?genre=sport">Sport</a></li>
-                                <li><a href="browse.html?genre=strategy">Strategy</a></li>
-                                <li><a href="browse.html?genre=tactical">Tactical</a></li>
-                                <li><a href="browse.html?genre=turn-based-strategy-tbs">Turn-based strategy (TBS)</a></li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="dropdown platforms-dropdown">
-                        <a href="#">Platforms <span class="caret">▼</span></a>
-                        <div class="platforms-menu">
-                            <div class="platforms-menu-inner">
-                                <ul class="platforms-list">
-                                    <li class="platform-item active" data-platform="playstation">
-                                        <span>PlayStation</span> <span class="flyout-caret">›</span>
-                                    </li>
-                                    <li class="platform-item" data-platform="xbox">
-                                        <span>Xbox</span> <span class="flyout-caret">›</span>
-                                    </li>
-                                    <li class="platform-item" data-platform="nintendo">
-                                        <span>Nintendo</span> <span class="flyout-caret">›</span>
-                                    </li>
-                                    <li class="platform-item" data-platform="vr">
-                                        <span>Virtual Reality</span> <span class="flyout-caret">›</span>
-                                    </li>
-                                    <li class="platform-item platform-item--solo">
-                                        <span>PC (Windows)</span>
-                                    </li>
-                                    <li class="platform-item platform-item--more" data-platform="more">
-                                        <span>All Platforms</span> <span class="flyout-caret">›</span>
-                                    </li>
-                                </ul>
-
-                                <div class="platforms-detail">
-                                    <ul class="platform-models" data-for="playstation">
-                                        <li><a href="browse.html?platform=ps5&name=PlayStation 5">PlayStation 5</a></li>
-                                        <li><a href="browse.html?platform=ps4--1&name=PlayStation 4">PlayStation 4</a></li>
-                                        <li><a href="browse.html?platform=ps3&name=PlayStation 3">PlayStation 3</a></li>
-                                        <li><a href="browse.html?platform=ps2&name=PlayStation 2">PlayStation 2</a></li>
-                                        <li><a href="browse.html?platform=ps&name=PlayStation 1">PlayStation 1</a></li>
-                                        <li><a href="browse.html?platform=psvita&name=PS Vita">PS Vita</a></li>
-                                        <li><a href="browse.html?platform=psp&name=PSP">PSP</a></li>
-                                    </ul>
-
-                                    <ul class="platform-models" data-for="xbox">
-                                        <li><a href="browse.html?platform=series-x-s&name=Xbox Series X/S">Xbox Series X/S</a></li>
-                                        <li><a href="browse.html?platform=xboxone&name=Xbox One">Xbox One</a></li>
-                                        <li><a href="browse.html?platform=xbox360&name=Xbox 360">Xbox 360</a></li>
-                                        <li><a href="browse.html?platform=xbox&name=Xbox">Xbox</a></li>
-                                    </ul>
-
-                                    <ul class="platform-models" data-for="nintendo">
-                                        <li><a href="browse.html?platform=switch&name=Nintendo Switch">Nintendo Switch</a></li>
-                                        <li><a href="browse.html?platform=switch-2&name=Nintendo Switch 2">Nintendo Switch 2</a></li>
-                                        <li><a href="browse.html?platform=wiiu&name=Wii U">Wii U</a></li>
-                                        <li><a href="browse.html?platform=wii&name=Wii">Wii</a></li>
-                                        <li><a href="browse.html?platform=ngc&name=GameCube">GameCube</a></li>
-                                        <li><a href="browse.html?platform=n64&name=Nintendo 64">Nintendo 64</a></li>
-                                        <li><a href="browse.html?platform=snes&name=Super Nintendo">Super Nintendo</a></li>
-                                        <li><a href="browse.html?platform=nes&name=NES">NES</a></li>
-                                        <li><a href="browse.html?platform=3ds&name=Nintendo 3DS">Nintendo 3DS</a></li>
-                                        <li><a href="browse.html?platform=nds&name=Nintendo DS">Nintendo DS</a></li>
-                                        <li><a href="browse.html?platform=gba&name=Game Boy Advance">Game Boy Advance</a></li>
-                                    </ul>
-
-                                    <ul class="platform-models" data-for="vr">
-                                        <li><a href="browse.html?platform=meta-quest-3&name=Meta Quest 3">Meta Quest 3</a></li>
-                                        <li><a href="browse.html?platform=meta-quest-2&name=Meta Quest 2">Meta Quest 2</a></li>
-                                        <li><a href="browse.html?platform=psvr2&name=PlayStation VR2">PlayStation VR2</a></li>
-                                        <li><a href="browse.html?platform=psvr&name=PlayStation VR">PlayStation VR</a></li>
-                                        <li><a href="browse.html?platform=steam-vr&name=SteamVR">SteamVR</a></li>
-                                        <li><a href="browse.html?platform=oculus-vr&name=Oculus VR">Oculus VR</a></li>
-                                        <li><a href="browse.html?platform=oculus-rift&name=Oculus Rift">Oculus Rift</a></li>
-                                        <li><a href="browse.html?platform=oculus-quest&name=Oculus Quest">Oculus Quest</a></li>
-                                        <li><a href="browse.html?platform=sega-pico&name=Pico 4">Pico 4</a></li>
-                                    </ul>
-
-                                    <div class="platform-models platform-models--search" data-for="more">
-                                        <div class="all-platforms-search">
-                                            <i class="fa fa-search"></i>
-                                            <input type="text" id="platform-search-input" placeholder="Search platforms...">
-                                        </div>
-                                        <ul class="all-platforms-list">
-                                            <!-- Populated from database -->
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li><a href="/about">About</a></li>
-                </ul>
-
-                <div class="nav-right">
-                    <div class="search-bar">
-                        <i class="fa fa-search search-icon"></i>
-                        <input type="text" placeholder="Start typing a game title...">
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-   <div class="main-content">
-        <div class="browse-header">
-            <div class="header-left">
-                <div class="dropdown sort-dropdown">
-                    <a href="#" class="sort-trigger">
-                        <span id="current-sort">Highest Rated</span> <span class="caret">▼</span>
-                    </a>
-                    <div class="sort-menu">
-                        <ul class="sort-list">
-                            <li><a href="#" data-sort="rating">Highest Rated</a></li>
-                            <li><a href="#" data-sort="rating_count">Most Popular</a></li>
-                            <li><a href="#" data-sort="trending">Trending</a></li>
-                            <li><a href="#" data-sort="release_date">Newest</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <h2 id="browse-title">Loading...</h2>
-            </div>
-        </div>
-        <div class="game-grid" id="game-grid">
-            <!-- Games will be populated by browse.js -->
-        </div>
-        <div class="pagination" id="pagination">
-            <button class="pagination-btn" id="prev-btn">← Previous</button>
-            <div class="pagination-numbers" id="page-numbers"></div>
-            <button class="pagination-btn" id="next-btn">Next →</button>
-        </div>
+<header class="site-header container">
+  <div class="header-row">
+    <a href="/" class="name-title">
+      <img src="/images/logo.svg" alt="Rankr" class="logo-svg" />
+    </a>
+    <nav class="desktop-nav">
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/browse.html" class="current">Browse</a></li>
+        <li class="platforms-dropdown"><a href="#">Platforms <span class="caret">▼</span></a></li>
+        <li class="genres-dropdown"><a href="#">Genres <span class="caret">▼</span></a></li>
+        <li class="sort-dropdown"><a href="#" class="sort-trigger">Sort: <span id="current-sort">Highest Rated</span> <span class="caret">▼</span></a></li>
+        <li><a href="/rate.html">Rate a Game</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" placeholder="Search games…" />
+      </div>
     </div>
-</div>
+  </div>
+</header>
 
-    <script src="/js/browse.js"></script>
+<div class="genres-menu"><ul class="genres-list">
+  <li><a href="/browse.html?genre=adventure">Adventure</a></li>
+  <li><a href="/browse.html?genre=role-playing-rpg">Role-playing (RPG)</a></li>
+  <li><a href="/browse.html?genre=shooter">Shooter</a></li>
+  <li><a href="/browse.html?genre=strategy">Strategy</a></li>
+  <li><a href="/browse.html?genre=platform">Platformer</a></li>
+  <li><a href="/browse.html?genre=puzzle">Puzzle</a></li>
+  <li><a href="/browse.html?genre=simulator">Simulator</a></li>
+  <li><a href="/browse.html?genre=racing">Racing</a></li>
+  <li><a href="/browse.html?genre=sport">Sport</a></li>
+  <li><a href="/browse.html?genre=fighting">Fighting</a></li>
+  <li><a href="/browse.html?genre=indie">Indie</a></li>
+  <li><a href="/browse.html?genre=arcade">Arcade</a></li>
+</ul></div>
+
+<div class="platforms-menu"><div class="platforms-menu-inner">
+  <ul class="platforms-list">
+    <li class="platform-item" data-platform="playstation">PlayStation <span class="flyout-caret">▸</span></li>
+    <li class="platform-item" data-platform="xbox">Xbox <span class="flyout-caret">▸</span></li>
+    <li class="platform-item" data-platform="nintendo">Nintendo <span class="flyout-caret">▸</span></li>
+    <li class="platform-item" data-platform="pc">PC <span class="flyout-caret">▸</span></li>
+    <li class="platform-item platform-item--more" data-platform="all">All platforms <span class="flyout-caret">▸</span></li>
+  </ul>
+  <div class="platforms-detail">
+    <ul class="platform-models" data-for="playstation">
+      <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation 5</a></li>
+      <li><a href="/browse.html?platform=ps4&name=PlayStation%204">PlayStation 4</a></li>
+    </ul>
+    <ul class="platform-models" data-for="xbox">
+      <li><a href="/browse.html?platform=series-x&name=Xbox%20Series%20X%7CS">Xbox Series X|S</a></li>
+      <li><a href="/browse.html?platform=xboxone&name=Xbox%20One">Xbox One</a></li>
+    </ul>
+    <ul class="platform-models" data-for="nintendo">
+      <li><a href="/browse.html?platform=switch&name=Nintendo%20Switch">Switch</a></li>
+    </ul>
+    <ul class="platform-models" data-for="pc">
+      <li><a href="/browse.html?platform=win&name=Windows">Windows</a></li>
+      <li><a href="/browse.html?platform=mac&name=macOS">macOS</a></li>
+    </ul>
+    <div class="platform-models platform-models--search" data-for="all">
+      <div class="all-platforms-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="platform-search-input" type="text" placeholder="Search all platforms…" />
+      </div>
+      <ul class="all-platforms-list"></ul>
+    </div>
+  </div>
+</div></div>
+
+<div class="sort-menu"><ul class="sort-list">
+  <li><a href="#" data-sort="rating">Highest Rated</a></li>
+  <li><a href="#" data-sort="rating_count">Most Popular</a></li>
+  <li><a href="#" data-sort="release_date">Newest First</a></li>
+  <li><a href="#" data-sort="trending">Trending</a></li>
+</ul></div>
+
+<main class="container main-content">
+  <div class="browse-header">
+    <div>
+      <div class="crumbs"><a href="/">Home</a><span class="sep">/</span><span>Browse</span></div>
+      <h1 id="browse-title">All Games</h1>
+    </div>
+    <div class="section-actions">
+      <button class="sort-trigger">Sort: <span>Highest Rated</span> <span class="caret">▼</span></button>
+    </div>
+  </div>
+
+  <div class="game-grid" id="game-grid"></div>
+
+  <div class="pagination">
+    <button class="pagination-btn" id="prev-btn" disabled>← Prev</button>
+    <div class="pagination-numbers" id="page-numbers"></div>
+    <button class="pagination-btn" id="next-btn">Next →</button>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="wordmark">Rank<em>r</em></span>
+      <p>A game discovery, ranking, and review site. Built at Texas Tech.</p>
+    </div>
+    <div class="footer-col"><h4>Browse</h4><ul><li><a href="/">Home</a></li><li><a href="/browse.html">All Games</a></li></ul></div>
+    <div class="footer-col"><h4>About</h4><ul><li><a href="/about.html">The Team</a></li></ul></div>
+    <div class="footer-col"><h4>Source</h4><ul><li><a href="https://github.com/UnstableGeko/Rankr">GitHub</a></li></ul></div>
+  </div>
+  <div class="container footer-bottom"><span>© 2026 Rankr</span><span>Game data via IGDB</span></div>
+</footer>
+
+<script src="/js/browse.js" defer></script>
 </body>
 </html>
