@@ -153,9 +153,14 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
                 const nameOverlay = document.createElement('div');
                 nameOverlay.className = 'game-name-overlay';
                 nameOverlay.textContent = game.name;
-                
+
+                const viewBtn = document.createElement('button');
+                viewBtn.className = 'card-view-btn';
+                viewBtn.textContent = 'View';
+
                 gameCard.appendChild(img);
                 gameCard.appendChild(nameOverlay);
+                gameCard.appendChild(viewBtn);
                 link.appendChild(gameCard);
                 gameGrid.appendChild(link);
             }

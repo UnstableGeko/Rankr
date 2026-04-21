@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rankr — About</title>
+  <title>Rankr — Rate a Game</title>
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,8 +26,8 @@
         <li><a href="/browse.html">Browse</a></li>
         <li class="platforms-dropdown"><a href="#">Platforms <span class="caret">▼</span></a></li>
         <li class="genres-dropdown"><a href="#">Genres <span class="caret">▼</span></a></li>
-        <li><a href="/rate.html">Rate a Game</a></li>
-        <li><a href="/about.html" class="current">About</a></li>
+        <li><a href="/rate.html" class="current">Rate a Game</a></li>
+        <li><a href="/about.html">About</a></li>
       </ul>
     </nav>
     <div class="nav-right">
@@ -94,75 +94,118 @@
 </div></div>
 
 <main class="container main-content">
-  <section class="about-hero">
-    <div class="eyebrow">— ENGR-1340 / Texas Tech</div>
-    <h1>Built to rank the games <em>that matter</em>.</h1>
-    <p class="lead">Rankr started as a classroom brief: design something real, for a real audience, using engineering-design methods. We interviewed gamers, drew paper wireframes, built a Figma prototype, and shipped this — a game-focused site to explore titles, find highly rated games, and share opinions.</p>
+
+  <section class="rate-header">
+    <div class="eyebrow">— Log Your Play</div>
+    <h1>Rate a Game</h1>
+    <p class="lead">Record a game you've played, give it a score, and write a short review. Your log stays on this device.</p>
   </section>
 
-  <div class="section-header">
-    <div>
-      <div class="section-label">— The Team</div>
-      <h2>Who <em>Made This</em></h2>
-    </div>
+  <div class="rate-form-wrap">
+    <form id="rate-form" action="#" method="post" novalidate>
+
+      <!-- Game Title -->
+      <div class="form-group">
+        <label for="game-title">Game Title</label>
+        <input type="text" id="game-title" name="game_title" placeholder="e.g. Elden Ring" required />
+      </div>
+
+      <!-- Platform -->
+      <div class="form-group">
+        <label for="platform">Platform</label>
+        <select id="platform" name="platform" required>
+          <option value="" disabled selected>Select a platform…</option>
+          <optgroup label="PlayStation">
+            <option value="ps5">PlayStation 5</option>
+            <option value="ps4">PlayStation 4</option>
+            <option value="ps3">PlayStation 3</option>
+          </optgroup>
+          <optgroup label="Xbox">
+            <option value="series-x">Xbox Series X|S</option>
+            <option value="xboxone">Xbox One</option>
+            <option value="xbox360">Xbox 360</option>
+          </optgroup>
+          <optgroup label="Nintendo">
+            <option value="switch">Nintendo Switch</option>
+            <option value="3ds">Nintendo 3DS</option>
+            <option value="wiiu">Wii U</option>
+          </optgroup>
+          <optgroup label="PC">
+            <option value="win">Windows</option>
+            <option value="mac">macOS</option>
+            <option value="linux">Linux</option>
+          </optgroup>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Play Status -->
+      <div class="form-group">
+        <label>Play Status</label>
+        <div class="form-radio-group">
+          <label><input type="radio" name="status" value="completed" /> Completed</label>
+          <label><input type="radio" name="status" value="playing" /> Currently Playing</label>
+          <label><input type="radio" name="status" value="dropped" /> Dropped</label>
+          <label><input type="radio" name="status" value="wishlist" /> Want to Play</label>
+        </div>
+      </div>
+
+      <!-- Score -->
+      <div class="form-group">
+        <label for="score">Your Score (1–10)</label>
+        <input type="number" id="score" name="score" min="1" max="10" step="0.5" placeholder="e.g. 8.5" />
+      </div>
+
+      <!-- Date Played -->
+      <div class="form-group">
+        <label for="date-played">Date Finished / Last Played</label>
+        <input type="date" id="date-played" name="date_played" />
+      </div>
+
+      <!-- Hours Played -->
+      <div class="form-group">
+        <label for="hours">Hours Played</label>
+        <input type="number" id="hours" name="hours" min="0" step="1" placeholder="e.g. 45" />
+      </div>
+
+      <hr class="form-divider" />
+
+      <!-- Review -->
+      <div class="form-group">
+        <label for="review">Your Review</label>
+        <textarea id="review" name="review" placeholder="Write what you thought of the game — story, gameplay, performance…"></textarea>
+      </div>
+
+      <!-- Tags -->
+      <div class="form-group">
+        <label>Tags (select all that apply)</label>
+        <div class="form-check-group">
+          <label><input type="checkbox" name="tags" value="great-story" /> Great Story</label>
+          <label><input type="checkbox" name="tags" value="challenging" /> Challenging</label>
+          <label><input type="checkbox" name="tags" value="beautiful-visuals" /> Beautiful Visuals</label>
+          <label><input type="checkbox" name="tags" value="must-play" /> Must Play</label>
+          <label><input type="checkbox" name="tags" value="overrated" /> Overrated</label>
+          <label><input type="checkbox" name="tags" value="underrated" /> Underrated</label>
+        </div>
+      </div>
+
+      <!-- Recommend -->
+      <div class="form-group">
+        <div class="form-check-group">
+          <label><input type="checkbox" name="recommend" value="yes" /> I would recommend this game</label>
+        </div>
+      </div>
+
+      <hr class="form-divider" />
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn--primary"><i class="fa-solid fa-star"></i> Submit Rating</button>
+        <a href="/browse.html" class="btn btn--ghost">Cancel</a>
+      </div>
+
+    </form>
   </div>
 
-  <div class="about-grid">
-    <article class="team-card">
-      <div class="portrait"><img src="/images/morgan.png" alt="Morgan" /></div>
-      <div class="meta">
-        <div class="name">Morgan</div>
-        <div class="role">Design Lead</div>
-        <p>Ran the user interviews and translated findings into the Figma prototype the final build was shaped around.</p>
-      </div>
-    </article>
-    <article class="team-card">
-      <div class="portrait"><img src="/images/Beck.png" alt="Beck" /></div>
-      <div class="meta">
-        <div class="name">Beck</div>
-        <div class="role">Engineering</div>
-        <p>Built the Java backend that talks to IGDB and glues the site together end-to-end.</p>
-      </div>
-    </article>
-    <article class="team-card">
-      <div class="portrait"><img src="/images/Tamjeed.png" alt="Tamjeed" /></div>
-      <div class="meta">
-        <div class="name">Tamjeed</div>
-        <div class="role">Frontend</div>
-        <p>Owns the front-end implementation — pagination, filtering, dropdowns, and the browse-page state machine.</p>
-      </div>
-    </article>
-  </div>
-
-  <div class="section-header">
-    <div>
-      <div class="section-label">— The Process</div>
-      <h2>How We <em>Got Here</em></h2>
-    </div>
-  </div>
-
-  <div class="process-steps">
-    <div class="process-card">
-      <div class="process-step-label process-step-label--cyan">— Step 01</div>
-      <div class="process-step-title">Interview</div>
-      <p class="process-step-body">Spoke with 14 gamers and classmates to understand what they actually wanted out of a game-focused platform.</p>
-    </div>
-    <div class="process-card">
-      <div class="process-step-label process-step-label--magenta">— Step 02</div>
-      <div class="process-step-title">Wireframe</div>
-      <p class="process-step-body">Paper wireframes first. Every screen sketched before a single pixel was pushed.</p>
-    </div>
-    <div class="process-card">
-      <div class="process-step-label process-step-label--gold">— Step 03</div>
-      <div class="process-step-title">Figma</div>
-      <p class="process-step-body">High-fidelity prototype to pressure-test the flow — sort, search, browse, rate.</p>
-    </div>
-    <div class="process-card">
-      <div class="process-step-label process-step-label--lime">— Step 04</div>
-      <div class="process-step-title">Ship</div>
-      <p class="process-step-body">Built with plain HTML/CSS/JS and a small Java server talking to the IGDB API.</p>
-    </div>
-  </div>
 </main>
 
 <footer class="site-footer">
