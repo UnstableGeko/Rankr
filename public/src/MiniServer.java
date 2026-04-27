@@ -288,41 +288,9 @@ byte[] gamesData = responseStream.readAllBytes();
                 System.out.println("=== BROWSE REQUEST ===");
                 System.out.println("Request Body: " + bodyStr);
                 
-                String filterType = null;
-                String filterValue = null;
-                
-                int ftIndex = bodyStr.indexOf("\"filterType\"");
-                if (ftIndex != -1) {
-                    int colonIndex = bodyStr.indexOf(":", ftIndex);
-                    int openQuoteIndex = bodyStr.indexOf("\"", colonIndex);
-                    int closeQuoteIndex = bodyStr.indexOf("\"", openQuoteIndex + 1);
-                    filterType = bodyStr.substring(openQuoteIndex + 1, closeQuoteIndex);
-                }
-                
-                if (bodyStr.contains("\"filterValue\"")) {
-                    int valStart = bodyStr.indexOf("\"filterValue\":") + 14;
-                    
-                    // Check if the value is a string (has quotes) or a number (no quotes)
-                    String afterColon = bodyStr.substring(valStart).trim();
-                    
-                    if (afterColon.startsWith("\"")) {
-                        // It's a string value - find the closing quote
-                        int openQuote = bodyStr.indexOf("\"", valStart);
-                        int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
-                        filterValue = bodyStr.substring(openQuote + 1, closeQuote);
-                    } else {
-                        // It's a number - find the comma or closing brace
-                        int valEnd = bodyStr.indexOf(",", valStart);
-                        if (valEnd == -1) valEnd = bodyStr.indexOf("}", valStart);
-                        if (valStart > 13 && valEnd > valStart) {
-                            filterValue = bodyStr.substring(valStart, valEnd).trim();
-                            if (filterValue.equals("null")) filterValue = null;
-                        }
-                    }
-                }
-
-                System.out.println("Parsed filterType: " + filterType);
-                System.out.println("Parsed filterValue: " + filterValue);
+                String genreId = parseJsonString(bodyStr, "genre");
+                String platformSlug = parseJsonString(bodyStr, "platform");
+                String yearStr = parseJsonString(bodyStr, "year");
 
                 URI uri = new URI("https://api.igdb.com/v4/games");
                 URL url = uri.toURL();
@@ -376,18 +344,17 @@ byte[] gamesData = responseStream.readAllBytes();
                 }
 
                 int offset = (page - 1) * limit;
-                if (filterType != null && filterValue != null) {
-                    if (filterType.equals("genre")) {
-                        whereClause += " & genres = [" + filterValue + "]";
-                    } else if (filterType.equals("platform")) {
-                        String cleanValue = filterValue.replaceAll("\"", "");
-                        whereClause += " & platforms.slug = \"" + cleanValue + "\"";
-                    } else if (filterType.equals("year")) {
-                        int yr = Integer.parseInt(filterValue.replaceAll("[^0-9]", ""));
-                        long yearStart = java.time.LocalDate.of(yr, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
-                        long yearEnd   = java.time.LocalDate.of(yr + 1, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
-                        whereClause += " & first_release_date >= " + yearStart + " & first_release_date < " + yearEnd;
-                    }
+                if (genreId != null) {
+                    whereClause += " & genres = (" + genreId + ")";
+                }
+                if (platformSlug != null) {
+                    whereClause += " & platforms.slug = \"" + platformSlug + "\"";
+                }
+                if (yearStr != null) {
+                    int yr = Integer.parseInt(yearStr.replaceAll("[^0-9]", ""));
+                    long yearStart = java.time.LocalDate.of(yr, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+                    long yearEnd   = java.time.LocalDate.of(yr + 1, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+                    whereClause += " & first_release_date >= " + yearStart + " & first_release_date < " + yearEnd;
                 }
 
                 // minRating filter (stacks with other filters)
@@ -634,5 +601,24 @@ byte[] gamesData = responseStream.readAllBytes();
         if (name.endsWith(".svg"))  return "image/svg+xml";
         if (name.endsWith(".ico"))  return "image/x-icon";
         return "application/octet-stream";
+    }
+
+    // Parses a JSON string or number field; returns null if missing or "null"
+    static String parseJsonString(String body, String key) {
+        String search = "\"" + key + "\":";
+        int idx = body.indexOf(search);
+        if (idx == -1) return null;
+        String after = body.substring(idx + search.length()).trim();
+        if (after.startsWith("null")) return null;
+        if (after.startsWith("\"")) {
+            int open = after.indexOf("\"");
+            int close = after.indexOf("\"", open + 1);
+            return after.substring(open + 1, close);
+        }
+        // numeric value
+        int end = after.indexOf(",");
+        if (end == -1) end = after.indexOf("}");
+        String val = after.substring(0, end).trim();
+        return val.equals("null") ? null : val;
     }
 }

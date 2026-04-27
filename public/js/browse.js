@@ -34,31 +34,19 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
     currentPage = page;
 
     const params = new URLSearchParams(window.location.search);
-    const genreSlug = params.get('genre');
+    const genreSlugs = params.get('genre') ? params.get('genre').split(',') : [];
     const platformSlug = params.get('platform');
     const yearParam = params.get('year');
-
-    let filterType = null;
-    let filterValue = null;
-    let displayName = 'All Games';
     const minRating = params.get('minRating') ? parseFloat(params.get('minRating')) : null;
 
-    if (genreSlug) {
-        filterType = 'genre';
-        filterValue = GENRE_MAP[genreSlug];
-        displayName = (DISPLAY_NAMES[genreSlug] || genreSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) + ' Games';
-    } else if (platformSlug) {
-        filterType = 'platform';
-        filterValue = platformSlug;
-        const platformName = params.get('name');
-        displayName = (platformName || platformSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) + ' Games';
-    } else if (yearParam) {
-        filterType = 'year';
-        filterValue = yearParam;
-        displayName = yearParam + ' Games';
-    }
+    const genreIds = genreSlugs.map(s => GENRE_MAP[s]).filter(Boolean);
 
-    if (titleEl) titleEl.textContent = displayName;
+    const displayParts = [];
+    if (genreSlugs.length) displayParts.push(genreSlugs.map(s => DISPLAY_NAMES[s] || s.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')).join(', '));
+    if (platformSlug) displayParts.push(params.get('name') || platformSlug);
+    if (yearParam) displayParts.push(yearParam);
+    if (titleEl) titleEl.textContent = displayParts.length ? displayParts.join(' · ') + ' Games' : 'All Games';
+
     gameGrid.innerHTML = '';
     allLoadedCards = [];
 
@@ -66,7 +54,12 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
         const response = await fetch('/api/browse', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ filterType, filterValue, sortBy, page, limit: gamesPerPage, minRating })
+            body: JSON.stringify({
+                genre: genreIds.length ? genreIds.join(',') : null,
+                platform: platformSlug || null,
+                year: yearParam || null,
+                sortBy, page, limit: gamesPerPage, minRating
+            })
         });
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -188,17 +181,22 @@ function initSidebarFilters() {
     const activeGenre = params.get('genre');
     const activePlatform = params.get('platform');
 
-    // Genre labels
+    // Genre labels (multi-select)
+    const activeGenres = params.get('genre') ? params.get('genre').split(',') : [];
     document.querySelectorAll('.filter-list label[data-genre]').forEach(label => {
         const genre = label.dataset.genre;
-        if (genre === activeGenre) label.classList.add('checked');
+        if (activeGenres.includes(genre)) label.classList.add('checked');
 
         label.addEventListener('click', () => {
-            if (label.classList.contains('checked')) {
-                window.location.href = '/browse.html'; // deselect
-            } else {
-                window.location.href = `/browse.html?genre=${genre}`;
-            }
+            const p = new URLSearchParams(window.location.search);
+            const current = p.get('genre') ? p.get('genre').split(',') : [];
+            const updated = label.classList.contains('checked')
+                ? current.filter(g => g !== genre)
+                : [...current, genre];
+            if (updated.length) p.set('genre', updated.join(','));
+            else p.delete('genre');
+            p.delete('page');
+            window.location.href = '/browse.html' + (p.toString() ? '?' + p.toString() : '');
         });
     });
 
@@ -209,29 +207,28 @@ function initSidebarFilters() {
         if (platform === activePlatform) label.classList.add('checked');
 
         label.addEventListener('click', () => {
-            if (label.classList.contains('checked')) {
-                window.location.href = '/browse.html';
-            } else {
-                window.location.href = `/browse.html?platform=${platform}&name=${encodeURIComponent(platformName)}`;
-            }
+            const p = new URLSearchParams(window.location.search);
+            if (label.classList.contains('checked')) { p.delete('platform'); p.delete('name'); }
+            else { p.set('platform', platform); p.set('name', platformName); }
+            p.delete('page');
+            window.location.href = '/browse.html' + (p.toString() ? '?' + p.toString() : '');
         });
     });
 
-    // Year labels (server-side navigation)
+    // Year labels
     const activeYear = params.get('year');
     document.querySelectorAll('#year-filters label[data-year]').forEach(label => {
         const year = label.dataset.year;
         if (year === activeYear) label.classList.add('checked');
         label.addEventListener('click', () => {
-            if (label.classList.contains('checked')) {
-                window.location.href = '/browse.html';
-            } else {
-                window.location.href = `/browse.html?year=${year}`;
-            }
+            const p = new URLSearchParams(window.location.search);
+            if (label.classList.contains('checked')) { p.delete('year'); } else { p.set('year', year); }
+            p.delete('page');
+            window.location.href = '/browse.html' + (p.toString() ? '?' + p.toString() : '');
         });
     });
 
-    // Custom year input (server-side navigation)
+    // Custom year input
     const yearInput = document.getElementById('year-custom-input');
     if (yearInput) {
         if (activeYear) yearInput.value = activeYear;
@@ -239,7 +236,10 @@ function initSidebarFilters() {
             if (e.key === 'Enter') {
                 const val = yearInput.value.trim();
                 if (val.length === 4 && !isNaN(val)) {
-                    window.location.href = `/browse.html?year=${val}`;
+                    const p = new URLSearchParams(window.location.search);
+                    p.set('year', val);
+                    p.delete('page');
+                    window.location.href = '/browse.html' + '?' + p.toString();
                 }
             }
         });
@@ -284,11 +284,11 @@ function renderSidebarPlatforms(platforms) {
         label.appendChild(check);
         label.appendChild(document.createTextNode(p.name));
         label.addEventListener('click', () => {
-            if (label.classList.contains('checked')) {
-                window.location.href = '/browse.html';
-            } else {
-                window.location.href = `/browse.html?platform=${p.slug}&name=${encodeURIComponent(p.name)}`;
-            }
+            const qs = new URLSearchParams(window.location.search);
+            if (label.classList.contains('checked')) { qs.delete('platform'); qs.delete('name'); }
+            else { qs.set('platform', p.slug); qs.set('name', p.name); }
+            qs.delete('page');
+            window.location.href = '/browse.html' + (qs.toString() ? '?' + qs.toString() : '');
         });
         li.appendChild(label);
         list.appendChild(li);
