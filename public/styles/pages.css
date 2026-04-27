@@ -796,6 +796,10 @@
 .browse-sidebar {
   position: sticky;
   top: calc(60px + var(--space-4));
+  max-height: calc(100vh - 60px - var(--space-4) * 2);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-1) transparent;
 }
 .browse-main { min-width: 0; }
 

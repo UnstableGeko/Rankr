@@ -24,9 +24,6 @@ const gamesPerPage = 40;
 let totalPages = 1;
 let totalResultCount = 0;
 
-// Client-side filter state
-let activeYearFilter = null;
-let activeRatingFilter = null;
 let allLoadedCards = []; // {el, year, rating}
 
 async function fetchFilteredGames(sortBy = 'rating', page = 1) {
@@ -44,6 +41,7 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
     let filterType = null;
     let filterValue = null;
     let displayName = 'All Games';
+    const minRating = params.get('minRating') ? parseFloat(params.get('minRating')) : null;
 
     if (genreSlug) {
         filterType = 'genre';
@@ -68,7 +66,7 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
         const response = await fetch('/api/browse', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ filterType, filterValue, sortBy, page, limit: gamesPerPage })
+            body: JSON.stringify({ filterType, filterValue, sortBy, page, limit: gamesPerPage, minRating })
         });
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -165,17 +163,7 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
 }
 
 function applyClientFilters() {
-    allLoadedCards.forEach(({ el, year, rating }) => {
-        let show = true;
-        if (activeYearFilter) {
-            if (activeYearFilter === 'older') show = year > 0 && year < 2022;
-            else show = year === parseInt(activeYearFilter);
-        }
-        if (activeRatingFilter && show) {
-            show = rating >= activeRatingFilter;
-        }
-        el.style.display = show ? '' : 'none';
-    });
+    allLoadedCards.forEach(({ el }) => { el.style.display = ''; });
     updateResultsCount();
 }
 
@@ -186,13 +174,8 @@ function updateResultsCount() {
     const total = totalResultCount || totalPages * gamesPerPage;
     const from = (currentPage - 1) * gamesPerPage + 1;
     const to = Math.min(currentPage * gamesPerPage, total);
-    const hasClientFilter = activeYearFilter || activeRatingFilter;
-    if (hasClientFilter) {
-        countEl.innerHTML = `<span class="num">${visible}</span> of ${to - from + 1} on this page`;
-    } else {
-        const approx = totalResultCount ? '' : '~';
-        countEl.innerHTML = `Showing <span class="num">${from}–${to}</span> of <span class="num">${approx}${total}</span> games`;
-    }
+    const approx = totalResultCount ? '' : '~';
+    countEl.innerHTML = `Showing <span class="num">${from}–${to}</span> of <span class="num">${approx}${total}</span> games`;
 }
 
 function slugify(name) {
@@ -262,21 +245,20 @@ function initSidebarFilters() {
         });
     }
 
-    // Rating labels (client-side)
+    // Rating labels (server-side navigation, stacks with other filters)
+    const activeMinRating = params.get('minRating');
     document.querySelectorAll('#rating-filters label[data-min-rating]').forEach(label => {
+        const val = label.dataset.minRating;
+        if (val === activeMinRating) label.classList.add('checked');
         label.addEventListener('click', () => {
-            const rating = parseInt(label.dataset.minRating);
-            const isActive = label.classList.contains('checked');
-
-            document.querySelectorAll('#rating-filters label').forEach(l => l.classList.remove('checked'));
-
-            if (isActive) {
-                activeRatingFilter = null;
+            const p = new URLSearchParams(window.location.search);
+            if (label.classList.contains('checked')) {
+                p.delete('minRating');
             } else {
-                label.classList.add('checked');
-                activeRatingFilter = rating;
+                p.set('minRating', val);
             }
-            applyClientFilters();
+            p.delete('page');
+            window.location.href = '/browse.html' + (p.toString() ? '?' + p.toString() : '');
         });
     });
 

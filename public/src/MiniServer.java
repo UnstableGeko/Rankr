@@ -334,7 +334,7 @@ byte[] gamesData = responseStream.readAllBytes();
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
 
-                String whereClause = "where cover != null & rating != null & rating_count > 1000";
+                String whereClause = "where cover != null & rating != null & rating_count > 100 & version_parent = null & parent_game = null";
                 
                 // Parse sortBy parameter
                 String sortBy = "rating"; // default
@@ -378,19 +378,30 @@ byte[] gamesData = responseStream.readAllBytes();
                 int offset = (page - 1) * limit;
                 if (filterType != null && filterValue != null) {
                     if (filterType.equals("genre")) {
-                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 100");
                         whereClause += " & genres = [" + filterValue + "]";
                     } else if (filterType.equals("platform")) {
-                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 100");
                         String cleanValue = filterValue.replaceAll("\"", "");
                         whereClause += " & platforms.slug = \"" + cleanValue + "\"";
                     } else if (filterType.equals("year")) {
                         int yr = Integer.parseInt(filterValue.replaceAll("[^0-9]", ""));
                         long yearStart = java.time.LocalDate.of(yr, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
                         long yearEnd   = java.time.LocalDate.of(yr + 1, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
-                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 50");
                         whereClause += " & first_release_date >= " + yearStart + " & first_release_date < " + yearEnd;
                     }
+                }
+
+                // minRating filter (stacks with other filters)
+                if (bodyStr.contains("\"minRating\"")) {
+                    int mrStart = bodyStr.indexOf("\"minRating\":") + 12;
+                    String afterColon = bodyStr.substring(mrStart).trim();
+                    int end = afterColon.indexOf(",") == -1 ? afterColon.indexOf("}") : Math.min(afterColon.indexOf(","), afterColon.indexOf("}"));
+                    try {
+                        double minRating = Double.parseDouble(afterColon.substring(0, end).trim());
+                        if (minRating > 0) {
+                            int rawMin = (int)(minRating * 20);
+                            whereClause = whereClause.replace("rating != null", "rating >= " + rawMin);
+                        }
+                    } catch (NumberFormatException ignored) {}
                 }
             // Build sort clause
             String sortClause;
