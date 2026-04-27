@@ -409,27 +409,51 @@ byte[] gamesData = responseStream.readAllBytes();
                     break;
             }
 
-            String fields = "fields name, slug, cover.image_id, rating, rating_count, genres.name, first_release_date";
+            // Query IGDB count endpoint for exact total
+            int totalCount = 0;
+            try {
+                URI countUri = new URI("https://api.igdb.com/v4/games/count");
+                HttpURLConnection countConn = (HttpURLConnection) countUri.toURL().openConnection();
+                countConn.setRequestMethod("POST");
+                countConn.setRequestProperty("Client-ID", configClientId);
+                countConn.setRequestProperty("Authorization", "Bearer " + configAccessToken);
+                countConn.setRequestProperty("Accept", "application/json");
+                countConn.setDoOutput(true);
+                countConn.getOutputStream().write((whereClause + ";").getBytes());
+                String countJson = new String(countConn.getInputStream().readAllBytes());
+                int countIdx = countJson.indexOf("\"count\":") + 8;
+                if (countIdx > 7) {
+                    String countStr = countJson.substring(countIdx).replaceAll("[^0-9]", "");
+                    if (!countStr.isEmpty()) totalCount = Integer.parseInt(countStr);
+                }
+            } catch (Exception countEx) {
+                System.out.println("Count query failed: " + countEx.getMessage());
+            }
 
+            String fields = "fields name, slug, cover.image_id, rating, rating_count, genres.name, first_release_date";
             String igdbQuery = fields + "; " + whereClause + "; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
 
             System.out.println("=== FINAL IGDB QUERY ===");
             System.out.println(igdbQuery);
             System.out.println("========================");
-                
-            System.out.println("Where Clause: " + whereClause);
-            System.out.println("Full IGDB Query: " + igdbQuery);
-            System.out.println("===================");
-                
+
             conn.getOutputStream().write(igdbQuery.getBytes());
 
             InputStream responseStream = conn.getInputStream();
             byte[] gamesData = responseStream.readAllBytes();
 
-            // Wrap response with totalPages
             String gamesJson = new String(gamesData);
-            int totalPages = 10; // Hardcoded for now
-            String wrappedResponse = "{\"games\":" + gamesJson + ",\"totalPages\":" + totalPages + "}";
+            int resultCount = 0;
+            for (int ci = 0; ci < gamesJson.length(); ci++) { if (gamesJson.charAt(ci) == '{') resultCount++; }
+
+            int totalPages;
+            if (totalCount > 0) {
+                totalPages = (int) Math.ceil((double) totalCount / limit);
+                totalPages = Math.min(totalPages, 250); // IGDB max offset = 9999
+            } else {
+                totalPages = resultCount < limit ? page : page + 2;
+            }
+            String wrappedResponse = "{\"games\":" + gamesJson + ",\"totalPages\":" + totalPages + ",\"resultCount\":" + totalCount + "}";
             byte[] responseData = wrappedResponse.getBytes();
 
             exchange.getResponseHeaders().set("Content-Type", "application/json");

@@ -22,6 +22,7 @@ const DISPLAY_NAMES = {
 let currentPage = 1;
 const gamesPerPage = 40;
 let totalPages = 1;
+let totalResultCount = 0;
 
 // Client-side filter state
 let activeYearFilter = null;
@@ -32,6 +33,8 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
     const gameGrid = document.getElementById('game-grid');
     const titleEl = document.getElementById('browse-title');
     if (!gameGrid) return;
+
+    currentPage = page;
 
     const params = new URLSearchParams(window.location.search);
     const genreSlug = params.get('genre');
@@ -71,16 +74,31 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const data = await response.json();
-        const games = data.games || data;
+        const games = (data.games || data).filter(g => g.cover && g.slug);
         if (data.totalPages) totalPages = data.totalPages;
+        if (data.resultCount) totalResultCount = data.resultCount;
         if (data.error) throw new Error(data.error);
         if (!Array.isArray(games)) { gameGrid.innerHTML = '<p class="grid-empty">Invalid response from server.</p>'; return; }
-        if (games.length === 0) { gameGrid.innerHTML = '<p class="grid-empty">No games found.</p>'; return; }
+
+        // If this page came back empty, we've gone past the real end
+        if (games.length === 0) {
+            totalPages = Math.max(1, page - 1);
+            currentPage = totalPages;
+            updatePagination();
+            updateResultsCount();
+            if (page === 1) gameGrid.innerHTML = '<p class="grid-empty">No games found.</p>';
+            else fetchFilteredGames(sortBy, currentPage);
+            return;
+        }
+
+        // Fewer results than a full page means this is the last page
+        if (games.length < gamesPerPage) {
+            totalPages = page;
+        }
 
         const seen = new Set();
         let cardIndex = (page - 1) * gamesPerPage;
         games.forEach(game => {
-            if (!game.cover || !game.slug) return;
             if (seen.has(game.slug)) return;
             seen.add(game.slug);
             cardIndex++;
@@ -165,14 +183,15 @@ function updateResultsCount() {
     const countEl = document.getElementById('results-count');
     if (!countEl) return;
     const visible = allLoadedCards.filter(c => c.el.style.display !== 'none').length;
-    const total = totalPages * gamesPerPage;
+    const total = totalResultCount || totalPages * gamesPerPage;
     const from = (currentPage - 1) * gamesPerPage + 1;
     const to = Math.min(currentPage * gamesPerPage, total);
     const hasClientFilter = activeYearFilter || activeRatingFilter;
     if (hasClientFilter) {
         countEl.innerHTML = `<span class="num">${visible}</span> of ${to - from + 1} on this page`;
     } else {
-        countEl.innerHTML = `Showing <span class="num">${from}–${to}</span> of <span class="num">~${total}</span> games`;
+        const approx = totalResultCount ? '' : '~';
+        countEl.innerHTML = `Showing <span class="num">${from}–${to}</span> of <span class="num">${approx}${total}</span> games`;
     }
 }
 
@@ -322,8 +341,7 @@ function makePaginationBtn(label, page, isActive = false, isDisabled = false) {
     btn.disabled = isDisabled;
     if (!isDisabled) {
         btn.addEventListener('click', () => {
-            currentPage = page;
-            fetchFilteredGames(getSortValue(), currentPage);
+            fetchFilteredGames(getSortValue(), page);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
