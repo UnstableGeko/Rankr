@@ -3,192 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rankr — About</title>
+  <title>About &middot; Rankr</title>
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bricolage+Grotesque:ital,opsz,wght@1,12..96,700..800&family=JetBrains+Mono:wght@400;500;600&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="/styles/tokens.css" />
   <link rel="stylesheet" href="/styles/components.css" />
   <link rel="stylesheet" href="/styles/pages.css" />
 </head>
-<body>
+<body data-accent="cyan">
 
-<header class="site-header container">
-  <div class="header-row">
-    <a href="/" class="name-title">
-      <img src="/images/logo.svg" alt="Rankr" class="logo-svg" />
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/">
+      <img src="/images/logo-bars.svg" class="brand-logo-bars" alt="" aria-hidden="true" height="24">
+      <span class="wordmark">Rankr</span>
     </a>
-    <nav class="desktop-nav">
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/browse.html">Browse</a></li>
-        <li class="platforms-dropdown"><a href="#">Platforms <span class="caret">▼</span></a></li>
-        <li class="genres-dropdown"><a href="#">Genres <span class="caret">▼</span></a></li>
-        <li><a href="/rate.html">Rate a Game</a></li>
-        <li><a href="/about.html" class="current">About</a></li>
-      </ul>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/browse.html">Browse</a>
+      <a href="/about.html" class="active" aria-current="page">About</a>
     </nav>
     <div class="nav-right">
-      <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" placeholder="Search games…" aria-label="Search games" />
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" class="nav-search-input" placeholder="Search games&hellip;" aria-label="Search games" />
       </div>
+      <button class="btn btn--ghost btn--signin" disabled><i class="fa-regular fa-user"></i> Sign in</button>
     </div>
   </div>
 </header>
 
-<div class="genres-menu"><ul class="genres-list">
-  <li><a href="/browse.html?genre=adventure">Adventure</a></li>
-  <li><a href="/browse.html?genre=role-playing-rpg">Role-playing (RPG)</a></li>
-  <li><a href="/browse.html?genre=shooter">Shooter</a></li>
-  <li><a href="/browse.html?genre=strategy">Strategy</a></li>
-  <li><a href="/browse.html?genre=platform">Platformer</a></li>
-  <li><a href="/browse.html?genre=puzzle">Puzzle</a></li>
-  <li><a href="/browse.html?genre=simulator">Simulator</a></li>
-  <li><a href="/browse.html?genre=racing">Racing</a></li>
-  <li><a href="/browse.html?genre=sport">Sport</a></li>
-  <li><a href="/browse.html?genre=fighting">Fighting</a></li>
-  <li><a href="/browse.html?genre=indie">Indie</a></li>
-  <li><a href="/browse.html?genre=arcade">Arcade</a></li>
-</ul></div>
-
-<div class="platforms-menu"><div class="platforms-menu-inner">
-  <ul class="platforms-list">
-    <li class="platform-item" data-platform="playstation">PlayStation <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="xbox">Xbox <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="nintendo">Nintendo <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="pc">PC <span class="flyout-caret">▸</span></li>
-    <li class="platform-item platform-item--more" data-platform="all">All platforms <span class="flyout-caret">▸</span></li>
-  </ul>
-  <div class="platforms-detail">
-    <ul class="platform-models" data-for="playstation">
-      <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation 5</a></li>
-      <li><a href="/browse.html?platform=ps4&name=PlayStation%204">PlayStation 4</a></li>
-      <li><a href="/browse.html?platform=ps3&name=PlayStation%203">PlayStation 3</a></li>
-    </ul>
-    <ul class="platform-models" data-for="xbox">
-      <li><a href="/browse.html?platform=series-x&name=Xbox%20Series%20X%7CS">Xbox Series X|S</a></li>
-      <li><a href="/browse.html?platform=xboxone&name=Xbox%20One">Xbox One</a></li>
-      <li><a href="/browse.html?platform=xbox360&name=Xbox%20360">Xbox 360</a></li>
-    </ul>
-    <ul class="platform-models" data-for="nintendo">
-      <li><a href="/browse.html?platform=switch&name=Nintendo%20Switch">Switch</a></li>
-      <li><a href="/browse.html?platform=3ds&name=Nintendo%203DS">3DS</a></li>
-      <li><a href="/browse.html?platform=wiiu&name=Wii%20U">Wii U</a></li>
-    </ul>
-    <ul class="platform-models" data-for="pc">
-      <li><a href="/browse.html?platform=win&name=Windows">Windows</a></li>
-      <li><a href="/browse.html?platform=mac&name=macOS">macOS</a></li>
-      <li><a href="/browse.html?platform=linux&name=Linux">Linux</a></li>
-    </ul>
-    <div class="platform-models platform-models--search" data-for="all">
-      <div class="all-platforms-search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="platform-search-input" type="text" placeholder="Search all platforms…" />
-      </div>
-      <ul class="all-platforms-list"></ul>
-    </div>
+<section class="about-hero">
+  <div class="container">
+    <span class="eyebrow">ENGR-1340 &middot; Texas Tech</span>
+    <h1>Built to rank the games that matter.</h1>
+    <p>Rankr is our project for our Engineering Design course at Texas Tech University. The goal was to learn to design like an engineer. We started by coming up with the idea for this site, then interviewed our fellow students as well as gamers we personally knew. The insight we gathered was used to create a paper wireframe, then a high-fidelity Figma prototype, and finally the real thing. We're glad to host a community of gamers &mdash; both casual and hardcore &mdash; to share opinions on games and find new ones to play. We hope you enjoy using our site as much as we enjoyed making it.</p>
   </div>
-</div></div>
+</section>
 
-<main class="container main-content">
-  <section class="about-hero">
-    <div class="eyebrow">— ENGR-1340 / Texas Tech</div>
-    <h1>Built to rank the games <em>that matter</em>.</h1>
-    <p class="lead">Rankr started as a classroom brief: design something real, for a real audience, using engineering-design methods. We interviewed gamers, drew paper wireframes, built a Figma prototype, and shipped this — a game-focused site to explore titles, find highly rated games, and share opinions.</p>
-  </section>
-
-  <div class="section-header">
-    <div>
-      <div class="section-label">— The Team</div>
-      <h2>Who <em>Made This</em></h2>
-    </div>
-  </div>
-
-  <div class="about-grid">
-    <article class="team-card">
-      <div class="portrait"><img src="/images/morgan.png" alt="Morgan" /></div>
-      <div class="meta">
-        <div class="name">Morgan</div>
+<div class="container">
+  <section class="about-section">
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="ph"><img src="/images/morgan.png" alt="Morgan" onerror="this.parentElement.textContent='MJ'" /></div>
+        <h4>Morgan</h4>
         <div class="role">Design Lead</div>
         <p>Ran the user interviews and translated findings into the Figma prototype the final build was shaped around.</p>
       </div>
-    </article>
-    <article class="team-card">
-      <div class="portrait"><img src="/images/Beck.png" alt="Beck" /></div>
-      <div class="meta">
-        <div class="name">Beck</div>
+      <div class="team-card">
+        <div class="ph"><img src="/images/Beck.png" alt="Beck" onerror="this.parentElement.textContent='BK'" /></div>
+        <h4>Beck</h4>
         <div class="role">Engineering</div>
         <p>Built the Java backend that talks to IGDB and glues the site together end-to-end.</p>
       </div>
-    </article>
-    <article class="team-card">
-      <div class="portrait"><img src="/images/Tamjeed.png" alt="Tamjeed" /></div>
-      <div class="meta">
-        <div class="name">Tamjeed</div>
+      <div class="team-card">
+        <div class="ph"><img src="/images/Tamjeed.png" alt="Tamjeed" onerror="this.parentElement.textContent='TJ'" /></div>
+        <h4>Tamjeed</h4>
         <div class="role">Frontend</div>
-        <p>Owns the front-end implementation — pagination, filtering, dropdowns, and the browse-page state machine.</p>
+        <p>Owns the front-end implementation &mdash; pagination, filtering, dropdowns, and the browse-page state machine.</p>
       </div>
-    </article>
-  </div>
+    </div>
+  </section>
 
-  <div class="section-header">
-    <div>
-      <div class="section-label">— The Process</div>
-      <h2>How We <em>Got Here</em></h2>
+  <section class="about-section">
+    <div class="process-steps">
+      <div class="process-card">
+        <div class="process-step-label process-step-label--cyan">Interview</div>
+        <p class="process-step-body">Spoke with 14 gamers and classmates to understand what they actually wanted out of a game-focused platform.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-step-label process-step-label--magenta">Wireframe</div>
+        <p class="process-step-body">Paper wireframes first. Every screen sketched before a single pixel was pushed.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-step-label process-step-label--gold">Figma</div>
+        <p class="process-step-body">High-fidelity prototype to pressure-test the flow &mdash; sort, search, browse, rate.</p>
+      </div>
+      <div class="process-card">
+        <div class="process-step-label process-step-label--lime">Ship</div>
+        <p class="process-step-body">Built with plain HTML/CSS/JS and a small Java server talking to the IGDB API.</p>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="process-steps">
-    <div class="process-card">
-      <div class="process-step-label process-step-label--cyan">— Step 01</div>
-      <div class="process-step-title">Interview</div>
-      <p class="process-step-body">Spoke with 14 gamers and classmates to understand what they actually wanted out of a game-focused platform.</p>
+  <section class="about-section">
+    <div class="specs">
+      <div class="row"><div class="k">Course</div><div class="v">ENGR-1340 &middot; Texas Tech University</div></div>
+      <div class="row"><div class="k">Frontend</div><div class="v">Vanilla HTML, CSS, JavaScript. No framework.</div></div>
+      <div class="row"><div class="k">Backend</div><div class="v">Java &middot; custom MiniServer</div></div>
+      <div class="row"><div class="k">Data</div><div class="v">IGDB API &middot; JSON cache</div></div>
+      <div class="row"><div class="k">Open source</div><div class="v"><a href="https://github.com/UnstableGeko/Rankr" style="color:var(--accent)">github.com/UnstableGeko/Rankr</a></div></div>
     </div>
-    <div class="process-card">
-      <div class="process-step-label process-step-label--magenta">— Step 02</div>
-      <div class="process-step-title">Wireframe</div>
-      <p class="process-step-body">Paper wireframes first. Every screen sketched before a single pixel was pushed.</p>
-    </div>
-    <div class="process-card">
-      <div class="process-step-label process-step-label--gold">— Step 03</div>
-      <div class="process-step-title">Figma</div>
-      <p class="process-step-body">High-fidelity prototype to pressure-test the flow — sort, search, browse, rate.</p>
-    </div>
-    <div class="process-card">
-      <div class="process-step-label process-step-label--lime">— Step 04</div>
-      <div class="process-step-title">Ship</div>
-      <p class="process-step-body">Built with plain HTML/CSS/JS and a small Java server talking to the IGDB API.</p>
-    </div>
-  </div>
-</main>
+  </section>
+</div>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <span class="wordmark">Rank<em>r</em></span>
-      <p>A game discovery, ranking, and review site. Built by students at Texas Tech University for ENGR-1340.</p>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/">
+          <img src="/images/logo-bars.svg" class="brand-logo-bars" alt="" aria-hidden="true" height="24">
+          <span class="wordmark">Rankr</span>
+        </a>
+        <p>Rank. Replay. Recommend. A student-built ranking and review platform for the games you love.</p>
+      </div>
+      <div>
+        <h4>Browse</h4>
+        <ul>
+          <li><a href="/">Highest Rated</a></li>
+          <li><a href="/browse.html">All Games</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="https://github.com/UnstableGeko/Rankr">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platforms</h4>
+        <ul>
+          <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation</a></li>
+          <li><a href="/browse.html?platform=series-x&name=Xbox">Xbox</a></li>
+          <li><a href="/browse.html?platform=switch&name=Switch">Nintendo</a></li>
+          <li><a href="/browse.html?platform=win&name=PC">PC</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-col"><h4>Browse</h4><ul>
-      <li><a href="/">Highest Rated</a></li>
-      <li><a href="/browse.html">All Games</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Platforms</h4><ul>
-      <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation</a></li>
-      <li><a href="/browse.html?platform=series-x&name=Xbox">Xbox</a></li>
-      <li><a href="/browse.html?platform=switch&name=Switch">Nintendo</a></li>
-      <li><a href="/browse.html?platform=win&name=PC">PC</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>About</h4><ul>
-      <li><a href="/about.html">The Team</a></li>
-      <li><a href="https://github.com/UnstableGeko/Rankr">GitHub</a></li>
-    </ul></div>
-  </div>
-  <div class="container footer-bottom">
-    <span>© 2026 Rankr — ENGR-1340, TTU</span>
-    <span>Game data via IGDB</span>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Rankr &middot; ENGR-1340, TTU</span>
+      <span>Game data via IGDB</span>
+    </div>
   </div>
 </footer>
 

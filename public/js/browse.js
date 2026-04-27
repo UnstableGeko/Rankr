@@ -1,36 +1,21 @@
 // Map genre slugs to IGDB genre IDs
 const GENRE_MAP = {
-    'adventure': 31,
-    'arcade': 33,
-    'card-board-game': 35,
-    'fighting': 4,
-    'hack-slash': 25,
-    'indie': 32,
-    'music': 7,
-    'platform': 8,
-    'point-and-click': 2,
-    'puzzle': 9,
-    'quiz-trivia': 26,
-    'racing': 10,
-    'real-time-strategy-rts': 11,
-    'role-playing-rpg': 12,
-    'shooter': 5,
-    'simulator': 13,
-    'sport': 14,
-    'strategy': 15,
-    'tactical': 24,
+    'adventure': 31, 'arcade': 33, 'card-board-game': 35, 'fighting': 4,
+    'hack-slash': 25, 'indie': 32, 'music': 7, 'platform': 8,
+    'point-and-click': 2, 'puzzle': 9, 'quiz-trivia': 26, 'racing': 10,
+    'real-time-strategy-rts': 11, 'role-playing-rpg': 12, 'shooter': 5,
+    'simulator': 13, 'sport': 14, 'strategy': 15, 'tactical': 24,
     'turn-based-strategy-tbs': 16
 };
 
-// Display name mapping for special formatting
 const DISPLAY_NAMES = {
     'card-board-game': 'Card & Board Game',
-    'hack-slash': 'Hack and Slash/Beat \'em up',
+    'hack-slash': 'Hack and Slash',
     'point-and-click': 'Point-and-click',
     'quiz-trivia': 'Quiz/Trivia',
-    'real-time-strategy-rts': 'Real Time Strategy (RTS)',
-    'role-playing-rpg': 'Role-playing (RPG)',
-    'turn-based-strategy-tbs': 'Turn-based Strategy (TBS)'
+    'real-time-strategy-rts': 'Real Time Strategy',
+    'role-playing-rpg': 'RPG',
+    'turn-based-strategy-tbs': 'Turn-based Strategy'
 };
 
 // Pagination state
@@ -38,15 +23,20 @@ let currentPage = 1;
 const gamesPerPage = 40;
 let totalPages = 1;
 
+// Client-side filter state
+let activeYearFilter = null;
+let activeRatingFilter = null;
+let allLoadedCards = []; // {el, year, rating}
+
 async function fetchFilteredGames(sortBy = 'rating', page = 1) {
     const gameGrid = document.getElementById('game-grid');
     const titleEl = document.getElementById('browse-title');
-    
     if (!gameGrid) return;
 
     const params = new URLSearchParams(window.location.search);
     const genreSlug = params.get('genre');
     const platformSlug = params.get('platform');
+    const yearParam = params.get('year');
 
     let filterType = null;
     let filterValue = null;
@@ -55,247 +45,380 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
     if (genreSlug) {
         filterType = 'genre';
         filterValue = GENRE_MAP[genreSlug];
-        
-        if (DISPLAY_NAMES[genreSlug]) {
-            displayName = DISPLAY_NAMES[genreSlug] + ' Games';
-        } else {
-            displayName = genreSlug
-                .split('-')
-                .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-                .join(' ') + ' Games';
-        }
+        displayName = (DISPLAY_NAMES[genreSlug] || genreSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) + ' Games';
     } else if (platformSlug) {
         filterType = 'platform';
         filterValue = platformSlug;
-        
         const platformName = params.get('name');
-        if (platformName) {
-            displayName = platformName + ' Games';
-        } else {
-            displayName = platformSlug
-                .split('-')
-                .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-                .join(' ') + ' Games';
-        }
+        displayName = (platformName || platformSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) + ' Games';
+    } else if (yearParam) {
+        filterType = 'year';
+        filterValue = yearParam;
+        displayName = yearParam + ' Games';
     }
 
-    if (titleEl) {
-        titleEl.textContent = displayName;
-    }
-
-    gameGrid.innerHTML = ''; // Clear existing games
+    if (titleEl) titleEl.textContent = displayName;
+    gameGrid.innerHTML = '';
+    allLoadedCards = [];
 
     try {
-        const response = await fetch("/api/browse", {
+        const response = await fetch('/api/browse', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                filterType: filterType,
-                filterValue: filterValue,
-                sortBy: sortBy,
-                page: page,
-                limit: gamesPerPage
-            })
+            body: JSON.stringify({ filterType, filterValue, sortBy, page, limit: gamesPerPage })
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const data = await response.json();
-        const games = data.games || data; // Support both formats
-        
-        // Update total pages if provided
-        if (data.totalPages) {
-            totalPages = data.totalPages;
-        }
-        
-        if (data.error) {
-            throw new Error(data.error);
-        }
-        
-        if (!Array.isArray(games)) {
-            console.error('Expected array but got:', games);
-            gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">Error: Invalid response from server.</p>';
-            return;
-        }
-        
-        if (games.length === 0) {
-            gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">No games found for this filter.</p>';
-            return;
-        }
+        const games = data.games || data;
+        if (data.totalPages) totalPages = data.totalPages;
+        if (data.error) throw new Error(data.error);
+        if (!Array.isArray(games)) { gameGrid.innerHTML = '<p class="grid-empty">Invalid response from server.</p>'; return; }
+        if (games.length === 0) { gameGrid.innerHTML = '<p class="grid-empty">No games found.</p>'; return; }
 
-        const seenGames = new Set();
-
+        const seen = new Set();
+        let cardIndex = (page - 1) * gamesPerPage;
         games.forEach(game => {
-            if (game.cover && game.slug) {
-                // Skip duplicates
-                if (seenGames.has(game.slug)) {
-                    return;
-                }
-                seenGames.add(game.slug);
-                
-                const imageId = game.cover.image_id;
-                const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageId}.jpg`;
-                const slug = game.slug || slugify(game.name);
-                
-                const link = document.createElement('a');
-                link.href = `/games/${slug}`;
-                link.classList.add('game-link');
-                
-                const gameCard = document.createElement('div');
-                gameCard.className = 'game-card';
-                
-                const img = document.createElement('img');
-                img.src = coverUrl;
-                img.alt = game.name;
-                
-                const nameOverlay = document.createElement('div');
-                nameOverlay.className = 'game-name-overlay';
-                nameOverlay.textContent = game.name;
+            if (!game.cover || !game.slug) return;
+            if (seen.has(game.slug)) return;
+            seen.add(game.slug);
+            cardIndex++;
 
-                const viewBtn = document.createElement('button');
-                viewBtn.className = 'card-view-btn';
-                viewBtn.textContent = 'View';
+            const year = game.first_release_date ? new Date(game.first_release_date * 1000).getFullYear() : 0;
+            const rating = game.rating || 0;
+            const genre = game.genres?.[0]?.name || '';
+            const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`;
+            const scoreDisplay = rating ? (rating / 20).toFixed(1) : null;
 
-                gameCard.appendChild(img);
-                gameCard.appendChild(nameOverlay);
-                gameCard.appendChild(viewBtn);
-                link.appendChild(gameCard);
-                gameGrid.appendChild(link);
+            const link = document.createElement('a');
+            link.href = `/games/${game.slug}`;
+            link.className = 'game-card';
+            link.dataset.year = year;
+            link.dataset.rating = rating;
+
+            const cover = document.createElement('div');
+            cover.className = 'cover';
+            const img = document.createElement('img');
+            img.src = coverUrl;
+            img.alt = game.name;
+            cover.appendChild(img);
+
+            const rankBadge = document.createElement('span');
+            rankBadge.className = 'rank';
+            rankBadge.textContent = String(cardIndex).padStart(2, '0');
+            cover.appendChild(rankBadge);
+
+            const meta = document.createElement('div');
+            meta.className = 'meta';
+
+            const title = document.createElement('div');
+            title.className = 'title';
+            title.textContent = game.name;
+
+            const ratingRow = document.createElement('div');
+            ratingRow.className = 'card-rating-row';
+            if (scoreDisplay) {
+                ratingRow.innerHTML = `<i class="fa-solid fa-signal card-signal"></i><span class="card-score">${scoreDisplay}</span>`;
             }
+
+            const sub = document.createElement('div');
+            sub.className = 'sub';
+            sub.textContent = [genre, year || ''].filter(Boolean).join(' · ');
+
+            meta.appendChild(title);
+            if (scoreDisplay) meta.appendChild(ratingRow);
+            meta.appendChild(sub);
+            link.appendChild(cover);
+            link.appendChild(meta);
+            gameGrid.appendChild(link);
+
+            allLoadedCards.push({ el: link, year, rating });
         });
-        
-        updatePagination(); // Update pagination UI
-        
+
+        applyClientFilters();
+        updateResultsCount();
+        updatePagination();
+
     } catch (error) {
-        console.error('Error fetching games:', error);
-        gameGrid.innerHTML = '<p style="color: white; text-align: center; width: 100%; margin-top: 50px;">Error loading games. Check console for details.</p>';
+        console.error('Browse error:', error);
+        gameGrid.innerHTML = '<p class="grid-empty">Error loading games.</p>';
+    }
+}
+
+function applyClientFilters() {
+    allLoadedCards.forEach(({ el, year, rating }) => {
+        let show = true;
+        if (activeYearFilter) {
+            if (activeYearFilter === 'older') show = year > 0 && year < 2022;
+            else show = year === parseInt(activeYearFilter);
+        }
+        if (activeRatingFilter && show) {
+            show = rating >= activeRatingFilter;
+        }
+        el.style.display = show ? '' : 'none';
+    });
+    updateResultsCount();
+}
+
+function updateResultsCount() {
+    const countEl = document.getElementById('results-count');
+    if (!countEl) return;
+    const visible = allLoadedCards.filter(c => c.el.style.display !== 'none').length;
+    const total = totalPages * gamesPerPage;
+    const from = (currentPage - 1) * gamesPerPage + 1;
+    const to = Math.min(currentPage * gamesPerPage, total);
+    const hasClientFilter = activeYearFilter || activeRatingFilter;
+    if (hasClientFilter) {
+        countEl.innerHTML = `<span class="num">${visible}</span> of ${to - from + 1} on this page`;
+    } else {
+        countEl.innerHTML = `Showing <span class="num">${from}–${to}</span> of <span class="num">~${total}</span> games`;
     }
 }
 
 function slugify(name) {
-    return name
-        .toLowerCase()
-        .replace(/\s+/g, "_")
-        .replace(/[^a-z0-9_]/g, "");
+    return name.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
 }
 
-// ========== DROPDOWN MENU FUNCTIONALITY ==========
+// ─── Sidebar filter wiring ────────────────────────────────────────────────────
+function initSidebarFilters() {
+    const params = new URLSearchParams(window.location.search);
+    const activeGenre = params.get('genre');
+    const activePlatform = params.get('platform');
 
-const genresDropdown = document.querySelector('.genres-dropdown');
-const genresMenu = document.querySelector('.genres-menu');
-let genresHideTimeout = null;
+    // Genre labels
+    document.querySelectorAll('.filter-list label[data-genre]').forEach(label => {
+        const genre = label.dataset.genre;
+        if (genre === activeGenre) label.classList.add('checked');
 
-if (genresDropdown && genresMenu) {
-    genresDropdown.addEventListener('mouseenter', () => {
-        clearTimeout(genresHideTimeout);
-        const rect = genresDropdown.getBoundingClientRect();
-        genresMenu.style.top = (rect.bottom + 6) + 'px';
-        genresMenu.style.left = rect.left + 'px';
-        genresMenu.style.display = 'block';
+        label.addEventListener('click', () => {
+            if (label.classList.contains('checked')) {
+                window.location.href = '/browse.html'; // deselect
+            } else {
+                window.location.href = `/browse.html?genre=${genre}`;
+            }
+        });
     });
 
-    genresDropdown.addEventListener('mouseleave', () => {
-        genresHideTimeout = setTimeout(() => {
-            genresMenu.style.display = 'none';
-        }, 100);
+    // Platform labels
+    document.querySelectorAll('.filter-list label[data-platform]').forEach(label => {
+        const platform = label.dataset.platform;
+        const platformName = label.dataset.platformName || platform;
+        if (platform === activePlatform) label.classList.add('checked');
+
+        label.addEventListener('click', () => {
+            if (label.classList.contains('checked')) {
+                window.location.href = '/browse.html';
+            } else {
+                window.location.href = `/browse.html?platform=${platform}&name=${encodeURIComponent(platformName)}`;
+            }
+        });
     });
 
-    genresMenu.addEventListener('mouseenter', () => clearTimeout(genresHideTimeout));
-    genresMenu.addEventListener('mouseleave', () => {
-        genresHideTimeout = setTimeout(() => {
-            genresMenu.style.display = 'none';
-        }, 100);
+    // Year labels (server-side navigation)
+    const activeYear = params.get('year');
+    document.querySelectorAll('#year-filters label[data-year]').forEach(label => {
+        const year = label.dataset.year;
+        if (year === activeYear) label.classList.add('checked');
+        label.addEventListener('click', () => {
+            if (label.classList.contains('checked')) {
+                window.location.href = '/browse.html';
+            } else {
+                window.location.href = `/browse.html?year=${year}`;
+            }
+        });
+    });
+
+    // Custom year input (server-side navigation)
+    const yearInput = document.getElementById('year-custom-input');
+    if (yearInput) {
+        if (activeYear) yearInput.value = activeYear;
+        yearInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const val = yearInput.value.trim();
+                if (val.length === 4 && !isNaN(val)) {
+                    window.location.href = `/browse.html?year=${val}`;
+                }
+            }
+        });
+    }
+
+    // Rating labels (client-side)
+    document.querySelectorAll('#rating-filters label[data-min-rating]').forEach(label => {
+        label.addEventListener('click', () => {
+            const rating = parseInt(label.dataset.minRating);
+            const isActive = label.classList.contains('checked');
+
+            document.querySelectorAll('#rating-filters label').forEach(l => l.classList.remove('checked'));
+
+            if (isActive) {
+                activeRatingFilter = null;
+            } else {
+                label.classList.add('checked');
+                activeRatingFilter = rating;
+            }
+            applyClientFilters();
+        });
+    });
+
+}
+
+// ─── Sidebar platform list ────────────────────────────────────────────────────
+let sidebarPlatforms = [];
+
+function renderSidebarPlatforms(platforms) {
+    const list = document.getElementById('sidebar-platform-list');
+    if (!list) return;
+    list.innerHTML = '';
+    const params = new URLSearchParams(window.location.search);
+    const activePlatform = params.get('platform');
+    platforms.forEach(p => {
+        const li = document.createElement('li');
+        const label = document.createElement('label');
+        label.dataset.platform = p.slug;
+        label.dataset.platformName = p.name;
+        if (p.slug === activePlatform) label.classList.add('checked');
+        const check = document.createElement('span');
+        check.className = 'check';
+        label.appendChild(check);
+        label.appendChild(document.createTextNode(p.name));
+        label.addEventListener('click', () => {
+            if (label.classList.contains('checked')) {
+                window.location.href = '/browse.html';
+            } else {
+                window.location.href = `/browse.html?platform=${p.slug}&name=${encodeURIComponent(p.name)}`;
+            }
+        });
+        li.appendChild(label);
+        list.appendChild(li);
     });
 }
 
-const platformsDropdown = document.querySelector('.platforms-dropdown');
-const platformsMenu = document.querySelector('.platforms-menu');
-const platformsDetail = document.querySelector('.platforms-detail');
-let hideTimeout = null;
-
-function clearAllPanels() {
-    document.querySelectorAll('[data-for]').forEach(el => el.classList.remove('active'));
+async function loadSidebarPlatforms() {
+    try {
+        const response = await fetch('/api/platforms', { method: 'POST' });
+        sidebarPlatforms = await response.json();
+        renderSidebarPlatforms(sidebarPlatforms);
+    } catch (e) { console.error('Sidebar platforms error:', e); }
 }
 
-function showMenu() {
-    clearTimeout(hideTimeout);
-    const rect = platformsDropdown.getBoundingClientRect();
-    platformsMenu.style.top = (rect.bottom + 6) + 'px';
-    platformsMenu.style.left = rect.left + 'px';
-    platformsMenu.style.display = 'block';
-
-    document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
-    clearAllPanels();
-    if (platformsDetail) platformsDetail.style.display = 'block';
-    const firstItem = document.querySelector('.platform-item[data-platform="playstation"]');
-    const firstModels = document.querySelector('[data-for="playstation"]');
-    if (firstItem) firstItem.classList.add('active');
-    if (firstModels) firstModels.classList.add('active');
+const sidebarPlatformInput = document.getElementById('sidebar-platform-input');
+if (sidebarPlatformInput) {
+    sidebarPlatformInput.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        const filtered = q ? sidebarPlatforms.filter(p => p.name.toLowerCase().includes(q)).sort((a, b) => {
+            const aS = a.name.toLowerCase().startsWith(q), bS = b.name.toLowerCase().startsWith(q);
+            return aS === bS ? 0 : aS ? -1 : 1;
+        }) : sidebarPlatforms;
+        renderSidebarPlatforms(filtered);
+    });
 }
 
-function scheduleHide() {
-    hideTimeout = setTimeout(() => {
-        platformsMenu.style.display = 'none';
-    }, 100);
+// ─── Pagination ───────────────────────────────────────────────────────────────
+function makePaginationBtn(label, page, isActive = false, isDisabled = false) {
+    const btn = document.createElement('button');
+    btn.className = 'page-number' + (isActive ? ' active' : '') + (isDisabled ? ' disabled' : '');
+    btn.textContent = label;
+    btn.disabled = isDisabled;
+    if (!isDisabled) {
+        btn.addEventListener('click', () => {
+            currentPage = page;
+            fetchFilteredGames(getSortValue(), currentPage);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    return btn;
 }
 
-if (platformsDropdown && platformsMenu) {
-    platformsDropdown.addEventListener('mouseenter', showMenu);
-    platformsDropdown.addEventListener('mouseleave', scheduleHide);
-    platformsMenu.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
-    platformsMenu.addEventListener('mouseleave', scheduleHide);
-}
+function updatePagination() {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageNumbers = document.getElementById('page-numbers');
+    if (!prevBtn || !nextBtn || !pageNumbers) return;
 
-document.querySelectorAll('.platform-item').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        const platform = item.dataset.platform;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
 
-        document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
+    pageNumbers.innerHTML = '';
+    if (totalPages <= 1) return;
 
-        clearAllPanels();
+    const window_size = 2;
+    const pages = new Set([1, totalPages]);
+    for (let i = Math.max(1, currentPage - window_size); i <= Math.min(totalPages, currentPage + window_size); i++) {
+        pages.add(i);
+    }
 
-        if (!platform) {
-            if (platformsDetail) platformsDetail.style.display = 'none';
-            return;
+    const sorted = [...pages].sort((a, b) => a - b);
+    let prev = 0;
+    sorted.forEach(p => {
+        if (p - prev > 2) {
+            pageNumbers.appendChild(makePaginationBtn('…', null, false, true));
+        } else if (p - prev === 2) {
+            pageNumbers.appendChild(makePaginationBtn(prev + 1, prev + 1, prev + 1 === currentPage));
         }
-
-        if (platformsDetail) platformsDetail.style.display = 'block';
-        const models = document.querySelector(`[data-for="${platform}"]`);
-        if (models) models.classList.add('active');
+        pageNumbers.appendChild(makePaginationBtn(p, p, p === currentPage));
+        prev = p;
     });
-});
+}
 
+function getSortValue() {
+    const text = document.getElementById('current-sort')?.textContent || 'Highest Rated';
+    return { 'Highest Rated': 'rating', 'Most Popular': 'rating_count', 'Newest First': 'release_date', 'Trending': 'trending' }[text] || 'rating';
+}
+
+// ─── Sort dropdown ────────────────────────────────────────────────────────────
+function initSortDropdown() {
+    const sortMenu = document.querySelector('.sort-menu');
+    const sortBtn = document.querySelector('.section-actions .sort-trigger');
+    const currentSortEl = document.getElementById('current-sort');
+    if (!sortMenu || !sortBtn) return;
+
+    sortBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rect = sortBtn.getBoundingClientRect();
+        sortMenu.style.top = (rect.bottom + 6) + 'px';
+        sortMenu.style.left = rect.left + 'px';
+        sortMenu.style.display = sortMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!sortBtn.contains(e.target) && !sortMenu.contains(e.target)) {
+            sortMenu.style.display = 'none';
+        }
+    });
+
+    document.querySelectorAll('.sort-list a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentSortEl) currentSortEl.textContent = link.textContent;
+            sortMenu.style.display = 'none';
+            currentPage = 1;
+            fetchFilteredGames(link.dataset.sort, 1);
+        });
+    });
+}
+
+// ─── Platforms dropdown (nav header) ─────────────────────────────────────────
 let allPlatforms = [];
 
 async function loadMorePlatforms() {
     const list = document.querySelector('.all-platforms-list');
     if (!list) return;
-
     try {
         const response = await fetch('/api/platforms', { method: 'POST' });
         allPlatforms = await response.json();
         renderPlatformList(allPlatforms);
-    } catch (error) {
-        console.error('Error fetching platforms:', error);
-    }
+    } catch (e) { console.error('Platforms error:', e); }
 }
 
 function renderPlatformList(platforms) {
     const list = document.querySelector('.all-platforms-list');
     if (!list) return;
-
-    if (platforms.length === 0) {
-        list.innerHTML = '<li class="no-results">No platforms found</li>';
-        return;
-    }
-
+    if (platforms.length === 0) { list.innerHTML = '<li class="no-results">No platforms found</li>'; return; }
     list.innerHTML = '';
     platforms.forEach(p => {
         const li = document.createElement('li');
-        li.innerHTML = `<a href="browse.html?platform=${p.slug}&name=${encodeURIComponent(p.name)}">${p.name}</a>`;
+        li.innerHTML = `<a href="/browse.html?platform=${p.slug}&name=${encodeURIComponent(p.name)}">${p.name}</a>`;
         list.appendChild(li);
     });
 }
@@ -303,165 +426,45 @@ function renderPlatformList(platforms) {
 const platformSearchInput = document.getElementById('platform-search-input');
 if (platformSearchInput) {
     platformSearchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        const filtered = query
-            ? allPlatforms
-                .filter(p => p.name.toLowerCase().includes(query))
-                .sort((a, b) => {
-                    const aStarts = a.name.toLowerCase().startsWith(query);
-                    const bStarts = b.name.toLowerCase().startsWith(query);
-                    if (aStarts && !bStarts) return -1;
-                    if (!aStarts && bStarts) return 1;
-                    return 0;
-                })
-            : allPlatforms;
+        const q = e.target.value.toLowerCase().trim();
+        const filtered = q ? allPlatforms.filter(p => p.name.toLowerCase().includes(q)).sort((a, b) => {
+            const aS = a.name.toLowerCase().startsWith(q), bS = b.name.toLowerCase().startsWith(q);
+            return aS === bS ? 0 : aS ? -1 : 1;
+        }) : allPlatforms;
         renderPlatformList(filtered);
     });
-
-    platformSearchInput.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
 }
 
-// Sort dropdown menu functionality
-const sortDropdown = document.querySelector('.sort-dropdown');
-const sortMenu = document.querySelector('.sort-menu');
-const sortTrigger = document.querySelector('.sort-trigger');
-const currentSort = document.getElementById('current-sort');
-let sortHideTimeout = null;
-
-if (sortDropdown && sortMenu && sortTrigger) {
-    sortTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-    });
-    
-    sortDropdown.addEventListener('mouseenter', () => {
-        clearTimeout(sortHideTimeout);
-        const rect = sortTrigger.getBoundingClientRect();
-        sortMenu.style.top = (rect.bottom + 6) + 'px';
-        sortMenu.style.left = rect.left + 'px';
-        sortMenu.style.display = 'block';
-    });
-
-    sortDropdown.addEventListener('mouseleave', () => {
-        sortHideTimeout = setTimeout(() => {
-            sortMenu.style.display = 'none';
-        }, 100);
-    });
-
-    sortMenu.addEventListener('mouseenter', () => clearTimeout(sortHideTimeout));
-    sortMenu.addEventListener('mouseleave', () => {
-        sortHideTimeout = setTimeout(() => {
-            sortMenu.style.display = 'none';
-        }, 100);
-    });
-
-    // Handle sort selection
-    document.querySelectorAll('.sort-list a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sortValue = link.getAttribute('data-sort');
-            currentSort.textContent = link.textContent;
-            sortMenu.style.display = 'none';
-            
-            currentPage = 1; // Reset to page 1 when sorting
-            fetchFilteredGames(sortValue, currentPage);
-        });
-    });
-}
-function updatePagination() {
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const pageNumbers = document.getElementById('page-numbers');
-    
-    if (!prevBtn || !nextBtn || !pageNumbers) return;
-    
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
-    
-    pageNumbers.innerHTML = '';
-    const maxPagesToShow = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-    
-    if (endPage - startPage < maxPagesToShow - 1) {
-        startPage = Math.max(1, endPage - maxPagesToShow + 1);
-    }
-    
-    for (let i = startPage; i <= endPage; i++) {
-        const pageBtn = document.createElement('button');
-        pageBtn.className = 'page-number';
-        pageBtn.textContent = i;
-        if (i === currentPage) {
-            pageBtn.classList.add('active');
-        }
-        pageBtn.addEventListener('click', () => {
-            currentPage = i;
-            const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
-            const sortValue = getSortValue(currentSortText);
-            fetchFilteredGames(sortValue, currentPage);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-        pageNumbers.appendChild(pageBtn);
-    }
+const platformsDetail = document.querySelector('.platforms-detail');
+function clearAllPanels() {
+    document.querySelectorAll('[data-for]').forEach(el => el.classList.remove('active'));
 }
 
-function getSortValue(text) {
-    const sortMap = {
-        'Highest Rated': 'rating',
-        'Most Popular': 'rating_count',
-        'Newest First': 'release_date',
-        'Trending': 'trending'
-    };
-    return sortMap[text] || 'rating';
-}
-
-// Add pagination button listeners
-document.addEventListener('DOMContentLoaded', () => {
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
-                const sortValue = getSortValue(currentSortText);
-                fetchFilteredGames(sortValue, currentPage);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        });
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            if (currentPage < totalPages) {
-                currentPage++;
-                const currentSortText = document.getElementById('current-sort')?.textContent || 'Highest Rated';
-                const sortValue = getSortValue(currentSortText);
-                fetchFilteredGames(sortValue, currentPage);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        });
-    }
+document.querySelectorAll('.platform-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        clearAllPanels();
+        const platform = item.dataset.platform;
+        if (!platform) { if (platformsDetail) platformsDetail.style.display = 'none'; return; }
+        if (platformsDetail) platformsDetail.style.display = 'block';
+        const models = document.querySelector(`[data-for="${platform}"]`);
+        if (models) models.classList.add('active');
+    });
 });
 
-// Wire up standalone sort button in section-actions (browse page)
-const sectionSortBtn = document.querySelector('.section-actions .sort-trigger');
-if (sectionSortBtn && sortMenu) {
-    sectionSortBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const rect = sectionSortBtn.getBoundingClientRect();
-        sortMenu.style.top = (rect.bottom + 6) + 'px';
-        sortMenu.style.left = rect.left + 'px';
-        sortMenu.style.display = sortMenu.style.display === 'block' ? 'none' : 'block';
-    });
-    document.addEventListener('click', (e) => {
-        if (!sectionSortBtn.contains(e.target) && !sortMenu.contains(e.target)) {
-            sortMenu.style.display = 'none';
-        }
-    });
-}
-
+// ─── Init ─────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
     fetchFilteredGames();
     loadMorePlatforms();
+    loadSidebarPlatforms();
+    initSidebarFilters();
+    initSortDropdown();
+
+    document.getElementById('prev-btn')?.addEventListener('click', () => {
+        if (currentPage > 1) { currentPage--; fetchFilteredGames(getSortValue(), currentPage); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    });
+    document.getElementById('next-btn')?.addEventListener('click', () => {
+        if (currentPage < totalPages) { currentPage++; fetchFilteredGames(getSortValue(), currentPage); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    });
 });

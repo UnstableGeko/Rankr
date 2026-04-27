@@ -334,7 +334,7 @@ byte[] gamesData = responseStream.readAllBytes();
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
 
-                String whereClause = "where cover != null & rating != null & rating_count > 20";
+                String whereClause = "where cover != null & rating != null & rating_count > 1000";
                 
                 // Parse sortBy parameter
                 String sortBy = "rating"; // default
@@ -378,10 +378,18 @@ byte[] gamesData = responseStream.readAllBytes();
                 int offset = (page - 1) * limit;
                 if (filterType != null && filterValue != null) {
                     if (filterType.equals("genre")) {
+                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 100");
                         whereClause += " & genres = [" + filterValue + "]";
                     } else if (filterType.equals("platform")) {
+                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 100");
                         String cleanValue = filterValue.replaceAll("\"", "");
                         whereClause += " & platforms.slug = \"" + cleanValue + "\"";
+                    } else if (filterType.equals("year")) {
+                        int yr = Integer.parseInt(filterValue.replaceAll("[^0-9]", ""));
+                        long yearStart = java.time.LocalDate.of(yr, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+                        long yearEnd   = java.time.LocalDate.of(yr + 1, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 50");
+                        whereClause += " & first_release_date >= " + yearStart + " & first_release_date < " + yearEnd;
                     }
                 }
             // Build sort clause
@@ -401,10 +409,7 @@ byte[] gamesData = responseStream.readAllBytes();
                     break;
             }
 
-            String fields = "fields name, slug, cover.image_id, rating, rating_count";
-            if (sortBy.equals("release_date")) {
-                fields += ", first_release_date";
-            }
+            String fields = "fields name, slug, cover.image_id, rating, rating_count, genres.name, first_release_date";
 
             String igdbQuery = fields + "; " + whereClause + "; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
 
@@ -518,7 +523,7 @@ byte[] gamesData = responseStream.readAllBytes();
                 conn.setDoOutput(true);
 
                 String body = "search \"" + searchQuery + "\"; " +
-                            "fields name, slug, cover.image_id, summary, rating, rating_count; " +
+                            "fields name, slug, cover.image_id, summary, rating, rating_count, genres.name, first_release_date; " +
                             "where cover != null; " +
                             "limit 20;";
                 
@@ -541,6 +546,44 @@ byte[] gamesData = responseStream.readAllBytes();
                 exchange.close();
             }
         });
+        server.createContext("/api/trending", exchange -> {
+            if (!exchange.getRequestMethod().equals("POST")) {
+                exchange.sendResponseHeaders(405, 0);
+                exchange.close();
+                return;
+            }
+            try {
+                // Games released in the past two years, sorted by most ratings (community activity)
+                long twoYearsAgo = System.currentTimeMillis() / 1000 - (2L * 365 * 24 * 3600);
+                String igdbQuery = "fields name, slug, cover.image_id, rating, rating_count, genres.name, first_release_date; " +
+                    "where cover != null & rating != null & rating_count > 150 & first_release_date > " + twoYearsAgo + "; " +
+                    "sort rating desc; limit 10;";
+
+                URI uri = new URI("https://api.igdb.com/v4/games");
+                URL url = uri.toURL();
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Client-ID", configClientId);
+                conn.setRequestProperty("Authorization", "Bearer " + configAccessToken);
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setDoOutput(true);
+                conn.getOutputStream().write(igdbQuery.getBytes());
+
+                byte[] responseData = conn.getInputStream().readAllBytes();
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+                exchange.sendResponseHeaders(200, responseData.length);
+                exchange.getResponseBody().write(responseData);
+                exchange.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                String error = "{\"error\": \"" + e.getMessage() + "\"}";
+                exchange.sendResponseHeaders(500, error.length());
+                exchange.getResponseBody().write(error.getBytes());
+                exchange.close();
+            }
+        });
+
         server.setExecutor(null);
         server.start();
         System.out.println("Server running at http://localhost:" + port);

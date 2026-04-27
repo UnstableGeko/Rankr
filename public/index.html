@@ -3,44 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rankr — Rate. Review. Rank.</title>
+  <title>Rankr &middot; Rank. Replay. Recommend.</title>
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bricolage+Grotesque:ital,opsz,wght@1,12..96,700..800&family=JetBrains+Mono:wght@400;500;600&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="/styles/tokens.css" />
   <link rel="stylesheet" href="/styles/components.css" />
   <link rel="stylesheet" href="/styles/pages.css" />
 </head>
-<body>
+<body data-accent="cyan">
 
-<header class="site-header container">
-  <div class="header-row">
-    <a href="/" class="name-title">
-      <img src="/images/logo.svg" alt="Rankr" class="logo-svg" />
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/">
+      <img src="/images/logo-bars.svg" class="brand-logo-bars" alt="" aria-hidden="true" height="24">
+      <span class="wordmark">Rankr</span>
     </a>
-    <nav class="desktop-nav">
-      <ul class="nav-links">
-        <li><a href="/" class="current">Home</a></li>
-        <li><a href="/browse.html">Browse</a></li>
-        <li class="platforms-dropdown"><a href="#">Platforms <span class="caret">▼</span></a></li>
-        <li class="genres-dropdown"><a href="#">Genres <span class="caret">▼</span></a></li>
-        <li class="sort-dropdown"><a href="#" class="sort-trigger">Sort: <span id="current-sort">Highest Rated</span> <span class="caret">▼</span></a></li>
-        <li><a href="/rate.html">Rate a Game</a></li>
-        <li><a href="/about.html">About</a></li>
-      </ul>
+    <nav class="nav">
+      <a href="/" class="active" aria-current="page">Home</a>
+      <a href="/browse.html">Browse</a>
+      <a href="/about.html">About</a>
     </nav>
     <div class="nav-right">
-      <div class="search-bar">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" placeholder="Search games…" aria-label="Search games" />
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" class="nav-search-input" placeholder="Search games&hellip;" aria-label="Search games" />
       </div>
+      <button class="btn btn--ghost btn--signin" disabled><i class="fa-regular fa-user"></i> Sign in</button>
     </div>
   </div>
 </header>
 
-<!-- Dropdowns (positioned by /js/game.js) -->
+<!-- Dropdown menus positioned by JS -->
 <div class="genres-menu"><ul class="genres-list">
   <li><a href="/browse.html?genre=adventure">Adventure</a></li>
   <li><a href="/browse.html?genre=role-playing-rpg">Role-playing (RPG)</a></li>
@@ -58,11 +54,11 @@
 
 <div class="platforms-menu"><div class="platforms-menu-inner">
   <ul class="platforms-list">
-    <li class="platform-item" data-platform="playstation">PlayStation <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="xbox">Xbox <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="nintendo">Nintendo <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="pc">PC <span class="flyout-caret">▸</span></li>
-    <li class="platform-item platform-item--more" data-platform="all">All platforms <span class="flyout-caret">▸</span></li>
+    <li class="platform-item" data-platform="playstation">PlayStation <span class="flyout-caret">&#9658;</span></li>
+    <li class="platform-item" data-platform="xbox">Xbox <span class="flyout-caret">&#9658;</span></li>
+    <li class="platform-item" data-platform="nintendo">Nintendo <span class="flyout-caret">&#9658;</span></li>
+    <li class="platform-item" data-platform="pc">PC <span class="flyout-caret">&#9658;</span></li>
+    <li class="platform-item platform-item--more" data-platform="all">All platforms <span class="flyout-caret">&#9658;</span></li>
   </ul>
   <div class="platforms-detail">
     <ul class="platform-models" data-for="playstation">
@@ -88,7 +84,7 @@
     <div class="platform-models platform-models--search" data-for="all">
       <div class="all-platforms-search">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="platform-search-input" type="text" placeholder="Search all platforms…" />
+        <input id="platform-search-input" type="text" placeholder="Search all platforms&hellip;" />
       </div>
       <ul class="all-platforms-list"></ul>
     </div>
@@ -102,68 +98,126 @@
   <li><a href="#" data-sort="trending">Trending</a></li>
 </ul></div>
 
-<main class="container main-content">
+<section class="hero hero--simple">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-rank-glyph"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-accent-strip"></div>
+  </div>
+  <div class="container">
+    <h1>Rank. <span class="light">Replay.</span> Recommend<span class="dot-end">.</span></h1>
+    <p class="lead">A community-built leaderboard for the games you love. Submit titles, rate them, and let the rankings emerge from real players.</p>
+    <div class="hero-cta">
+      <a href="/browse.html" class="btn btn--primary">Explore rankings <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="/browse.html" class="btn btn--ghost"><i class="fa-regular fa-compass"></i> Browse library</a>
+    </div>
+  </div>
+</section>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-copy">
-        <div class="kicker-pill">★ Top of the week ★</div>
-        <h1><span class="w1">Rank.</span> <span class="w2">Replay.</span> <span class="w3">Recommend.</span></h1>
-        <p class="lead">Browse thousands of games, see what's topping the charts, and find your next favorite. Rankr pulls live ratings and data so you always know what's worth playing.</p>
-        <div class="hero-actions">
-          <a href="#top-rated" class="btn btn--primary"><i class="fa-solid fa-compass"></i> Explore the Ranking</a>
-          <a href="/about.html" class="btn btn--ghost">About the Project</a>
+<section class="leaderboard-section">
+  <div class="container">
+    <div class="section-header" style="border-top:0; padding-top:0; margin-top:0;">
+      <h2 class="section-h2">Top rated · 2024–2025</h2>
+      <a href="/browse.html" class="btn btn--ghost">View all <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="leaderboard-grid">
+      <div id="leaderboard-featured"></div>
+      <div id="leaderboard-list"></div>
+    </div>
+  </div>
+</section>
+
+<section class="container" style="padding-top: var(--space-7); padding-bottom: var(--space-7); border-bottom: 1px solid var(--line-0);">
+  <div class="section-header" style="margin-top:0; padding-top:0; border-top:0;">
+    <h2 class="section-h2">Recent reviews</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-card-head">
+        <div class="avatar">JR</div>
+        <div class="review-card-byline">
+          <span class="review-card-user">JR</span>
+          <span class="review-card-sub">rated <a href="/games/elden-ring" class="game-ref">Elden Ring</a></span>
         </div>
       </div>
-      <div class="hero-collage" aria-hidden="true">
-        <div class="hc hc-1"><div></div></div>
-        <div class="hc hc-2"><div></div></div>
-        <div class="hc hc-3"><div></div></div>
-        <div class="hc hc-4"><div></div></div>
-        <div class="hc hc-5"><div></div></div>
+      <p class="review-card-text">"Elden Ring feels like the culmination of everything FromSoftware has ever made. The open world is dense with secrets, and every boss fight is a lesson in patience and pattern recognition."</p>
+      <div class="review-card-footer">
+        <div class="bar-rating" data-fill="5"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="review-card-date">Apr 2026</span>
       </div>
     </div>
-  </section>
-
-  <div id="top-rated" class="section-header">
-    <div>
-      <h2 class="section-title">Highest <em>Rated</em> Games</h2>
+    <div class="review-card">
+      <div class="review-card-head">
+        <div class="avatar">MK</div>
+        <div class="review-card-byline">
+          <span class="review-card-user">MK</span>
+          <span class="review-card-sub">rated <a href="/games/the-legend-of-zelda-tears-of-the-kingdom" class="game-ref">Tears of the Kingdom</a></span>
+        </div>
+      </div>
+      <p class="review-card-text">"I didn't think they could top Breath of the Wild but here we are. The building system is genuinely one of the most creative mechanics in gaming. 80 hours in and still finding new things."</p>
+      <div class="review-card-footer">
+        <div class="bar-rating" data-fill="5"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="review-card-date">Mar 2026</span>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-card-head">
+        <div class="avatar">AL</div>
+        <div class="review-card-byline">
+          <span class="review-card-user">AL</span>
+          <span class="review-card-sub">rated <a href="/games/hades" class="game-ref">Hades</a></span>
+        </div>
+      </div>
+      <p class="review-card-text">"The perfect roguelite. Each run feels distinct, the writing is exceptional, and the combat is tight enough to keep you coming back for just one more attempt long after you should have gone to bed."</p>
+      <div class="review-card-footer">
+        <div class="bar-rating" data-fill="4"><span></span><span></span><span></span><span></span><span></span></div>
+        <span class="review-card-date">Feb 2026</span>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="game-grid" id="game-grid"></div>
-
-  <div class="pagination">
-    <button class="pagination-btn" id="prev-btn" disabled>← Prev</button>
-    <div class="pagination-numbers" id="page-numbers"></div>
-    <button class="pagination-btn" id="next-btn">Next →</button>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <span class="wordmark">Rank<em>r</em></span>
-      <p>A game discovery, ranking, and review site. Built by students at Texas Tech University for ENGR-1340.</p>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/">
+          <img src="/images/logo-bars.svg" class="brand-logo-bars" alt="" aria-hidden="true" height="24">
+          <span class="wordmark">Rankr</span>
+        </a>
+        <p>Rank. Replay. Recommend. A student-built ranking and review platform for the games you love.</p>
+      </div>
+      <div>
+        <h4>Browse</h4>
+        <ul>
+          <li><a href="/">Highest Rated</a></li>
+          <li><a href="/browse.html">All Games</a></li>
+          <li><a href="/browse.html?genre=role-playing-rpg">RPG</a></li>
+          <li><a href="/browse.html?genre=indie">Indie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/about.html">Team</a></li>
+          <li><a href="https://github.com/UnstableGeko/Rankr">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platforms</h4>
+        <ul>
+          <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation</a></li>
+          <li><a href="/browse.html?platform=series-x&name=Xbox">Xbox</a></li>
+          <li><a href="/browse.html?platform=switch&name=Switch">Nintendo</a></li>
+          <li><a href="/browse.html?platform=win&name=PC">PC</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-col"><h4>Browse</h4><ul>
-      <li><a href="/">Highest Rated</a></li>
-      <li><a href="/browse.html">All Games</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Platforms</h4><ul>
-      <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation</a></li>
-      <li><a href="/browse.html?platform=series-x&name=Xbox">Xbox</a></li>
-      <li><a href="/browse.html?platform=switch&name=Switch">Nintendo</a></li>
-      <li><a href="/browse.html?platform=win&name=PC">PC</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>About</h4><ul>
-      <li><a href="/about.html">The Team</a></li>
-      <li><a href="https://github.com/UnstableGeko/Rankr">GitHub</a></li>
-    </ul></div>
-  </div>
-  <div class="container footer-bottom">
-    <span>© 2026 Rankr — ENGR-1340, TTU</span>
-    <span>Game data via IGDB</span>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Rankr &middot; ENGR-1340, TTU</span>
+      <span>Game data via IGDB</span>
+    </div>
   </div>
 </footer>
 

@@ -1,0 +1,28 @@
+<svg viewBox="0 0 50 60" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <!-- glow pulse on 1st place bar -->
+  <rect x="16" y="8" width="18" height="54" rx="5" fill="#ff5cc8" opacity="0">
+    <animate attributeName="opacity" values="0;0;0.4;0" dur="2.4s" begin="1.2s" repeatCount="indefinite"
+             calcMode="spline" keySplines="0 0 1 1;0.4 0 0.6 1;0.4 0 0.6 1"/>
+  </rect>
+  <!-- 2nd place bar — blue -->
+  <rect x="0" y="22" width="14" height="38" rx="3" fill="#5ce1ff">
+    <animate attributeName="y" from="60" to="22" dur="0.5s" begin="0s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1"/>
+    <animate attributeName="height" from="0" to="38" dur="0.5s" begin="0s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1"/>
+  </rect>
+  <!-- 1st place bar — magenta -->
+  <rect x="18" y="10" width="14" height="50" rx="3" fill="#ff5cc8">
+    <animate attributeName="y" from="60" to="10" dur="0.5s" begin="0.15s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1"/>
+    <animate attributeName="height" from="0" to="50" dur="0.5s" begin="0.15s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1"/>
+  </rect>
+  <!-- 3rd place bar — gold -->
+  <rect x="36" y="34" width="14" height="26" rx="3" fill="#ffd166">
+    <animate attributeName="y" from="60" to="34" dur="0.5s" begin="0.3s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1"/>
+    <animate attributeName="height" from="0" to="26" dur="0.5s" begin="0.3s" fill="freeze"
+             calcMode="spline" keySplines="0.4 0 0.2 1"/>
+  </rect>
+</svg>
