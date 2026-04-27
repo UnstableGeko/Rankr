@@ -3,42 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rankr — Search</title>
+  <title>Search &middot; Rankr</title>
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bricolage+Grotesque:ital,opsz,wght@1,12..96,700..800&family=JetBrains+Mono:wght@400;500;600&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="/styles/tokens.css" />
   <link rel="stylesheet" href="/styles/components.css" />
   <link rel="stylesheet" href="/styles/pages.css" />
 </head>
-<body>
+<body data-accent="cyan">
 
-<header class="site-header container">
-  <div class="header-row">
-    <a href="/" class="name-title">
-      <img src="/images/logo.svg" alt="Rankr" class="logo-svg" />
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/">
+      <img src="/images/logo-bars.svg" class="brand-logo-bars" alt="" aria-hidden="true" height="24">
+      <span class="wordmark">Rankr</span>
     </a>
-    <nav class="desktop-nav">
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/browse.html">Browse</a></li>
-        <li class="platforms-dropdown"><a href="#">Platforms <span class="caret">▼</span></a></li>
-        <li class="genres-dropdown"><a href="#">Genres <span class="caret">▼</span></a></li>
-        <li><a href="/rate.html">Rate a Game</a></li>
-        <li><a href="/about.html">About</a></li>
-      </ul>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/browse.html">Browse</a>
+      <a href="/about.html">About</a>
     </nav>
     <div class="nav-right">
-      <div class="search-bar search-bar--wide">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" placeholder="Search games…" aria-label="Search games" />
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" class="nav-search-input" placeholder="Search games&hellip;" aria-label="Search games" />
       </div>
+      <button class="btn btn--ghost btn--signin" disabled><i class="fa-regular fa-user"></i> Sign in</button>
     </div>
   </div>
 </header>
 
+<!-- Dropdown menus positioned by JS -->
 <div class="genres-menu"><ul class="genres-list">
   <li><a href="/browse.html?genre=adventure">Adventure</a></li>
   <li><a href="/browse.html?genre=role-playing-rpg">Role-playing (RPG)</a></li>
@@ -56,11 +54,11 @@
 
 <div class="platforms-menu"><div class="platforms-menu-inner">
   <ul class="platforms-list">
-    <li class="platform-item" data-platform="playstation">PlayStation <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="xbox">Xbox <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="nintendo">Nintendo <span class="flyout-caret">▸</span></li>
-    <li class="platform-item" data-platform="pc">PC <span class="flyout-caret">▸</span></li>
-    <li class="platform-item platform-item--more" data-platform="all">All platforms <span class="flyout-caret">▸</span></li>
+    <li class="platform-item" data-platform="playstation">PlayStation <span class="flyout-caret">&#9658;</span></li>
+    <li class="platform-item" data-platform="xbox">Xbox <span class="flyout-caret">&#9658;</span></li>
+    <li class="platform-item" data-platform="nintendo">Nintendo <span class="flyout-caret">&#9658;</span></li>
+    <li class="platform-item" data-platform="pc">PC <span class="flyout-caret">&#9658;</span></li>
+    <li class="platform-item platform-item--more" data-platform="all">All platforms <span class="flyout-caret">&#9658;</span></li>
   </ul>
   <div class="platforms-detail">
     <ul class="platform-models" data-for="playstation">
@@ -86,12 +84,23 @@
     <div class="platform-models platform-models--search" data-for="all">
       <div class="all-platforms-search">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="platform-search-input" type="text" placeholder="Search all platforms…" />
+        <input id="platform-search-input" type="text" placeholder="Search all platforms&hellip;" />
       </div>
       <ul class="all-platforms-list"></ul>
     </div>
   </div>
 </div></div>
+
+<section class="search-hero">
+  <div class="container">
+    <span class="eyebrow">Find a game</span>
+    <h1>What are you looking for?</h1>
+    <div class="search-hero-form">
+      <input id="search-hero-input" class="search-hero-input" type="text" placeholder="Game title&hellip;" autocomplete="off" />
+      <button class="btn btn--primary" id="search-hero-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    </div>
+  </div>
+</section>
 
 <main class="container main-content">
   <div class="search-page-header">
@@ -100,30 +109,44 @@
   <div class="search-results" id="search-results"></div>
 </main>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <span class="wordmark">Rank<em>r</em></span>
-      <p>A game discovery, ranking, and review site. Built by students at Texas Tech University for ENGR-1340.</p>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/">
+          <img src="/images/logo-bars.svg" class="brand-logo-bars" alt="" aria-hidden="true" height="24">
+          <span class="wordmark">Rankr</span>
+        </a>
+        <p>Rank. Replay. Recommend. A student-built ranking and review platform for the games you love.</p>
+      </div>
+      <div>
+        <h4>Browse</h4>
+        <ul>
+          <li><a href="/">Highest Rated</a></li>
+          <li><a href="/browse.html">All Games</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="https://github.com/UnstableGeko/Rankr">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platforms</h4>
+        <ul>
+          <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation</a></li>
+          <li><a href="/browse.html?platform=series-x&name=Xbox">Xbox</a></li>
+          <li><a href="/browse.html?platform=switch&name=Switch">Nintendo</a></li>
+          <li><a href="/browse.html?platform=win&name=PC">PC</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-col"><h4>Browse</h4><ul>
-      <li><a href="/">Highest Rated</a></li>
-      <li><a href="/browse.html">All Games</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Platforms</h4><ul>
-      <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation</a></li>
-      <li><a href="/browse.html?platform=series-x&name=Xbox">Xbox</a></li>
-      <li><a href="/browse.html?platform=switch&name=Switch">Nintendo</a></li>
-      <li><a href="/browse.html?platform=win&name=PC">PC</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>About</h4><ul>
-      <li><a href="/about.html">The Team</a></li>
-      <li><a href="https://github.com/UnstableGeko/Rankr">GitHub</a></li>
-    </ul></div>
-  </div>
-  <div class="container footer-bottom">
-    <span>© 2026 Rankr — ENGR-1340, TTU</span>
-    <span>Game data via IGDB</span>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Rankr &middot; ENGR-1340, TTU</span>
+      <span>Game data via IGDB</span>
+    </div>
   </div>
 </footer>
 

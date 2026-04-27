@@ -28,21 +28,6 @@ async function fetchGameCovers(sortBy = 'rating', page = 1) {
         
         const seenGames = new Set();
 
-        // Populate hero collage with top 5 covers on page 1
-        const hcEls = document.querySelectorAll('.hero-collage .hc');
-        if (hcEls.length && page === 1) {
-            const topCovers = games.filter(g => g.cover).slice(0, 5);
-            hcEls.forEach((hc, i) => {
-                if (topCovers[i]) {
-                    const img = document.createElement('img');
-                    img.src = `https://images.igdb.com/igdb/image/upload/t_cover_big/${topCovers[i].cover.image_id}.jpg`;
-                    img.alt = topCovers[i].name;
-                    hc.innerHTML = '';
-                    hc.appendChild(img);
-                }
-            });
-        }
-
         games.forEach(game => {
             if (game.cover && game.slug) {
                 if (seenGames.has(game.slug)) return;
@@ -53,27 +38,33 @@ async function fetchGameCovers(sortBy = 'rating', page = 1) {
 
                 const link = document.createElement('a');
                 link.href = `/games/${slug}`;
-                link.classList.add('game-link');
+                link.className = 'game-card';
 
-                const gameCard = document.createElement('div');
-                gameCard.className = 'game-card';
+                const cover = document.createElement('div');
+                cover.className = 'cover';
 
                 const img = document.createElement('img');
                 img.src = coverUrl;
                 img.alt = game.name;
+                cover.appendChild(img);
 
-                const nameOverlay = document.createElement('div');
-                nameOverlay.className = 'game-name-overlay';
-                nameOverlay.textContent = game.name;
+                const meta = document.createElement('div');
+                meta.className = 'meta';
 
-                const viewBtn = document.createElement('button');
-                viewBtn.className = 'card-view-btn';
-                viewBtn.textContent = 'View';
+                const title = document.createElement('div');
+                title.className = 'title';
+                title.textContent = game.name;
 
-                gameCard.appendChild(img);
-                gameCard.appendChild(nameOverlay);
-                gameCard.appendChild(viewBtn);
-                link.appendChild(gameCard);
+                const sub = document.createElement('div');
+                sub.className = 'sub';
+                const genres = game.genres?.map(g => g.name).slice(0, 1).join('') || '';
+                const year = game.first_release_date ? new Date(game.first_release_date * 1000).getFullYear() : '';
+                sub.textContent = [genres, year].filter(Boolean).join(' · ');
+
+                meta.appendChild(title);
+                meta.appendChild(sub);
+                link.appendChild(cover);
+                link.appendChild(meta);
                 gameGrid.appendChild(link);
             }
         });
@@ -189,7 +180,6 @@ if (platformSearchInput) {
         renderPlatformList(filtered);
     });
 
-    platformSearchInput.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
 }
 
 // Platform panel hover switching
@@ -214,67 +204,6 @@ document.querySelectorAll('.platform-item').forEach(item => {
         if (models) models.classList.add('active');
     });
 });
-
-// Delay-based show/hide
-const platformsDropdown = document.querySelector('.platforms-dropdown');
-const platformsMenu = document.querySelector('.platforms-menu');
-let hideTimeout = null;
-
-function showMenu() {
-    clearTimeout(hideTimeout);
-    const rect = platformsDropdown.getBoundingClientRect();
-    platformsMenu.style.top = (rect.bottom + 6) + 'px';
-    platformsMenu.style.left = rect.left + 'px';
-    platformsMenu.style.display = 'block';
-
-    document.querySelectorAll('.platform-item').forEach(i => i.classList.remove('active'));
-    clearAllPanels();
-    if (platformsDetail) platformsDetail.style.display = 'block';
-    const firstItem = document.querySelector('.platform-item[data-platform="playstation"]');
-    const firstModels = document.querySelector('[data-for="playstation"]');
-    if (firstItem) firstItem.classList.add('active');
-    if (firstModels) firstModels.classList.add('active');
-}
-
-function scheduleHide() {
-    hideTimeout = setTimeout(() => {
-        platformsMenu.style.display = 'none';
-    }, 100);
-}
-
-if (platformsDropdown && platformsMenu) {
-    platformsDropdown.addEventListener('mouseenter', showMenu);
-    platformsDropdown.addEventListener('mouseleave', scheduleHide);
-    platformsMenu.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
-    platformsMenu.addEventListener('mouseleave', scheduleHide);
-}
-
-const genresDropdown = document.querySelector('.genres-dropdown');
-const genresMenu = document.querySelector('.genres-menu');
-let genresHideTimeout = null;
-
-if (genresDropdown && genresMenu) {
-    genresDropdown.addEventListener('mouseenter', () => {
-        clearTimeout(genresHideTimeout);
-        const rect = genresDropdown.getBoundingClientRect();
-        genresMenu.style.top = (rect.bottom + 6) + 'px';
-        genresMenu.style.left = rect.left + 'px';
-        genresMenu.style.display = 'block';
-    });
-
-    genresDropdown.addEventListener('mouseleave', () => {
-        genresHideTimeout = setTimeout(() => {
-            genresMenu.style.display = 'none';
-        }, 100);
-    });
-
-    genresMenu.addEventListener('mouseenter', () => clearTimeout(genresHideTimeout));
-    genresMenu.addEventListener('mouseleave', () => {
-        genresHideTimeout = setTimeout(() => {
-            genresMenu.style.display = 'none';
-        }, 100);
-    });
-}
 
 function slugify(name) {
     return name
@@ -320,6 +249,13 @@ async function populateGamePage() {
 
         titleEl.textContent = game.name || 'Unknown Title';
         titleEl.classList.remove('skeleton');
+
+        // Also populate the main h1
+        const h1El = document.querySelector('.game-info h1');
+        if (h1El) {
+            h1El.textContent = game.name || 'Unknown Title';
+            h1El.style.display = '';
+        }
 
         if (descriptionEl) {
             descriptionEl.textContent = game.summary || 'No description available.';
@@ -492,8 +428,18 @@ function slugifyQuery(name) {
         .replace(/[^a-z0-9-]/g, '');
 }
 
+// Nav search — Enter key navigates to search page
+document.querySelectorAll('.nav-search-input').forEach(input => {
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const q = input.value.trim();
+            if (q) window.location.href = `/search.html?q=${encodeURIComponent(q)}`;
+        }
+    });
+});
+
 // Live search autocomplete
-const searchInput = document.querySelector('.search-bar input');
+const searchInput = document.querySelector('.search input:not(.nav-search-input)');
 const searchDropdown = document.createElement('div');
 searchDropdown.className = 'search-dropdown';
 searchDropdown.style.display = 'none';
@@ -619,13 +565,6 @@ if (sortDropdown && sortMenu && sortTrigger) {
             
             currentSort.textContent = sortText;
             
-            const pageTitle = document.querySelector('.section-title');
-            if (pageTitle) {
-                const words = sortText.split(' ');
-                const last = words.pop();
-                pageTitle.innerHTML = `${words.join(' ')} <em>${last}</em> Games`;
-            }
-            
             sortMenu.style.display = 'none';
             
             currentPage = 1; // Reset to page 1 when sorting
@@ -633,10 +572,73 @@ if (sortDropdown && sortMenu && sortTrigger) {
         });
     });
 
+async function fetchLeaderboard() {
+    const featured = document.getElementById('leaderboard-featured');
+    const list = document.getElementById('leaderboard-list');
+    if (!featured || !list) return;
+
+    try {
+        const response = await fetch('/api/trending', {
+            method: 'POST'
+        });
+        const data = await response.json();
+        const games = (data.games || data).filter(g => g.cover && g.slug);
+        if (games.length === 0) return;
+
+        const scoreFn = g => g.total_rating ?? g.rating ?? null;
+        const tierFn = s => s >= 90 ? 'S' : s >= 75 ? 'A' : s >= 60 ? 'B' : 'C';
+
+        // Featured #1
+        const top = games[0];
+        const topScore = scoreFn(top);
+        const topYear = top.first_release_date ? new Date(top.first_release_date * 1000).getFullYear() : '';
+        const topGenre = top.genres?.[0]?.name || '';
+        featured.innerHTML = `
+          <a href="/games/${top.slug}" class="leaderboard-featured-inner">
+            <div class="leaderboard-rank-badge">#1</div>
+            <div class="leaderboard-cover">
+              <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/${top.cover.image_id}.jpg" alt="${top.name}">
+            </div>
+            <div class="leaderboard-info">
+              <div class="leaderboard-meta">${[topGenre, topYear].filter(Boolean).join(' · ')}</div>
+              <div class="leaderboard-title">${top.name}</div>
+              ${topScore ? `<div class="leaderboard-score">
+                <span class="leaderboard-score-num">${(topScore / 10).toFixed(1)}</span>
+                <span class="leaderboard-score-out">/10</span>
+                <span class="tier-badge" data-tier="${tierFn(topScore)}">${tierFn(topScore)}</span>
+              </div>` : ''}
+            </div>
+          </a>`;
+
+        // Ranked list #2-10
+        list.innerHTML = '';
+        games.slice(1, 10).forEach((game, i) => {
+            const score = scoreFn(game);
+            const year = game.first_release_date ? new Date(game.first_release_date * 1000).getFullYear() : '';
+            const genre = game.genres?.[0]?.name || '';
+            const row = document.createElement('a');
+            row.href = `/games/${game.slug}`;
+            row.className = 'leaderboard-row';
+            row.innerHTML = `
+              <span class="leaderboard-row-rank">#${i + 2}</span>
+              <img class="leaderboard-row-cover" src="https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.image_id}.jpg" alt="${game.name}">
+              <div>
+                <div class="leaderboard-row-title">${game.name}</div>
+                <div class="leaderboard-row-sub">${[genre, year].filter(Boolean).join(' · ')}</div>
+              </div>
+              ${score ? `<span class="tier-badge" data-tier="${tierFn(score)}">${tierFn(score)}</span>` : ''}`;
+            list.appendChild(row);
+        });
+    } catch (e) {
+        console.error('Leaderboard error:', e);
+    }
+}
+
 // DOMContentLoaded - Initialize everything
 window.addEventListener('DOMContentLoaded', () => {
     loadMorePlatforms();
     fetchGameCovers();
+    fetchLeaderboard();
     populateGamePage();
     
     const prevBtn = document.getElementById('prev-btn');
