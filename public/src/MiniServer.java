@@ -351,7 +351,7 @@ byte[] gamesData = responseStream.readAllBytes();
 
                 // Parse page and limit parameters
                 int page = 1;
-                int limit = 40;
+                int limit = 42;
 
                 if (bodyStr.contains("\"page\"")) {
                     int pageStart = bodyStr.indexOf("\"page\":") + 7;

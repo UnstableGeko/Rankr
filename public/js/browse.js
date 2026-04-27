@@ -20,7 +20,7 @@ const DISPLAY_NAMES = {
 
 // Pagination state
 let currentPage = 1;
-const gamesPerPage = 40;
+const gamesPerPage = 42;
 let totalPages = 1;
 let totalResultCount = 0;
 
@@ -352,13 +352,32 @@ function updatePagination() {
     let prev = 0;
     sorted.forEach(p => {
         if (p - prev > 2) {
-            pageNumbers.appendChild(makePaginationBtn('…', null, false, true));
+            pageNumbers.appendChild(makePageJumper());
         } else if (p - prev === 2) {
             pageNumbers.appendChild(makePaginationBtn(prev + 1, prev + 1, prev + 1 === currentPage));
         }
         pageNumbers.appendChild(makePaginationBtn(p, p, p === currentPage));
         prev = p;
     });
+}
+
+function makePageJumper() {
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.className = 'page-jumper';
+    input.placeholder = '…';
+    input.min = 1;
+    input.max = totalPages;
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const val = Math.min(totalPages, Math.max(1, parseInt(input.value)));
+            if (!isNaN(val)) {
+                fetchFilteredGames(getSortValue(), val);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    });
+    return input;
 }
 
 function getSortValue() {
