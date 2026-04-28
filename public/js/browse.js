@@ -486,6 +486,16 @@ document.querySelectorAll('.platform-item').forEach(item => {
     });
 });
 
+// ─── Nav search ───────────────────────────────────────────────────────────────
+document.querySelectorAll('.nav-search-input').forEach(input => {
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const q = input.value.trim();
+            if (q) window.location.href = `/search.html?q=${encodeURIComponent(q)}`;
+        }
+    });
+});
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
     fetchFilteredGames();
