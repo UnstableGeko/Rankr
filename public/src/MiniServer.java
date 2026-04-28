@@ -165,14 +165,11 @@ public class MiniServer {
                 case "release_date":
                     sortClause = "sort first_release_date desc";
                     break;
-                case "trending":
-                    sortClause = "sort rating_count desc";
-                    break;
                 default: // "rating"
                     sortClause = "sort rating desc";
                     break;
             }
-            
+
             String fields = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name";
             if (sortBy.equals("release_date")) {
                 fields += ", first_release_date";
@@ -288,41 +285,9 @@ byte[] gamesData = responseStream.readAllBytes();
                 System.out.println("=== BROWSE REQUEST ===");
                 System.out.println("Request Body: " + bodyStr);
                 
-                String filterType = null;
-                String filterValue = null;
-                
-                int ftIndex = bodyStr.indexOf("\"filterType\"");
-                if (ftIndex != -1) {
-                    int colonIndex = bodyStr.indexOf(":", ftIndex);
-                    int openQuoteIndex = bodyStr.indexOf("\"", colonIndex);
-                    int closeQuoteIndex = bodyStr.indexOf("\"", openQuoteIndex + 1);
-                    filterType = bodyStr.substring(openQuoteIndex + 1, closeQuoteIndex);
-                }
-                
-                if (bodyStr.contains("\"filterValue\"")) {
-                    int valStart = bodyStr.indexOf("\"filterValue\":") + 14;
-                    
-                    // Check if the value is a string (has quotes) or a number (no quotes)
-                    String afterColon = bodyStr.substring(valStart).trim();
-                    
-                    if (afterColon.startsWith("\"")) {
-                        // It's a string value - find the closing quote
-                        int openQuote = bodyStr.indexOf("\"", valStart);
-                        int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
-                        filterValue = bodyStr.substring(openQuote + 1, closeQuote);
-                    } else {
-                        // It's a number - find the comma or closing brace
-                        int valEnd = bodyStr.indexOf(",", valStart);
-                        if (valEnd == -1) valEnd = bodyStr.indexOf("}", valStart);
-                        if (valStart > 13 && valEnd > valStart) {
-                            filterValue = bodyStr.substring(valStart, valEnd).trim();
-                            if (filterValue.equals("null")) filterValue = null;
-                        }
-                    }
-                }
-
-                System.out.println("Parsed filterType: " + filterType);
-                System.out.println("Parsed filterValue: " + filterValue);
+                String genreId = parseJsonString(bodyStr, "genre");
+                String platformSlug = parseJsonString(bodyStr, "platform");
+                String yearStr = parseJsonString(bodyStr, "year");
 
                 URI uri = new URI("https://api.igdb.com/v4/games");
                 URL url = uri.toURL();
@@ -334,14 +299,12 @@ byte[] gamesData = responseStream.readAllBytes();
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
 
-                String whereClause = "where cover != null & rating != null & rating_count > 1000";
-                
                 // Parse sortBy parameter
                 String sortBy = "rating"; // default
                 if (bodyStr.contains("\"sortBy\"")) {
                     int sortStart = bodyStr.indexOf("\"sortBy\":") + 9;
                     String afterColon = bodyStr.substring(sortStart).trim();
-                    
+
                     if (afterColon.startsWith("\"")) {
                         int openQuote = bodyStr.indexOf("\"", sortStart);
                         int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
@@ -349,9 +312,14 @@ byte[] gamesData = responseStream.readAllBytes();
                     }
                 }
 
+                // Newest sort: only require a cover and at least one rating (filters out unreleased/2040 placeholders)
+                String whereClause = sortBy.equals("release_date")
+                    ? "where cover != null & rating != null"
+                    : "where cover != null & rating != null & rating_count > 100 & version_parent = null & parent_game = null";
+
                 // Parse page and limit parameters
                 int page = 1;
-                int limit = 40;
+                int limit = 42;
 
                 if (bodyStr.contains("\"page\"")) {
                     int pageStart = bodyStr.indexOf("\"page\":") + 7;
@@ -376,21 +344,43 @@ byte[] gamesData = responseStream.readAllBytes();
                 }
 
                 int offset = (page - 1) * limit;
-                if (filterType != null && filterValue != null) {
-                    if (filterType.equals("genre")) {
-                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 100");
-                        whereClause += " & genres = [" + filterValue + "]";
-                    } else if (filterType.equals("platform")) {
-                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 100");
-                        String cleanValue = filterValue.replaceAll("\"", "");
-                        whereClause += " & platforms.slug = \"" + cleanValue + "\"";
-                    } else if (filterType.equals("year")) {
-                        int yr = Integer.parseInt(filterValue.replaceAll("[^0-9]", ""));
-                        long yearStart = java.time.LocalDate.of(yr, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
-                        long yearEnd   = java.time.LocalDate.of(yr + 1, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
-                        whereClause = whereClause.replace("rating_count > 1000", "rating_count > 50");
-                        whereClause += " & first_release_date >= " + yearStart + " & first_release_date < " + yearEnd;
+                if (genreId != null) {
+                    whereClause += " & genres = (" + genreId + ")";
+                }
+                boolean nicheplatform = false;
+                if (platformSlug != null) {
+                    whereClause += " & platforms.slug = \"" + platformSlug + "\"";
+                    java.util.Set<String> mainPlatforms = new java.util.HashSet<>(java.util.Arrays.asList(
+                        "win", "mac", "linux",
+                        "ps5", "ps4", "ps3",
+                        "series-x-s", "xboxone", "xbox360",
+                        "switch", "3ds", "wiiu"
+                    ));
+                    if (!mainPlatforms.contains(platformSlug)) {
+                        // For niche platforms, drop all quality filters — just match the platform
+                        whereClause = "where platforms.slug = \"" + platformSlug + "\"";
+                        nicheplatform = true;
                     }
+                }
+                if (yearStr != null) {
+                    int yr = Integer.parseInt(yearStr.replaceAll("[^0-9]", ""));
+                    long yearStart = java.time.LocalDate.of(yr, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+                    long yearEnd   = java.time.LocalDate.of(yr + 1, 1, 1).atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+                    whereClause += " & first_release_date >= " + yearStart + " & first_release_date < " + yearEnd;
+                }
+
+                // minRating filter (stacks with other filters)
+                if (bodyStr.contains("\"minRating\"")) {
+                    int mrStart = bodyStr.indexOf("\"minRating\":") + 12;
+                    String afterColon = bodyStr.substring(mrStart).trim();
+                    int end = afterColon.indexOf(",") == -1 ? afterColon.indexOf("}") : Math.min(afterColon.indexOf(","), afterColon.indexOf("}"));
+                    try {
+                        double minRating = Double.parseDouble(afterColon.substring(0, end).trim());
+                        if (minRating > 0) {
+                            int rawMin = (int)(minRating * 20);
+                            whereClause = whereClause.replace("rating != null", "rating >= " + rawMin);
+                        }
+                    } catch (NumberFormatException ignored) {}
                 }
             // Build sort clause
             String sortClause;
@@ -401,35 +391,88 @@ byte[] gamesData = responseStream.readAllBytes();
                 case "release_date":
                     sortClause = "sort first_release_date desc";
                     break;
-                case "trending":
-                    sortClause = "sort rating_count desc";
-                    break;
                 default: // "rating"
                     sortClause = "sort rating desc";
                     break;
             }
 
-            String fields = "fields name, slug, cover.image_id, rating, rating_count, genres.name, first_release_date";
+            // Query IGDB count endpoint for exact total
+            int totalCount = 0;
+            try {
+                URI countUri = new URI("https://api.igdb.com/v4/games/count");
+                HttpURLConnection countConn = (HttpURLConnection) countUri.toURL().openConnection();
+                countConn.setRequestMethod("POST");
+                countConn.setRequestProperty("Client-ID", configClientId);
+                countConn.setRequestProperty("Authorization", "Bearer " + configAccessToken);
+                countConn.setRequestProperty("Accept", "application/json");
+                countConn.setDoOutput(true);
+                countConn.getOutputStream().write((whereClause + ";").getBytes());
+                String countJson = new String(countConn.getInputStream().readAllBytes());
+                int countIdx = countJson.indexOf("\"count\":") + 8;
+                if (countIdx > 7) {
+                    String countStr = countJson.substring(countIdx).replaceAll("[^0-9]", "");
+                    if (!countStr.isEmpty()) totalCount = Integer.parseInt(countStr);
+                }
+            } catch (Exception countEx) {
+                System.out.println("Count query failed: " + countEx.getMessage());
+            }
 
-            String igdbQuery = fields + "; " + whereClause + "; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
+            String fields = "fields name, slug, cover.image_id, rating, rating_count, genres.name, first_release_date";
+            String igdbQuery;
+            if (nicheplatform) {
+                // Fetch all games for this platform (max 500) and sort by Bayesian score server-side
+                igdbQuery = fields + "; " + whereClause + "; sort rating_count desc; limit 500; offset 0;";
+            } else {
+                igdbQuery = fields + "; " + whereClause + "; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
+            }
 
             System.out.println("=== FINAL IGDB QUERY ===");
             System.out.println(igdbQuery);
             System.out.println("========================");
-                
-            System.out.println("Where Clause: " + whereClause);
-            System.out.println("Full IGDB Query: " + igdbQuery);
-            System.out.println("===================");
-                
+
             conn.getOutputStream().write(igdbQuery.getBytes());
 
             InputStream responseStream = conn.getInputStream();
             byte[] gamesData = responseStream.readAllBytes();
-
-            // Wrap response with totalPages
             String gamesJson = new String(gamesData);
-            int totalPages = 10; // Hardcoded for now
-            String wrappedResponse = "{\"games\":" + gamesJson + ",\"totalPages\":" + totalPages + "}";
+
+            String finalGamesJson = gamesJson;
+            int totalPages;
+
+            if (nicheplatform) {
+                java.util.List<String> gameObjs = splitJsonArray(gamesJson);
+                if (gameObjs.size() >= 10) {
+                    // Enough games to warrant weighted sort
+                    final double C = 50.0, M = 65.0;
+                    gameObjs.sort((a, b) -> {
+                        double ra = extractNumber(a, "rating"), rca = extractNumber(a, "rating_count");
+                        double rb = extractNumber(b, "rating"), rcb = extractNumber(b, "rating_count");
+                        double scoreA = (ra * rca + C * M) / (rca + C);
+                        double scoreB = (rb * rcb + C * M) / (rcb + C);
+                        return Double.compare(scoreB, scoreA);
+                    });
+                } else {
+                    // Too few games — just sort by highest rating
+                    gameObjs.sort((a, b) -> Double.compare(extractNumber(b, "rating"), extractNumber(a, "rating")));
+                }
+                int fromIdx = (page - 1) * limit;
+                int toIdx = Math.min(fromIdx + limit, gameObjs.size());
+                java.util.List<String> pageSlice = fromIdx < gameObjs.size() ? gameObjs.subList(fromIdx, toIdx) : java.util.Collections.emptyList();
+                finalGamesJson = "[" + String.join(",", pageSlice) + "]";
+                totalCount = gameObjs.size();
+                totalPages = (int) Math.ceil((double) totalCount / limit);
+            } else {
+                int resultCount = 0;
+                for (int ci = 0; ci < gamesJson.length(); ci++) { if (gamesJson.charAt(ci) == '{') resultCount++; }
+                if (totalCount > 0) {
+                    totalPages = (int) Math.ceil((double) totalCount / limit);
+                    totalPages = Math.min(totalPages, 250);
+                } else {
+                    totalPages = resultCount < limit ? page : page + 2;
+                }
+            }
+
+            String wrappedResponse = "{\"games\":" + finalGamesJson + ",\"totalPages\":" + totalPages + ",\"resultCount\":" + totalCount + "}";
             byte[] responseData = wrappedResponse.getBytes();
 
             exchange.getResponseHeaders().set("Content-Type", "application/json");
@@ -599,5 +642,47 @@ byte[] gamesData = responseStream.readAllBytes();
         if (name.endsWith(".svg"))  return "image/svg+xml";
         if (name.endsWith(".ico"))  return "image/x-icon";
         return "application/octet-stream";
+    }
+
+    // Splits a JSON array string into individual object strings
+    static java.util.List<String> splitJsonArray(String json) {
+        java.util.List<String> result = new java.util.ArrayList<>();
+        int depth = 0, start = -1;
+        for (int i = 0; i < json.length(); i++) {
+            char c = json.charAt(i);
+            if (c == '{') { if (depth++ == 0) start = i; }
+            else if (c == '}') { if (--depth == 0 && start != -1) { result.add(json.substring(start, i + 1)); start = -1; } }
+        }
+        return result;
+    }
+
+    // Extracts a numeric field value from a JSON object string; returns 0 if missing
+    static double extractNumber(String obj, String field) {
+        String key = "\"" + field + "\":";
+        int idx = obj.indexOf(key);
+        if (idx == -1) return 0;
+        String after = obj.substring(idx + key.length()).trim();
+        int end = 0;
+        while (end < after.length() && (Character.isDigit(after.charAt(end)) || after.charAt(end) == '.' || after.charAt(end) == '-')) end++;
+        try { return Double.parseDouble(after.substring(0, end)); } catch (NumberFormatException e) { return 0; }
+    }
+
+    // Parses a JSON string or number field; returns null if missing or "null"
+    static String parseJsonString(String body, String key) {
+        String search = "\"" + key + "\":";
+        int idx = body.indexOf(search);
+        if (idx == -1) return null;
+        String after = body.substring(idx + search.length()).trim();
+        if (after.startsWith("null")) return null;
+        if (after.startsWith("\"")) {
+            int open = after.indexOf("\"");
+            int close = after.indexOf("\"", open + 1);
+            return after.substring(open + 1, close);
+        }
+        // numeric value
+        int end = after.indexOf(",");
+        if (end == -1) end = after.indexOf("}");
+        String val = after.substring(0, end).trim();
+        return val.equals("null") ? null : val;
     }
 }

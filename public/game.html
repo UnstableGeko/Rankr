@@ -67,7 +67,7 @@
       <li><a href="/browse.html?platform=ps3&name=PlayStation%203">PlayStation 3</a></li>
     </ul>
     <ul class="platform-models" data-for="xbox">
-      <li><a href="/browse.html?platform=series-x&name=Xbox%20Series%20X%7CS">Xbox Series X|S</a></li>
+      <li><a href="/browse.html?platform=series-x-s&name=Xbox%20Series%20X%7CS">Xbox Series X|S</a></li>
       <li><a href="/browse.html?platform=xboxone&name=Xbox%20One">Xbox One</a></li>
       <li><a href="/browse.html?platform=xbox360&name=Xbox%20360">Xbox 360</a></li>
     </ul>
@@ -136,25 +136,41 @@
 
       <!-- Action buttons -->
       <div class="game-actions">
-        <button class="btn btn--primary" disabled><i class="fa-solid fa-pen"></i> Write a Review</button>
         <button class="icon-btn icon-btn--played"><i class="fa-solid fa-circle-check"></i> Played</button>
         <button class="icon-btn icon-btn--like"><i class="fa-solid fa-heart"></i> Like</button>
         <button class="icon-btn icon-btn--list"><i class="fa-solid fa-bookmark"></i> Save</button>
       </div>
+    </div>
+  </div>
+</section>
 
-      <!-- Rating input -->
-      <div class="rate-panel">
-        <div class="label">Your rating</div>
-        <div class="bar-input" role="radiogroup" aria-label="Rate from 1 to 5 bars">
-          <button data-v="1" aria-label="1 bar"></button>
-          <button data-v="2" aria-label="2 bars"></button>
-          <button data-v="3" aria-label="3 bars"></button>
-          <button data-v="4" aria-label="4 bars"></button>
-          <button data-v="5" aria-label="5 bars"></button>
+<!-- ===== Reviews Section ===== -->
+<section class="reviews-section">
+  <div class="container">
+    <h2 class="reviews-heading">Reviews</h2>
+
+    <!-- Composer -->
+    <div class="review-composer">
+      <div class="avatar avatar--you">YO</div>
+      <div class="composer-body">
+        <div class="composer-top">
+          <span class="composer-rating-label">Your Rating</span>
+          <div class="bar-input composer-bar-input">
+            <button data-v="1" aria-label="Rate 1"></button>
+            <button data-v="2" aria-label="Rate 2"></button>
+            <button data-v="3" aria-label="Rate 3"></button>
+            <button data-v="4" aria-label="Rate 4"></button>
+            <button data-v="5" aria-label="Rate 5"></button>
+          </div>
         </div>
-        <span class="eyebrow">Click to set</span>
+        <textarea class="composer-textarea" id="composer-text" placeholder="Share your thoughts on this game…" rows="3"></textarea>
+        <div class="composer-footer">
+          <span class="composer-hint"><i class="fa-solid fa-circle-info"></i> Reviews are not saved yet</span>
+          <button class="btn btn--primary composer-submit" id="composer-submit" disabled>Post Review</button>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -186,7 +202,7 @@
         <h4>Platforms</h4>
         <ul>
           <li><a href="/browse.html?platform=ps5&name=PlayStation%205">PlayStation</a></li>
-          <li><a href="/browse.html?platform=series-x&name=Xbox">Xbox</a></li>
+          <li><a href="/browse.html?platform=series-x-s&name=Xbox">Xbox</a></li>
           <li><a href="/browse.html?platform=switch&name=Switch">Nintendo</a></li>
           <li><a href="/browse.html?platform=win&name=PC">PC</a></li>
         </ul>
@@ -207,10 +223,24 @@
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         const v = parseInt(btn.dataset.v, 10);
-        buttons.forEach((b, i) => b.classList.toggle('active', parseInt(b.dataset.v, 10) <= v));
+        buttons.forEach((b) => b.classList.toggle('active', parseInt(b.dataset.v, 10) <= v));
       });
     });
   });
+
+  // Enable Post Review button when textarea has content
+  const composerText = document.getElementById('composer-text');
+  const composerSubmit = document.getElementById('composer-submit');
+  if (composerText && composerSubmit) {
+    composerText.addEventListener('input', () => {
+      composerSubmit.disabled = composerText.value.trim().length === 0;
+    });
+    composerSubmit.addEventListener('click', () => {
+      composerText.value = '';
+      composerSubmit.disabled = true;
+      document.querySelectorAll('.composer-bar-input button').forEach(b => b.classList.remove('active'));
+    });
+  }
 </script>
 </body>
 </html>

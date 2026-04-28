@@ -1,3 +1,17 @@
+function signalBars(rating) {
+    const filled = Math.round(rating / 20); // 0–5 bars
+    const heights = [0.3, 0.45, 0.62, 0.8, 1.0];
+    const W = 15, H = 10, bW = 2, gap = 1;
+    const rects = heights.map((ratio, i) => {
+        const bH = Math.round(H * ratio);
+        const x = i * (bW + gap);
+        const y = H - bH;
+        const fill = i < filled ? 'var(--accent)' : 'rgba(255,255,255,0.15)';
+        return `<rect x="${x}" y="${y}" width="${bW}" height="${bH}" rx="0.5" fill="${fill}"/>`;
+    }).join('');
+    return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" class="signal-svg" aria-hidden="true">${rects}</svg>`;
+}
+
 // Map genre slugs to IGDB genre IDs
 const GENRE_MAP = {
     'adventure': 31, 'arcade': 33, 'card-board-game': 35, 'fighting': 4,
@@ -20,12 +34,10 @@ const DISPLAY_NAMES = {
 
 // Pagination state
 let currentPage = 1;
-const gamesPerPage = 40;
+const gamesPerPage = 42;
 let totalPages = 1;
+let totalResultCount = 0;
 
-// Client-side filter state
-let activeYearFilter = null;
-let activeRatingFilter = null;
 let allLoadedCards = []; // {el, year, rating}
 
 async function fetchFilteredGames(sortBy = 'rating', page = 1) {
@@ -33,31 +45,22 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
     const titleEl = document.getElementById('browse-title');
     if (!gameGrid) return;
 
+    currentPage = page;
+
     const params = new URLSearchParams(window.location.search);
-    const genreSlug = params.get('genre');
+    const genreSlugs = params.get('genre') ? params.get('genre').split(',') : [];
     const platformSlug = params.get('platform');
     const yearParam = params.get('year');
+    const minRating = params.get('minRating') ? parseFloat(params.get('minRating')) : null;
 
-    let filterType = null;
-    let filterValue = null;
-    let displayName = 'All Games';
+    const genreIds = genreSlugs.map(s => GENRE_MAP[s]).filter(Boolean);
 
-    if (genreSlug) {
-        filterType = 'genre';
-        filterValue = GENRE_MAP[genreSlug];
-        displayName = (DISPLAY_NAMES[genreSlug] || genreSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) + ' Games';
-    } else if (platformSlug) {
-        filterType = 'platform';
-        filterValue = platformSlug;
-        const platformName = params.get('name');
-        displayName = (platformName || platformSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')) + ' Games';
-    } else if (yearParam) {
-        filterType = 'year';
-        filterValue = yearParam;
-        displayName = yearParam + ' Games';
-    }
+    const displayParts = [];
+    if (genreSlugs.length) displayParts.push(genreSlugs.map(s => DISPLAY_NAMES[s] || s.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')).join(', '));
+    if (platformSlug) displayParts.push(params.get('name') || platformSlug);
+    if (yearParam) displayParts.push(yearParam);
+    if (titleEl) titleEl.textContent = displayParts.length ? displayParts.join(' · ') + ' Games' : 'All Games';
 
-    if (titleEl) titleEl.textContent = displayName;
     gameGrid.innerHTML = '';
     allLoadedCards = [];
 
@@ -65,22 +68,42 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
         const response = await fetch('/api/browse', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ filterType, filterValue, sortBy, page, limit: gamesPerPage })
+            body: JSON.stringify({
+                genre: genreIds.length ? genreIds.join(',') : null,
+                platform: platformSlug || null,
+                year: yearParam || null,
+                sortBy, page, limit: gamesPerPage, minRating
+            })
         });
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const data = await response.json();
-        const games = data.games || data;
+        const games = (data.games || data).filter(g => g.slug);
         if (data.totalPages) totalPages = data.totalPages;
+        if (data.resultCount) totalResultCount = data.resultCount;
         if (data.error) throw new Error(data.error);
         if (!Array.isArray(games)) { gameGrid.innerHTML = '<p class="grid-empty">Invalid response from server.</p>'; return; }
-        if (games.length === 0) { gameGrid.innerHTML = '<p class="grid-empty">No games found.</p>'; return; }
+
+        // If this page came back empty, we've gone past the real end
+        if (games.length === 0) {
+            totalPages = Math.max(1, page - 1);
+            currentPage = totalPages;
+            updatePagination();
+            updateResultsCount();
+            if (page === 1) gameGrid.innerHTML = '<p class="grid-empty">No games found.</p>';
+            else fetchFilteredGames(sortBy, currentPage);
+            return;
+        }
+
+        // Fewer results than a full page means this is the last page
+        if (games.length < gamesPerPage) {
+            totalPages = page;
+        }
 
         const seen = new Set();
         let cardIndex = (page - 1) * gamesPerPage;
         games.forEach(game => {
-            if (!game.cover || !game.slug) return;
             if (seen.has(game.slug)) return;
             seen.add(game.slug);
             cardIndex++;
@@ -88,7 +111,9 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
             const year = game.first_release_date ? new Date(game.first_release_date * 1000).getFullYear() : 0;
             const rating = game.rating || 0;
             const genre = game.genres?.[0]?.name || '';
-            const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`;
+            const coverUrl = game.cover?.image_id
+                ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
+                : null;
             const scoreDisplay = rating ? (rating / 20).toFixed(1) : null;
 
             const link = document.createElement('a');
@@ -98,16 +123,20 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
             link.dataset.rating = rating;
 
             const cover = document.createElement('div');
-            cover.className = 'cover';
-            const img = document.createElement('img');
-            img.src = coverUrl;
-            img.alt = game.name;
-            cover.appendChild(img);
+            cover.className = 'cover' + (coverUrl ? '' : ' cover--no-image');
+            if (coverUrl) {
+                const img = document.createElement('img');
+                img.src = coverUrl;
+                img.alt = game.name;
+                cover.appendChild(img);
+            }
 
-            const rankBadge = document.createElement('span');
-            rankBadge.className = 'rank';
-            rankBadge.textContent = String(cardIndex).padStart(2, '0');
-            cover.appendChild(rankBadge);
+            if (sortBy !== 'release_date') {
+                const rankBadge = document.createElement('span');
+                rankBadge.className = 'rank';
+                rankBadge.textContent = String(cardIndex).padStart(2, '0');
+                cover.appendChild(rankBadge);
+            }
 
             const meta = document.createElement('div');
             meta.className = 'meta';
@@ -119,7 +148,7 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
             const ratingRow = document.createElement('div');
             ratingRow.className = 'card-rating-row';
             if (scoreDisplay) {
-                ratingRow.innerHTML = `<i class="fa-solid fa-signal card-signal"></i><span class="card-score">${scoreDisplay}</span>`;
+                ratingRow.innerHTML = `${signalBars(rating)}<span class="card-score">${scoreDisplay}</span>`;
             }
 
             const sub = document.createElement('div');
@@ -147,17 +176,7 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
 }
 
 function applyClientFilters() {
-    allLoadedCards.forEach(({ el, year, rating }) => {
-        let show = true;
-        if (activeYearFilter) {
-            if (activeYearFilter === 'older') show = year > 0 && year < 2022;
-            else show = year === parseInt(activeYearFilter);
-        }
-        if (activeRatingFilter && show) {
-            show = rating >= activeRatingFilter;
-        }
-        el.style.display = show ? '' : 'none';
-    });
+    allLoadedCards.forEach(({ el }) => { el.style.display = ''; });
     updateResultsCount();
 }
 
@@ -165,15 +184,11 @@ function updateResultsCount() {
     const countEl = document.getElementById('results-count');
     if (!countEl) return;
     const visible = allLoadedCards.filter(c => c.el.style.display !== 'none').length;
-    const total = totalPages * gamesPerPage;
+    const total = totalResultCount || totalPages * gamesPerPage;
     const from = (currentPage - 1) * gamesPerPage + 1;
     const to = Math.min(currentPage * gamesPerPage, total);
-    const hasClientFilter = activeYearFilter || activeRatingFilter;
-    if (hasClientFilter) {
-        countEl.innerHTML = `<span class="num">${visible}</span> of ${to - from + 1} on this page`;
-    } else {
-        countEl.innerHTML = `Showing <span class="num">${from}–${to}</span> of <span class="num">~${total}</span> games`;
-    }
+    const approx = totalResultCount ? '' : '~';
+    countEl.innerHTML = `Showing <span class="num">${from}–${to}</span> of <span class="num">${approx}${total}</span> games`;
 }
 
 function slugify(name) {
@@ -186,17 +201,22 @@ function initSidebarFilters() {
     const activeGenre = params.get('genre');
     const activePlatform = params.get('platform');
 
-    // Genre labels
+    // Genre labels (multi-select)
+    const activeGenres = params.get('genre') ? params.get('genre').split(',') : [];
     document.querySelectorAll('.filter-list label[data-genre]').forEach(label => {
         const genre = label.dataset.genre;
-        if (genre === activeGenre) label.classList.add('checked');
+        if (activeGenres.includes(genre)) label.classList.add('checked');
 
         label.addEventListener('click', () => {
-            if (label.classList.contains('checked')) {
-                window.location.href = '/browse.html'; // deselect
-            } else {
-                window.location.href = `/browse.html?genre=${genre}`;
-            }
+            const p = new URLSearchParams(window.location.search);
+            const current = p.get('genre') ? p.get('genre').split(',') : [];
+            const updated = label.classList.contains('checked')
+                ? current.filter(g => g !== genre)
+                : [...current, genre];
+            if (updated.length) p.set('genre', updated.join(','));
+            else p.delete('genre');
+            p.delete('page');
+            window.location.href = '/browse.html' + (p.toString() ? '?' + p.toString() : '');
         });
     });
 
@@ -207,29 +227,28 @@ function initSidebarFilters() {
         if (platform === activePlatform) label.classList.add('checked');
 
         label.addEventListener('click', () => {
-            if (label.classList.contains('checked')) {
-                window.location.href = '/browse.html';
-            } else {
-                window.location.href = `/browse.html?platform=${platform}&name=${encodeURIComponent(platformName)}`;
-            }
+            const p = new URLSearchParams(window.location.search);
+            if (label.classList.contains('checked')) { p.delete('platform'); p.delete('name'); }
+            else { p.set('platform', platform); p.set('name', platformName); }
+            p.delete('page');
+            window.location.href = '/browse.html' + (p.toString() ? '?' + p.toString() : '');
         });
     });
 
-    // Year labels (server-side navigation)
+    // Year labels
     const activeYear = params.get('year');
     document.querySelectorAll('#year-filters label[data-year]').forEach(label => {
         const year = label.dataset.year;
         if (year === activeYear) label.classList.add('checked');
         label.addEventListener('click', () => {
-            if (label.classList.contains('checked')) {
-                window.location.href = '/browse.html';
-            } else {
-                window.location.href = `/browse.html?year=${year}`;
-            }
+            const p = new URLSearchParams(window.location.search);
+            if (label.classList.contains('checked')) { p.delete('year'); } else { p.set('year', year); }
+            p.delete('page');
+            window.location.href = '/browse.html' + (p.toString() ? '?' + p.toString() : '');
         });
     });
 
-    // Custom year input (server-side navigation)
+    // Custom year input
     const yearInput = document.getElementById('year-custom-input');
     if (yearInput) {
         if (activeYear) yearInput.value = activeYear;
@@ -237,27 +256,29 @@ function initSidebarFilters() {
             if (e.key === 'Enter') {
                 const val = yearInput.value.trim();
                 if (val.length === 4 && !isNaN(val)) {
-                    window.location.href = `/browse.html?year=${val}`;
+                    const p = new URLSearchParams(window.location.search);
+                    p.set('year', val);
+                    p.delete('page');
+                    window.location.href = '/browse.html' + '?' + p.toString();
                 }
             }
         });
     }
 
-    // Rating labels (client-side)
+    // Rating labels (server-side navigation, stacks with other filters)
+    const activeMinRating = params.get('minRating');
     document.querySelectorAll('#rating-filters label[data-min-rating]').forEach(label => {
+        const val = label.dataset.minRating;
+        if (val === activeMinRating) label.classList.add('checked');
         label.addEventListener('click', () => {
-            const rating = parseInt(label.dataset.minRating);
-            const isActive = label.classList.contains('checked');
-
-            document.querySelectorAll('#rating-filters label').forEach(l => l.classList.remove('checked'));
-
-            if (isActive) {
-                activeRatingFilter = null;
+            const p = new URLSearchParams(window.location.search);
+            if (label.classList.contains('checked')) {
+                p.delete('minRating');
             } else {
-                label.classList.add('checked');
-                activeRatingFilter = rating;
+                p.set('minRating', val);
             }
-            applyClientFilters();
+            p.delete('page');
+            window.location.href = '/browse.html' + (p.toString() ? '?' + p.toString() : '');
         });
     });
 
@@ -283,11 +304,11 @@ function renderSidebarPlatforms(platforms) {
         label.appendChild(check);
         label.appendChild(document.createTextNode(p.name));
         label.addEventListener('click', () => {
-            if (label.classList.contains('checked')) {
-                window.location.href = '/browse.html';
-            } else {
-                window.location.href = `/browse.html?platform=${p.slug}&name=${encodeURIComponent(p.name)}`;
-            }
+            const qs = new URLSearchParams(window.location.search);
+            if (label.classList.contains('checked')) { qs.delete('platform'); qs.delete('name'); }
+            else { qs.set('platform', p.slug); qs.set('name', p.name); }
+            qs.delete('page');
+            window.location.href = '/browse.html' + (qs.toString() ? '?' + qs.toString() : '');
         });
         li.appendChild(label);
         list.appendChild(li);
@@ -322,8 +343,7 @@ function makePaginationBtn(label, page, isActive = false, isDisabled = false) {
     btn.disabled = isDisabled;
     if (!isDisabled) {
         btn.addEventListener('click', () => {
-            currentPage = page;
-            fetchFilteredGames(getSortValue(), currentPage);
+            fetchFilteredGames(getSortValue(), page);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
@@ -352,13 +372,32 @@ function updatePagination() {
     let prev = 0;
     sorted.forEach(p => {
         if (p - prev > 2) {
-            pageNumbers.appendChild(makePaginationBtn('…', null, false, true));
+            pageNumbers.appendChild(makePageJumper());
         } else if (p - prev === 2) {
             pageNumbers.appendChild(makePaginationBtn(prev + 1, prev + 1, prev + 1 === currentPage));
         }
         pageNumbers.appendChild(makePaginationBtn(p, p, p === currentPage));
         prev = p;
     });
+}
+
+function makePageJumper() {
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.className = 'page-jumper';
+    input.placeholder = '…';
+    input.min = 1;
+    input.max = totalPages;
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const val = Math.min(totalPages, Math.max(1, parseInt(input.value)));
+            if (!isNaN(val)) {
+                fetchFilteredGames(getSortValue(), val);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    });
+    return input;
 }
 
 function getSortValue() {
@@ -450,6 +489,16 @@ document.querySelectorAll('.platform-item').forEach(item => {
         if (platformsDetail) platformsDetail.style.display = 'block';
         const models = document.querySelector(`[data-for="${platform}"]`);
         if (models) models.classList.add('active');
+    });
+});
+
+// ─── Nav search ───────────────────────────────────────────────────────────────
+document.querySelectorAll('.nav-search-input').forEach(input => {
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const q = input.value.trim();
+            if (q) window.location.href = `/search.html?q=${encodeURIComponent(q)}`;
+        }
     });
 });
 

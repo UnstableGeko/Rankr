@@ -264,7 +264,7 @@ async function populateGamePage() {
 
         if (coverImg) {
             if (game.cover && game.cover.image_id) {
-                coverImg.src = `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`;
+                coverImg.src = `https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover.image_id}.jpg`;
                 coverImg.alt = game.name || 'Game cover image';
                 coverImg.onload = () => coverImg.classList.remove('skeleton');
             } else {
@@ -603,8 +603,8 @@ async function fetchLeaderboard() {
               <div class="leaderboard-meta">${[topGenre, topYear].filter(Boolean).join(' · ')}</div>
               <div class="leaderboard-title">${top.name}</div>
               ${topScore ? `<div class="leaderboard-score">
-                <span class="leaderboard-score-num">${(topScore / 10).toFixed(1)}</span>
-                <span class="leaderboard-score-out">/10</span>
+                <span class="leaderboard-score-num">${(topScore / 20).toFixed(1)}</span>
+                <span class="leaderboard-score-out">/5</span>
                 <span class="tier-badge" data-tier="${tierFn(topScore)}">${tierFn(topScore)}</span>
               </div>` : ''}
             </div>

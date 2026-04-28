@@ -275,6 +275,9 @@
   object-fit: cover;
   display: block;
 }
+.game-card .cover.cover--no-image {
+  background: repeating-linear-gradient(135deg, var(--ink-2) 0 6px, var(--ink-3) 6px 12px);
+}
 .game-card .cover .placeholder {
   position: absolute; inset: 0;
   background: repeating-linear-gradient(135deg, var(--ink-2) 0 6px, var(--ink-3) 6px 12px);
@@ -329,9 +332,9 @@
   align-items: center;
   gap: 0.35rem;
 }
-.card-signal {
-  font-size: 0.7rem;
-  color: var(--accent);
+.signal-svg {
+  display: block;
+  flex-shrink: 0;
 }
 .card-score {
   font-family: var(--font-mono);
@@ -513,11 +516,31 @@
   border-color: var(--text-0);
 }
 .pagination button:disabled,
-.pagination-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.pagination-btn:disabled,
+.page-number:disabled,
+.page-number.disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
 .pagination-numbers {
   display: flex;
   gap: var(--space-3);
 }
+.page-jumper {
+  width: 52px;
+  height: 36px;
+  padding: 0 0.5rem;
+  border-radius: var(--radius);
+  font-size: var(--fs-sm);
+  font-family: var(--font-mono);
+  color: var(--text-2);
+  border: 1px solid var(--line-0);
+  background: transparent;
+  text-align: center;
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  -moz-appearance: textfield;
+}
+.page-jumper::-webkit-inner-spin-button,
+.page-jumper::-webkit-outer-spin-button { -webkit-appearance: none; }
+.page-jumper::placeholder { color: var(--text-4); letter-spacing: 0.05em; }
+.page-jumper:focus { outline: none; border-color: var(--accent); color: var(--text-0); }
 
 /* ============ FOOTER ============ */
 .footer {
