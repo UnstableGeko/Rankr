@@ -264,7 +264,7 @@ async function populateGamePage() {
 
         if (coverImg) {
             if (game.cover && game.cover.image_id) {
-                coverImg.src = `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`;
+                coverImg.src = `https://images.igdb.com/igdb/image/upload/t_1080p/${game.cover.image_id}.jpg`;
                 coverImg.alt = game.name || 'Game cover image';
                 coverImg.onload = () => coverImg.classList.remove('skeleton');
             } else {
