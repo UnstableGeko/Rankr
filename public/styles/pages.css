@@ -594,6 +594,92 @@
 .icon-btn:hover { color: var(--text-0); border-color: var(--line-2); background: var(--ink-3); }
 .icon-btn i { font-size: 0.85rem; }
 
+/* ============ REVIEWS SECTION (game page) ============ */
+.reviews-section {
+  padding: var(--space-8) 0;
+  border-top: 1px solid var(--line-0);
+}
+.reviews-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-0);
+  margin: 0 0 var(--space-6);
+}
+
+/* Composer */
+.review-composer {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: var(--space-4);
+  background: var(--ink-1);
+  border: 1px solid var(--line-1);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+.avatar--you {
+  background: var(--ink-3);
+  color: var(--text-3);
+}
+.composer-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.composer-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.composer-rating-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.composer-textarea {
+  width: 100%;
+  background: var(--ink-2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 72px;
+  box-sizing: border-box;
+}
+.composer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.composer-hint {
+  font-size: var(--fs-sm);
+  color: var(--text-4);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.composer-hint i { font-size: 0.75rem; }
+.composer-submit:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Static bar-input (read-only on reviews) */
+.bar-input--static { pointer-events: none; }
+
+/* Reviews list */
+.reviews-list {
+  border-top: 1px solid var(--line-0);
+}
+
 /* ============ BROWSE / SEARCH ============ */
 .page-head {
   padding: var(--space-7) 0 var(--space-5);
