@@ -1,3 +1,17 @@
+function signalBars(rating) {
+    const filled = Math.round(rating / 20); // 0–5 bars
+    const heights = [0.3, 0.45, 0.62, 0.8, 1.0];
+    const W = 15, H = 10, bW = 2, gap = 1;
+    const rects = heights.map((ratio, i) => {
+        const bH = Math.round(H * ratio);
+        const x = i * (bW + gap);
+        const y = H - bH;
+        const fill = i < filled ? 'var(--accent)' : 'rgba(255,255,255,0.15)';
+        return `<rect x="${x}" y="${y}" width="${bW}" height="${bH}" rx="0.5" fill="${fill}"/>`;
+    }).join('');
+    return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" class="signal-svg" aria-hidden="true">${rects}</svg>`;
+}
+
 // Map genre slugs to IGDB genre IDs
 const GENRE_MAP = {
     'adventure': 31, 'arcade': 33, 'card-board-game': 35, 'fighting': 4,
@@ -128,7 +142,7 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
             const ratingRow = document.createElement('div');
             ratingRow.className = 'card-rating-row';
             if (scoreDisplay) {
-                ratingRow.innerHTML = `<i class="fa-solid fa-signal card-signal"></i><span class="card-score">${scoreDisplay}</span>`;
+                ratingRow.innerHTML = `${signalBars(rating)}<span class="card-score">${scoreDisplay}</span>`;
             }
 
             const sub = document.createElement('div');

@@ -603,8 +603,8 @@ async function fetchLeaderboard() {
               <div class="leaderboard-meta">${[topGenre, topYear].filter(Boolean).join(' · ')}</div>
               <div class="leaderboard-title">${top.name}</div>
               ${topScore ? `<div class="leaderboard-score">
-                <span class="leaderboard-score-num">${(topScore / 10).toFixed(1)}</span>
-                <span class="leaderboard-score-out">/10</span>
+                <span class="leaderboard-score-num">${(topScore / 20).toFixed(1)}</span>
+                <span class="leaderboard-score-out">/5</span>
                 <span class="tier-badge" data-tier="${tierFn(topScore)}">${tierFn(topScore)}</span>
               </div>` : ''}
             </div>

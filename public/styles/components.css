@@ -329,9 +329,9 @@
   align-items: center;
   gap: 0.35rem;
 }
-.card-signal {
-  font-size: 0.7rem;
-  color: var(--accent);
+.signal-svg {
+  display: block;
+  flex-shrink: 0;
 }
 .card-score {
   font-family: var(--font-mono);
