@@ -347,8 +347,20 @@ byte[] gamesData = responseStream.readAllBytes();
                 if (genreId != null) {
                     whereClause += " & genres = (" + genreId + ")";
                 }
+                boolean nicheplatform = false;
                 if (platformSlug != null) {
                     whereClause += " & platforms.slug = \"" + platformSlug + "\"";
+                    java.util.Set<String> mainPlatforms = new java.util.HashSet<>(java.util.Arrays.asList(
+                        "win", "mac", "linux",
+                        "ps5", "ps4", "ps3",
+                        "series-x-s", "xboxone", "xbox360",
+                        "switch", "3ds", "wiiu"
+                    ));
+                    if (!mainPlatforms.contains(platformSlug)) {
+                        // For niche platforms, drop all quality filters — just match the platform
+                        whereClause = "where platforms.slug = \"" + platformSlug + "\"";
+                        nicheplatform = true;
+                    }
                 }
                 if (yearStr != null) {
                     int yr = Integer.parseInt(yearStr.replaceAll("[^0-9]", ""));
@@ -409,7 +421,13 @@ byte[] gamesData = responseStream.readAllBytes();
             }
 
             String fields = "fields name, slug, cover.image_id, rating, rating_count, genres.name, first_release_date";
-            String igdbQuery = fields + "; " + whereClause + "; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
+            String igdbQuery;
+            if (nicheplatform) {
+                // Fetch all games for this platform (max 500) and sort by Bayesian score server-side
+                igdbQuery = fields + "; " + whereClause + "; sort rating_count desc; limit 500; offset 0;";
+            } else {
+                igdbQuery = fields + "; " + whereClause + "; " + sortClause + "; limit " + limit + "; offset " + offset + ";";
+            }
 
             System.out.println("=== FINAL IGDB QUERY ===");
             System.out.println(igdbQuery);
@@ -419,19 +437,45 @@ byte[] gamesData = responseStream.readAllBytes();
 
             InputStream responseStream = conn.getInputStream();
             byte[] gamesData = responseStream.readAllBytes();
-
             String gamesJson = new String(gamesData);
-            int resultCount = 0;
-            for (int ci = 0; ci < gamesJson.length(); ci++) { if (gamesJson.charAt(ci) == '{') resultCount++; }
 
+            String finalGamesJson = gamesJson;
             int totalPages;
-            if (totalCount > 0) {
+
+            if (nicheplatform) {
+                java.util.List<String> gameObjs = splitJsonArray(gamesJson);
+                if (gameObjs.size() >= 10) {
+                    // Enough games to warrant weighted sort
+                    final double C = 50.0, M = 65.0;
+                    gameObjs.sort((a, b) -> {
+                        double ra = extractNumber(a, "rating"), rca = extractNumber(a, "rating_count");
+                        double rb = extractNumber(b, "rating"), rcb = extractNumber(b, "rating_count");
+                        double scoreA = (ra * rca + C * M) / (rca + C);
+                        double scoreB = (rb * rcb + C * M) / (rcb + C);
+                        return Double.compare(scoreB, scoreA);
+                    });
+                } else {
+                    // Too few games — just sort by highest rating
+                    gameObjs.sort((a, b) -> Double.compare(extractNumber(b, "rating"), extractNumber(a, "rating")));
+                }
+                int fromIdx = (page - 1) * limit;
+                int toIdx = Math.min(fromIdx + limit, gameObjs.size());
+                java.util.List<String> pageSlice = fromIdx < gameObjs.size() ? gameObjs.subList(fromIdx, toIdx) : java.util.Collections.emptyList();
+                finalGamesJson = "[" + String.join(",", pageSlice) + "]";
+                totalCount = gameObjs.size();
                 totalPages = (int) Math.ceil((double) totalCount / limit);
-                totalPages = Math.min(totalPages, 250); // IGDB max offset = 9999
             } else {
-                totalPages = resultCount < limit ? page : page + 2;
+                int resultCount = 0;
+                for (int ci = 0; ci < gamesJson.length(); ci++) { if (gamesJson.charAt(ci) == '{') resultCount++; }
+                if (totalCount > 0) {
+                    totalPages = (int) Math.ceil((double) totalCount / limit);
+                    totalPages = Math.min(totalPages, 250);
+                } else {
+                    totalPages = resultCount < limit ? page : page + 2;
+                }
             }
-            String wrappedResponse = "{\"games\":" + gamesJson + ",\"totalPages\":" + totalPages + ",\"resultCount\":" + totalCount + "}";
+
+            String wrappedResponse = "{\"games\":" + finalGamesJson + ",\"totalPages\":" + totalPages + ",\"resultCount\":" + totalCount + "}";
             byte[] responseData = wrappedResponse.getBytes();
 
             exchange.getResponseHeaders().set("Content-Type", "application/json");
@@ -601,6 +645,29 @@ byte[] gamesData = responseStream.readAllBytes();
         if (name.endsWith(".svg"))  return "image/svg+xml";
         if (name.endsWith(".ico"))  return "image/x-icon";
         return "application/octet-stream";
+    }
+
+    // Splits a JSON array string into individual object strings
+    static java.util.List<String> splitJsonArray(String json) {
+        java.util.List<String> result = new java.util.ArrayList<>();
+        int depth = 0, start = -1;
+        for (int i = 0; i < json.length(); i++) {
+            char c = json.charAt(i);
+            if (c == '{') { if (depth++ == 0) start = i; }
+            else if (c == '}') { if (--depth == 0 && start != -1) { result.add(json.substring(start, i + 1)); start = -1; } }
+        }
+        return result;
+    }
+
+    // Extracts a numeric field value from a JSON object string; returns 0 if missing
+    static double extractNumber(String obj, String field) {
+        String key = "\"" + field + "\":";
+        int idx = obj.indexOf(key);
+        if (idx == -1) return 0;
+        String after = obj.substring(idx + key.length()).trim();
+        int end = 0;
+        while (end < after.length() && (Character.isDigit(after.charAt(end)) || after.charAt(end) == '.' || after.charAt(end) == '-')) end++;
+        try { return Double.parseDouble(after.substring(0, end)); } catch (NumberFormatException e) { return 0; }
     }
 
     // Parses a JSON string or number field; returns null if missing or "null"

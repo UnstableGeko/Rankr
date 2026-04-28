@@ -275,6 +275,9 @@
   object-fit: cover;
   display: block;
 }
+.game-card .cover.cover--no-image {
+  background: repeating-linear-gradient(135deg, var(--ink-2) 0 6px, var(--ink-3) 6px 12px);
+}
 .game-card .cover .placeholder {
   position: absolute; inset: 0;
   background: repeating-linear-gradient(135deg, var(--ink-2) 0 6px, var(--ink-3) 6px 12px);

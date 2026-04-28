@@ -79,7 +79,7 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const data = await response.json();
-        const games = (data.games || data).filter(g => g.cover && g.slug);
+        const games = (data.games || data).filter(g => g.slug);
         if (data.totalPages) totalPages = data.totalPages;
         if (data.resultCount) totalResultCount = data.resultCount;
         if (data.error) throw new Error(data.error);
@@ -111,7 +111,9 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
             const year = game.first_release_date ? new Date(game.first_release_date * 1000).getFullYear() : 0;
             const rating = game.rating || 0;
             const genre = game.genres?.[0]?.name || '';
-            const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`;
+            const coverUrl = game.cover?.image_id
+                ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`
+                : null;
             const scoreDisplay = rating ? (rating / 20).toFixed(1) : null;
 
             const link = document.createElement('a');
@@ -121,11 +123,13 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
             link.dataset.rating = rating;
 
             const cover = document.createElement('div');
-            cover.className = 'cover';
-            const img = document.createElement('img');
-            img.src = coverUrl;
-            img.alt = game.name;
-            cover.appendChild(img);
+            cover.className = 'cover' + (coverUrl ? '' : ' cover--no-image');
+            if (coverUrl) {
+                const img = document.createElement('img');
+                img.src = coverUrl;
+                img.alt = game.name;
+                cover.appendChild(img);
+            }
 
             const rankBadge = document.createElement('span');
             rankBadge.className = 'rank';
