@@ -165,14 +165,11 @@ public class MiniServer {
                 case "release_date":
                     sortClause = "sort first_release_date desc";
                     break;
-                case "trending":
-                    sortClause = "sort rating_count desc";
-                    break;
                 default: // "rating"
                     sortClause = "sort rating desc";
                     break;
             }
-            
+
             String fields = "fields name, slug, summary, rating, rating_count, cover.image_id, genres.name, genres.slug, themes.name, themes.slug, platforms.name, platforms.slug, involved_companies.publisher, involved_companies.developer, involved_companies.company.name";
             if (sortBy.equals("release_date")) {
                 fields += ", first_release_date";
@@ -302,20 +299,23 @@ byte[] gamesData = responseStream.readAllBytes();
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setDoOutput(true);
 
-                String whereClause = "where cover != null & rating != null & rating_count > 100 & version_parent = null & parent_game = null";
-                
                 // Parse sortBy parameter
                 String sortBy = "rating"; // default
                 if (bodyStr.contains("\"sortBy\"")) {
                     int sortStart = bodyStr.indexOf("\"sortBy\":") + 9;
                     String afterColon = bodyStr.substring(sortStart).trim();
-                    
+
                     if (afterColon.startsWith("\"")) {
                         int openQuote = bodyStr.indexOf("\"", sortStart);
                         int closeQuote = bodyStr.indexOf("\"", openQuote + 1);
                         sortBy = bodyStr.substring(openQuote + 1, closeQuote);
                     }
                 }
+
+                // Newest sort: only require a cover and at least one rating (filters out unreleased/2040 placeholders)
+                String whereClause = sortBy.equals("release_date")
+                    ? "where cover != null & rating != null"
+                    : "where cover != null & rating != null & rating_count > 100 & version_parent = null & parent_game = null";
 
                 // Parse page and limit parameters
                 int page = 1;
@@ -390,9 +390,6 @@ byte[] gamesData = responseStream.readAllBytes();
                     break;
                 case "release_date":
                     sortClause = "sort first_release_date desc";
-                    break;
-                case "trending":
-                    sortClause = "sort rating_count desc";
                     break;
                 default: // "rating"
                     sortClause = "sort rating desc";

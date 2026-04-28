@@ -131,10 +131,12 @@ async function fetchFilteredGames(sortBy = 'rating', page = 1) {
                 cover.appendChild(img);
             }
 
-            const rankBadge = document.createElement('span');
-            rankBadge.className = 'rank';
-            rankBadge.textContent = String(cardIndex).padStart(2, '0');
-            cover.appendChild(rankBadge);
+            if (sortBy !== 'release_date') {
+                const rankBadge = document.createElement('span');
+                rankBadge.className = 'rank';
+                rankBadge.textContent = String(cardIndex).padStart(2, '0');
+                cover.appendChild(rankBadge);
+            }
 
             const meta = document.createElement('div');
             meta.className = 'meta';
