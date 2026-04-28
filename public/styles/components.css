@@ -3,7 +3,7 @@
    ================================================================ */
 
 /* ============ HEADER + LOGO ============ */
-.site-header {
+header {
   position: sticky;
   top: 0;
   z-index: 50;
@@ -55,13 +55,13 @@
 }
 
 /* Nav */
-.nav {
+nav {
   display: flex;
   align-items: center;
   gap: var(--space-1);
   flex: 1;
 }
-.nav a {
+nav a {
   padding: 0.5rem 0.85rem;
   font-size: var(--fs-sm);
   color: var(--text-2);
@@ -69,8 +69,8 @@
   transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
   white-space: nowrap;
 }
-.nav a:hover { color: var(--text-0); background: var(--ink-2); }
-.nav a.active { color: var(--text-0); }
+nav a:hover { color: var(--text-0); background: var(--ink-2); }
+nav a[aria-current="page"] { color: var(--text-0); }
 
 .nav-right {
   display: flex;
@@ -543,7 +543,7 @@
 .page-jumper:focus { outline: none; border-color: var(--accent); color: var(--text-0); }
 
 /* ============ FOOTER ============ */
-.footer {
+footer {
   margin-top: var(--space-9);
   padding: var(--space-7) 0 var(--space-5);
   border-top: 1px solid var(--line-0);
@@ -554,7 +554,7 @@
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: var(--space-6);
 }
-.footer h4 {
+footer h4 {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.12em;
@@ -563,9 +563,9 @@
   margin: 0 0 var(--space-3);
   font-weight: 500;
 }
-.footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.45rem; }
-.footer ul a { font-size: var(--fs-sm); color: var(--text-1); }
-.footer ul a:hover { color: var(--text-0); }
+footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.45rem; }
+footer ul a { font-size: var(--fs-sm); color: var(--text-1); }
+footer ul a:hover { color: var(--text-0); }
 .footer-brand p {
   font-size: var(--fs-sm);
   color: var(--text-3);
